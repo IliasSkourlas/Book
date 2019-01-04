@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,21 @@ namespace BookOne
         public string MessageData { get; set; }
         public int OwnerLoginID { get; set; }
         public int CarrierLoginID { get; set; }
+
+
+
+        public static void ViewAllItems()
+        {
+            var viewAllItems = DataAccess.sqlconn.Query<Book>
+                    ($"sp_AllBooks").ToList();
+
+            foreach (var item in viewAllItems)
+            {
+                Console.WriteLine($"Title: {item.Title}");
+            }
+        }
+
+
+
     }
 }

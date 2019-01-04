@@ -24,7 +24,10 @@ namespace BookOne
                 try
                 {
                     LoginAccount.GetLoginID(loginAccount.UserName, loginAccount.Password);
-                   
+
+                    Book.ViewAllItems();
+
+
                 }
                 catch(Exception e)
                 {

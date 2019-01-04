@@ -13,6 +13,10 @@ namespace BookOne
 
             LoginAccount.Login();
 
+
+            Book.ViewAllItems();
+
+
             Console.ReadKey();
         }
     }
