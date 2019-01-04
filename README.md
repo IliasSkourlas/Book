@@ -1,2 +1,2 @@
 # Book
-App for books circulation
+App for book circulation
