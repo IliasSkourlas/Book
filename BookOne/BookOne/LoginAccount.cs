@@ -11,7 +11,7 @@ namespace BookOne
         public string UserName { get; set; }
         public string Password { get; set; }
 
-        public static int RoleID { get; set; }
+       // public static int RoleID { get; set; }
         public static int RoleType { get; set; }
 
         public LoginAccount()
@@ -23,6 +23,8 @@ namespace BookOne
             UserName = username;
             Password = password;
         }
+
+
 
 
         public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
@@ -46,8 +48,6 @@ namespace BookOne
             }
             return 0;
         }
-
-
 
         public static void Login()
         {
@@ -78,17 +78,39 @@ namespace BookOne
             } while (againLogin == true);// Brake??
         }
 
-
-
-        public static int GetRole(int RoleID)
+        public static int GetRole(int ID)
         {
-            var p = new DynamicParameters();
-            p.Add("loginID", RoleID);
-            p.Add("RoleType", dbType: DbType.Int32, direction: ParameterDirection.Output);
-            DataAccess.sqlconn.Query<int>("sp_GetRoleFromLoginID", p, commandType: CommandType.StoredProcedure);
-            RoleType = p.Get<int>("RoleType");
-            return RoleType;
+            //dbo_Login dbo_login = new dbo_Login();
+
+            DataAccess.sqlconn.ConnectionString = DataAccess.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("loginID", ID);
+                    p.Add("RoleType", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetRoleFromLoginID", p, commandType: CommandType.StoredProcedure);
+                    RoleType = p.Get<int>("RoleType");
+                    return RoleType;
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
+                return 0;
+            }
         }
+
+        //public static int GetRole(int RoleID)
+        //{
+        //    var p = new DynamicParameters();
+        //    p.Add("loginID", RoleID);
+        //    p.Add("RoleType", dbType: DbType.Int32, direction: ParameterDirection.Output);
+        //    DataAccess.sqlconn.Query<int>("sp_GetRoleFromLoginID", p, commandType: CommandType.StoredProcedure);
+        //    RoleType = p.Get<int>("RoleType");
+        //    return RoleType;
+        //}
 
 
 

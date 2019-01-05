@@ -17,16 +17,29 @@ namespace BookOne
         public int OwnerLoginID { get; set; }
         public int CarrierLoginID { get; set; }
 
+        List<Book> books = new List<Book>();
 
-
-        public static void ViewAllItems()
+        public static void GetInfoAllBooks()
         {
-            var viewAllItems = DataAccess.sqlconn.Query<Book>
-                    ($"sp_AllBooks").ToList();
-
-            foreach (var item in viewAllItems)
+            DataAccess.sqlconn.ConnectionString = DataAccess.conectionString;
+            using (DataAccess.sqlconn)
             {
-                Console.WriteLine($"Title: {item.Title}");
+                try
+                {
+                    var viewAllItems = DataAccess.sqlconn.Query<Book>
+                    ($"sp_GetInfoAllBooks").ToList();
+
+                    foreach (var item in viewAllItems)
+                    {
+                        Console.WriteLine($"Title: {item.Title}");
+                        Console.WriteLine($"Author: {item.Title}");
+
+                    }
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
 

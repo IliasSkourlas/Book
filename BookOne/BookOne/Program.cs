@@ -10,45 +10,26 @@ namespace BookOne
     {
         static void Main(string[] args)
         {
+
+
             DataAccess dataAccess = new DataAccess();
-            ApplicationMenu applicationMenu = new ApplicationMenu();
+            dataAccess.Conection();  // Better
 
-            // Login
-            dataAccess.AccesGetLoginID();
-
-           // LoginAccount.GetRole(LoginAccount.RoleID);
 
             bool againMenu = true;
             do
             {
-                // Menu Acording to Roles 
-                Console.Clear();
-                if (LoginAccount.RoleType == 4)
-                {
-                    applicationMenu.ViewOnlyUser();
-                }
-                if (LoginAccount.RoleType == 3)
-                {
-                    applicationMenu.ViewEditUser();
-                }
-                if (LoginAccount.RoleType == 2)
-                {
-                    applicationMenu.ViewEditDeleteUser();
-                }
-                if (LoginAccount.RoleType == 1)
-                {
-                    applicationMenu.SuperAdmin();
-                }
+                ApplicationMenu applicationMenu = new ApplicationMenu();
+                applicationMenu.AccordingToRole();
 
-
-
+                Console.WriteLine("chice..");
                 string choice = Console.ReadLine();
 
                 //View
                 if (choice == "v")
                 {
                     Console.Clear();
-                    Book.ViewAllItems();
+                    Book.GetInfoAllBooks();
 
                     Console.ReadKey();
                     againMenu = true;
@@ -63,14 +44,27 @@ namespace BookOne
 
                     //update
 
-                    //esc
+                    //go to back to login
+                    if (choice == "b")
+                    {
+                        LoginAccount.Login();
+                        againMenu = true;
 
-                    //back
-
+                    }
+                    //esc app
+                    if (choice == "e")
+                    {
+                        Console.Clear();
+                        againMenu = false;
+                    }
+                    else
+                    {
+                        againMenu = true;
+                    }
                 }
                 Console.ReadKey();
-
             } while (againMenu == true);
+          
         }
 
     }

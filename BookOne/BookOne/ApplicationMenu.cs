@@ -11,8 +11,7 @@ namespace BookOne
 
         Book book = new Book();
 
-
-        // View acording to Roles
+        // different Menus for different Roles
         public void ViewOnlyUser()
         {
             Console.WriteLine("press...v...to view");
@@ -55,7 +54,40 @@ namespace BookOne
             Console.WriteLine("................................");
             Console.WriteLine("press...b...to go back to login\n");
             Console.WriteLine("press...e...to esc the app");
+            Console.ReadKey();
         }
+
+        // select View according to RoleType
+        public void SelectView()
+        {
+            if (LoginAccount.RoleType == 4)
+            {
+                ViewOnlyUser();
+            }
+            if (LoginAccount.RoleType == 3)
+            {
+                ViewEditUser();
+            }
+            if (LoginAccount.RoleType == 2)
+            {
+                ViewEditDeleteUser();
+            }
+            if (LoginAccount.RoleType == 1)
+            {
+                SuperAdmin();
+            }
+        }
+
+        public void AccordingToRole()
+        {
+            int ID = LoginAccount.LoginID;
+            LoginAccount.GetRole(ID);
+            SelectView();
+        }
+
+
+
+       
 
 
 
