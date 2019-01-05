@@ -10,14 +10,68 @@ namespace BookOne
     {
         static void Main(string[] args)
         {
+            DataAccess dataAccess = new DataAccess();
+            ApplicationMenu applicationMenu = new ApplicationMenu();
 
-            LoginAccount.Login();
+            // Login
+            dataAccess.AccesGetLoginID();
+
+           // LoginAccount.GetRole(LoginAccount.RoleID);
+
+            bool againMenu = true;
+            do
+            {
+                // Menu Acording to Roles 
+                Console.Clear();
+                if (LoginAccount.RoleType == 4)
+                {
+                    applicationMenu.ViewOnlyUser();
+                }
+                if (LoginAccount.RoleType == 3)
+                {
+                    applicationMenu.ViewEditUser();
+                }
+                if (LoginAccount.RoleType == 2)
+                {
+                    applicationMenu.ViewEditDeleteUser();
+                }
+                if (LoginAccount.RoleType == 1)
+                {
+                    applicationMenu.SuperAdmin();
+                }
 
 
-            Book.ViewAllItems();
 
+                string choice = Console.ReadLine();
 
-            Console.ReadKey();
+                //View
+                if (choice == "v")
+                {
+                    Console.Clear();
+                    Book.ViewAllItems();
+
+                    Console.ReadKey();
+                    againMenu = true;
+
+                    //Give
+
+                    //Carry
+
+                    //List of my books
+
+                    //call back
+
+                    //update
+
+                    //esc
+
+                    //back
+
+                }
+                Console.ReadKey();
+
+            } while (againMenu == true);
         }
+
     }
 }

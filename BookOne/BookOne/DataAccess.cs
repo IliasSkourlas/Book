@@ -10,12 +10,22 @@ namespace BookOne
     public class DataAccess
     {
 
-        //CONNECTION
+        // CONNECTION
         public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
 
         public static SqlConnection sqlconn = new SqlConnection(conectionString);
 
+
+        // Methods
+        public void AccesGetLoginID()
+        {
+            LoginAccount.GetLoginID(loginAccount.UserName, loginAccount.Password);
+        }
+
         LoginAccount loginAccount = new LoginAccount();
+
+
+
         public void Conection()
         {
             
@@ -23,11 +33,10 @@ namespace BookOne
             {
                 try
                 {
-                    LoginAccount.GetLoginID(loginAccount.UserName, loginAccount.Password);
-
+                    AccesGetLoginID();
                     Book.ViewAllItems();
 
-
+                    LoginAccount.GetRole(LoginAccount.RoleID);
                 }
                 catch(Exception e)
                 {
