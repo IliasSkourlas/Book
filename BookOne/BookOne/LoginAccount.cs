@@ -10,8 +10,6 @@ namespace BookOne
         public static int LoginID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-
-       // public static int RoleID { get; set; }
         public static int RoleType { get; set; }
 
         public LoginAccount()
@@ -49,7 +47,7 @@ namespace BookOne
             return 0;
         }
 
-        public static void Login()
+        public static void Login()// What if same username && password?
         {
             int ID = 0;
             LoginID = ID;
@@ -66,9 +64,6 @@ namespace BookOne
                 if (ID >= 1)
                 {
                     againLogin = false;
-                    Console.Clear();
-                    Console.WriteLine("!!Lets Play!!\a");
-                    Console.ReadKey();
                 }
                 else
                 {

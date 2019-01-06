@@ -20,11 +20,10 @@ namespace BookOne
             do
             {
                 ApplicationMenu applicationMenu = new ApplicationMenu();
-                Book book = new Book();
 
+                Book book = new Book();
                 Console.Clear();
                 applicationMenu.AccordingToRole();
-
                 string choice = Console.ReadLine();
 
                 //View
@@ -68,8 +67,7 @@ namespace BookOne
                     string title = Console.ReadLine();
                     Book.GetBookByTitle(title);
                     string x = book.Title;
-
-                    
+                    Console.WriteLine($"Do you want :{x}");
 
                     Console.ReadKey();
                     againMenu = true;

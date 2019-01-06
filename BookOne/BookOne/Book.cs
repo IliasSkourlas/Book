@@ -20,6 +20,8 @@ namespace BookOne
         public int CarrierLoginID { get; set; }
         public int Status { get; set; }
 
+        public int Circulation { get; set;  }
+
         List<Book> books = new List<Book>();
 
 
