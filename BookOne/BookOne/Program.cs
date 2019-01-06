@@ -20,9 +20,11 @@ namespace BookOne
             do
             {
                 ApplicationMenu applicationMenu = new ApplicationMenu();
+                Book book = new Book();
+
+                Console.Clear();
                 applicationMenu.AccordingToRole();
 
-                Console.WriteLine("chice..");
                 string choice = Console.ReadLine();
 
                 //View
@@ -30,42 +32,78 @@ namespace BookOne
                 {
                     Console.Clear();
                     Book.GetInfoAllBooks();
+                    Console.ReadKey();
+                    againMenu = true;
+                }
+                //Give
+                if (choice == "g")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Give a book in the pool");
+                    Console.WriteLine("With title: ");
+                    string title = Console.ReadLine();
+                    Console.WriteLine("By author: ");
+                    string author = Console.ReadLine();
+                    DateTime dateOfSubmition = DateTime.Now;
+                    Console.WriteLine("Inscription message: ");
+                    string inscription = Console.ReadLine();
+                    int ownerLoginID = LoginAccount.LoginID;
+                    int carrierLoginID = LoginAccount.LoginID;
+                    int bookstatus = 0;
+
+                    Book.GiveAbookInThePool(title, author, dateOfSubmition, inscription, ownerLoginID, carrierLoginID, bookstatus);
+                    //BackupFile backupFile = new BackupFile();
+                    //backupFile.Backup(message.DateOfSubmition, ID, receiver, text);
+                    Console.Clear();
+                    Console.WriteLine("your book is in the pool");
+                    Console.ReadKey();
+                    againMenu = true;
+                }
+                //Carry
+                if (choice == "c")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Carrie a book from the pool");
+                    Console.WriteLine("With title: ");
+                    string title = Console.ReadLine();
+                    Book.GetBookByTitle(title);
+                    string x = book.Title;
+
+                    
 
                     Console.ReadKey();
                     againMenu = true;
-
-                    //Give
-
-                    //Carry
-
-                    //List of my books
-
-                    //call back
-
-                    //update
-
-                    //go to back to login
-                    if (choice == "b")
-                    {
-                        LoginAccount.Login();
-                        againMenu = true;
-
-                    }
-                    //esc app
-                    if (choice == "e")
-                    {
-                        Console.Clear();
-                        againMenu = false;
-                    }
-                    else
-                    {
-                        againMenu = true;
-                    }
                 }
-                Console.ReadKey();
-            } while (againMenu == true);
-          
-        }
 
+                //List of my books
+
+                //call back
+
+                //update
+
+                //go to back to login
+                if (choice == "b")
+                {
+                    LoginAccount.Login();
+                    againMenu = true;
+
+                }
+                //esc app
+                if (choice == "e")
+                {
+                    Console.Clear();
+                    againMenu = false;
+                }
+                else
+                {
+                    againMenu = true;
+                }
+
+
+
+            } while (againMenu == true);
+
+                Console.ReadKey();
+        }
     }
 }

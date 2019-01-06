@@ -18,6 +18,8 @@ namespace BookOne
 
             Console.WriteLine("press...b...to go back to login\n");
             Console.WriteLine("press...e...to esc the app");
+           
+
         }
         public void ViewEditUser()
         {
@@ -27,6 +29,7 @@ namespace BookOne
 
             Console.WriteLine("press...b...to go back to login\n");
             Console.WriteLine("press...e...to esc the app");
+           
         }
         public void ViewEditDeleteUser()
         {
@@ -38,6 +41,7 @@ namespace BookOne
 
             Console.WriteLine("press...b...to go back to login\n");
             Console.WriteLine("press...e...to esc the app");
+            
         }
         public void SuperAdmin()
         {
@@ -54,7 +58,7 @@ namespace BookOne
             Console.WriteLine("................................");
             Console.WriteLine("press...b...to go back to login\n");
             Console.WriteLine("press...e...to esc the app");
-            Console.ReadKey();
+            
         }
 
         // select View according to RoleType
@@ -96,58 +100,12 @@ namespace BookOne
         //            bool againMenu = true;
         //            do
         //            {
-        //                string text = message.MessageData;
-        //                int receiver = message.ReceiverLoginID;
-        //                int ID = dbo_Login.LoginID;
-        //                int RoleType = dbo_Login.GetRole(ID);
+        //                
 
-
-        //                //Acording to Roles //for now with ID
-        //                Console.Clear();
-        //                if (RoleType == 4)
-        //                {
-        //                    ViewOnlyUser();
-        //                }
-        //                if (RoleType == 3)
-        //                {
-        //                    ViewEditUser();
-        //                }
-        //                if (RoleType == 2)
-        //                {
-        //                    ViewEditDeleteUser();
-        //                }
-        //                if (RoleType == 1)
-        //                {
-        //                    SuperAdmin();
-        //                }
-
-        //                //View
-        //                string choice = Console.ReadLine();
-        //                if (choice == "v")
-        //                {
-        //                    Console.Clear();
-        //                    dbo_Message.ViewMessagesbyReceiverLoginID(ID);
-        //                    Console.ReadKey();
-        //                    againMenu = true;
-
-        //                }
-        //                //Send()
-        //                if (choice == "s")
-        //                {
-        //                    BackupFile backupFile = new BackupFile();
-        //                    Console.Clear();
-        //                    Console.WriteLine("Sent text to ID?");
-        //                    Console.Write("ID:");
-        //                    receiver = Convert.ToInt32(Console.ReadLine());//catch leters
-        //                    Console.WriteLine("text:");
-        //                    text = Console.ReadLine();
-        //                    dbo_Message.SendAMessage(text, ID, receiver);
-        //                    backupFile.Backup(message.DateOfSubmition, ID, receiver, text);
-        //                    Console.Clear();
-        //                    Console.WriteLine("message has been sent successfully");
-        //                    Console.ReadKey();
-        //                    againMenu = true;
-        //                }
+        //                
+        //                
+        //                
+        //                
         //                //Delete()
         //                if (choice == "d")
         //                {

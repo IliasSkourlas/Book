@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationMenu.cs" />
+    <Compile Include="BackupFile.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="Helper.cs" />
