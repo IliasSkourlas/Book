@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BookOne
 {
     class Program
@@ -19,13 +20,26 @@ namespace BookOne
             bool againMenu = true;
             do
             {
+                Console.Clear();             
                 ApplicationMenu applicationMenu = new ApplicationMenu();
-
                 Book book = new Book();
-                Console.Clear();
-                applicationMenu.AccordingToRole();
-                string choice = Console.ReadLine();
 
+                Book.GetInfoAllBooks();
+                applicationMenu.AccordingToRole();
+
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("i...info: ");
+                ConsoleKeyInfo info = Console.ReadKey();
+
+                for (int i = 0; i < applicationMenu.SuperAdmin().Count; i++)
+                {
+                    Console.SetCursorPosition(0, i + 7);
+                    Console.Write(applicationMenu.SuperAdmin()[i]);
+                }
+
+
+
+                string choice = Console.ReadLine();
                 //View
                 if (choice == "v")
                 {
@@ -101,7 +115,8 @@ namespace BookOne
 
             } while (againMenu == true);
 
-                Console.ReadKey();
+
+            Console.ReadKey();
         }
     }
 }

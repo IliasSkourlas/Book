@@ -20,7 +20,7 @@ namespace BookOne
         public int CarrierLoginID { get; set; }
         public int Status { get; set; }
 
-        public int Circulation { get; set;  }
+        public int Circulation { get; set; }
 
         List<Book> books = new List<Book>();
 
@@ -66,11 +66,11 @@ namespace BookOne
                     var getInfoAllBooks = DataAccess.sqlconn.Query<Book>
                     ($"sp_GetInfoAllBooks").ToList();
 
-                    foreach (var item in getInfoAllBooks)
+                    for (int i = 0; i < getInfoAllBooks.Count; i++)
                     {
-                        Console.WriteLine($"Title: {item.Title}");
-                        Console.WriteLine($"Author: {item.Author}");
-
+                        Console.SetCursorPosition(40, i);
+                        Console.Write(getInfoAllBooks[i].Title);
+                        Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
                     }
                 }
                 catch (Exception ex) //ok for now
@@ -110,5 +110,5 @@ namespace BookOne
         }
     }
 
-    
+
 }
