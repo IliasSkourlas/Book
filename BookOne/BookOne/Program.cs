@@ -96,21 +96,74 @@ namespace BookOne
                         Book.ViewYourBooks(ID, content);
                     }
 
-                    // Hand a book
-                    if (info.KeyChar == 'h' || info.KeyChar == 'H')
+                    // Sent Signal yes
+                    if (info.KeyChar == 's' || info.KeyChar == 'S')
                     {
                         content = 1;
-                        Console.SetCursorPosition(0, 0);
-                        Console.WriteLine("i...info: ");
 
-                        Book.GetInfoAllBooks(content);
+                        Book.ViewYourBooks(ID, content);
                         Console.SetCursorPosition(0, 29);
-                        
 
-                        //int bookID = 
-                        //Book.SentBookSignalYes(bookID);
+
+                        Console.Write("For which book ID?: ");
+                        int bookID = Convert.ToInt32(Console.ReadLine()); //catch //what if book not my?
+                        if (Book.GetOwnerLoginIDByBookID(bookID) == ID)
+                        {
+                            // Book.SentBookSignalYes(bookID);
+                            Book.SentBookSignalYes(bookID);
+                            Console.Write(" Signal has been sent");
+                        }
+                        else
+                        {
+                            Console.Write(" is this your book?");
+                        }
+
                         loopInfo = true;
+                    }
+                    // Test
+                    if (info.KeyChar == 't' || info.KeyChar == 'T')
+                    {
+                        Console.WriteLine(ID);
+                    }
 
+                    // Accept Signal Yes
+                    if (info.KeyChar == 'a' || info.KeyChar == 'A')
+                    {
+                        bool smallLoop = true;
+                        do
+                        {
+
+                            content = 1;
+                            Book.ViewYourBooks(ID, content);
+                            Console.SetCursorPosition(0, 29);
+
+                            Console.Write("For which book ID?: ");
+                            int bookID = Convert.ToInt32(Console.ReadLine()); //catch
+                            Console.Write("Press...y...to accept the book or ...n...to decline the offer. ");
+                            ConsoleKeyInfo offer = Console.ReadKey();
+
+                            if (offer.KeyChar == 'y' || offer.KeyChar == 'Y')
+                            {
+
+                                Book.ReceiveBookSignalYes(bookID);
+                                Console.WriteLine("you have accepted this book");
+                                smallLoop = false;
+
+                            }
+                            else if (offer.KeyChar == 'n' || offer.KeyChar == 'N')
+                            {
+                                Book.ReceiveBookSignalNo(bookID);
+                                Console.WriteLine("you have declined this book");
+                                smallLoop = false;
+
+                            }
+                            else
+                            {
+                                smallLoop = true;
+                            }
+                        } while (smallLoop == true);
+
+                        loopInfo = true;
                     }
                     //Enter a book
                     if (info.KeyChar == 'e' || info.KeyChar == 'E')

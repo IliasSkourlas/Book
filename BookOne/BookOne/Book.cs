@@ -23,10 +23,10 @@ namespace BookOne
         public int Circulation { get; set; }
 
 
-  
 
-        public static void EnterBook(string title, string author, string inscription,DateTime dateOfSubmition, int ownerLoginID,int carrierLoginID,
-            int bookstatus,int sent,int receive)
+
+        public static void EnterBook(string title, string author, string inscription, DateTime dateOfSubmition, int ownerLoginID, int carrierLoginID,
+            int bookstatus, int sent, int receive)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -69,7 +69,7 @@ namespace BookOne
                 {
                     var viewYourBooks = DataAccess.sqlconn.Query<Book>
                         ($"sp_ViewYourBooks  @OwnerLoginID={myID}").ToList();
-                        if (content == 0)
+                    if (content == 0)
                     {
                         GetTiAu(viewYourBooks);
                     }
@@ -91,7 +91,7 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                    Book book = new Book();
+                Book book = new Book();
                 try
                 {
                     var getInfoAllBooks = DataAccess.sqlconn.Query<Book>
@@ -113,7 +113,7 @@ namespace BookOne
                 }
             }
         }
-        public  static void GetTiAu(List<Book> getInfoAllBooks)
+        public static void GetTiAu(List<Book> getInfoAllBooks)
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
@@ -133,7 +133,7 @@ namespace BookOne
                 Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
             }
         }
-       
+
 
 
 
@@ -179,9 +179,55 @@ namespace BookOne
                 }, commandType: CommandType.StoredProcedure);
             }
         }
+        public static void ReceiveBookSignalYes(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalYes",
+                new
+                {
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
 
 
+        }
+        public static void ReceiveBookSignalNo(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalNo",
+                new
+                {
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+
+
+        }
+        public static int GetOwnerLoginIDByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("OwnerLoginID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetOwnerLoginIDByBookID", p, commandType: CommandType.StoredProcedure);
+                    int ownerLoginID = p.Get<int>("OwnerLoginID");
+                    return ownerLoginID;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return 0;
+                }
+            }
+        }
     }
-
-
 }
