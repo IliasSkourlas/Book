@@ -27,24 +27,29 @@ namespace BookOne
 
         public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
         {
-            try
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
             {
-                var p = new DynamicParameters();
-                p.Add("UserName", username);
-                p.Add("Password", password);
-                p.Add("logInID", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                DataAccess.sqlconn.Query<int>("sp_LoginUser", p, commandType: CommandType.StoredProcedure);
-                LoginID = p.Get<int>("logInID");
-                if (LoginID >= 1)
+
+                try
                 {
-                    return LoginID;
+                    var p = new DynamicParameters();
+                    p.Add("UserName", username);
+                    p.Add("Password", password);
+                    p.Add("logInID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_LoginUser", p, commandType: CommandType.StoredProcedure);
+                    LoginID = p.Get<int>("logInID");
+                    if (LoginID >= 1)
+                    {
+                        return LoginID;
+                    }
                 }
-            }
-            catch(Exception )
-            {
+                catch (Exception)
+                {
+                    return 0;
+                }
                 return 0;
             }
-            return 0;
         }
 
         public static void Login()// What if same username && password?
@@ -75,9 +80,9 @@ namespace BookOne
 
         public static int GetRole(int ID)
         {
-            //dbo_Login dbo_login = new dbo_Login();
+            
 
-            DataAccess.sqlconn.ConnectionString = DataAccess.conectionString;
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
                 try
@@ -97,15 +102,7 @@ namespace BookOne
             }
         }
 
-        //public static int GetRole(int RoleID)
-        //{
-        //    var p = new DynamicParameters();
-        //    p.Add("loginID", RoleID);
-        //    p.Add("RoleType", dbType: DbType.Int32, direction: ParameterDirection.Output);
-        //    DataAccess.sqlconn.Query<int>("sp_GetRoleFromLoginID", p, commandType: CommandType.StoredProcedure);
-        //    RoleType = p.Get<int>("RoleType");
-        //    return RoleType;
-        //}
+        
 
 
 

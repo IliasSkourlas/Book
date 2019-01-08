@@ -13,46 +13,11 @@ namespace BookOne
     {
 
         // CONNECTION 1st way
-        public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
-        public static SqlConnection sqlconn = new SqlConnection(DataAccess.conectionString);
+        //public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
+        public static SqlConnection sqlconn = new SqlConnection(Helper.conectionString);
 
         // CONNECTION 2nd way
         //public static IDbConnection sqlconn = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BookOne"));
-
-
-
-        LoginAccount loginAccount = new LoginAccount();
-        public void Conection()
-        {
-            using (sqlconn)
-            {
-                try
-                {
-                    LoginAccount.Login();
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-        }
-
-        public void AccesGetRole()
-        {
-            using (sqlconn)
-            {
-                try
-                {
-                    //LoginAccount.GetRole(LoginAccount.RoleID);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-        }
-
-       
 
     }
 }

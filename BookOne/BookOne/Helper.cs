@@ -15,7 +15,7 @@ namespace BookOne
         //    return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         //}
 
-        //public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = TRyOneProject2; User Id = User1; Password=User1";
+        public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
 
     }
 }

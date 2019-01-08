@@ -11,110 +11,227 @@ namespace BookOne
     {
         static void Main(string[] args)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
+            Book book = new Book();
 
 
-            DataAccess dataAccess = new DataAccess();
-            dataAccess.Conection();  // Better
 
 
             bool againMenu = true;
             do
             {
-                Console.Clear();             
-                ApplicationMenu applicationMenu = new ApplicationMenu();
-                Book book = new Book();
+                Console.Clear();
+                DataAccess dataAccess = new DataAccess();
+                LoginAccount.Login();
 
-                Book.GetInfoAllBooks();
-                applicationMenu.AccordingToRole();
+                int ID = LoginAccount.LoginID;
+                LoginAccount.GetRole(ID);
 
-                Console.SetCursorPosition(0, 0);
-                Console.WriteLine("i...info: ");
-                ConsoleKeyInfo info = Console.ReadKey();
 
-                for (int i = 0; i < applicationMenu.SuperAdmin().Count; i++)
+                //Console.SetCursorPosition(0, 0);
+                //Console.WriteLine("i...info: ");
+
+                // applicationMenu.DotsDots();
+
+                int content = 0;
+                //Book.GetInfoAllBooks(content);
+
+
+
+                bool loopInfo = true;
+                do
                 {
-                    Console.SetCursorPosition(0, i + 7);
-                    Console.Write(applicationMenu.SuperAdmin()[i]);
-                }
-
-
-
-                string choice = Console.ReadLine();
-                //View
-                if (choice == "v")
-                {
+                    content = 0;
+                    ConsoleKeyInfo info = Console.ReadKey();
                     Console.Clear();
-                    Book.GetInfoAllBooks();
-                    Console.ReadKey();
-                    againMenu = true;
-                }
-                //Give
-                if (choice == "g")
-                {
-                    Console.Clear();
-                    Console.WriteLine("Give a book in the pool");
-                    Console.WriteLine("With title: ");
-                    string title = Console.ReadLine();
-                    Console.WriteLine("By author: ");
-                    string author = Console.ReadLine();
-                    DateTime dateOfSubmition = DateTime.Now;
-                    Console.WriteLine("Inscription message: ");
-                    string inscription = Console.ReadLine();
-                    int ownerLoginID = LoginAccount.LoginID;
-                    int carrierLoginID = LoginAccount.LoginID;
-                    int bookstatus = 0;
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("i...info: ");
+                    applicationMenu.DotsDots();
+                    Book.GetInfoAllBooks(content);
+                    Console.SetCursorPosition(0, 29);
 
-                    Book.GiveAbookInThePool(title, author, dateOfSubmition, inscription, ownerLoginID, carrierLoginID, bookstatus);
-                    //BackupFile backupFile = new BackupFile();
-                    //backupFile.Backup(message.DateOfSubmition, ID, receiver, text);
-                    Console.Clear();
-                    Console.WriteLine("your book is in the pool");
-                    Console.ReadKey();
-                    againMenu = true;
-                }
-                //Carry
-                if (choice == "c")
-                {
-                    Console.Clear();
-                    Console.WriteLine("Carrie a book from the pool");
-                    Console.WriteLine("With title: ");
-                    string title = Console.ReadLine();
-                    Book.GetBookByTitle(title);
-                    string x = book.Title;
-                    Console.WriteLine($"Do you want :{x}");
+                    if (info.KeyChar == 'i' || info.KeyChar == 'I')
+                    {
+                        for (int i = 0; i < applicationMenu.InfoList().Count; i++)
+                        {
+                            content = 0;
+                            Console.SetCursorPosition(0, i + 7);
+                            Console.Write(applicationMenu.InfoList()[i]);
+                        }
+                        Console.WriteLine();
+                        Console.SetCursorPosition(0, 29);
+                        info = Console.ReadKey();
 
-                    Console.ReadKey();
-                    againMenu = true;
-                }
+                        if (info.KeyChar == 'i' || info.KeyChar == 'I')
+                        {
+                            Console.Clear();
+                            Console.SetCursorPosition(0, 0);
+                            Console.WriteLine("i...info: ");
+                            applicationMenu.DotsDots();
+                            Book.GetInfoAllBooks(content);
+                            Console.SetCursorPosition(0, 29);
+                        }
+                        loopInfo = true;
+                    }
 
-                //List of my books
+                    if (info.Key == ConsoleKey.Escape)
+                    {
+                        loopInfo = false;
+                        againMenu = false;
+                    }
 
-                //call back
+                    // go to back to login
+                    if (info.KeyChar == 'b' || info.KeyChar == 'B')
+                    {
+                        Console.Clear();
+                        loopInfo = false;
+                        againMenu = true;
+                    }
 
-                //update
+                    // My books
+                    if (info.KeyChar == 'm' || info.KeyChar == 'M')
+                    {
+                        content = 1;
+                        Console.Clear();
+                        Book.ViewYourBooks(ID, content);
+                    }
 
-                //go to back to login
-                if (choice == "b")
-                {
-                    LoginAccount.Login();
-                    againMenu = true;
+                    // Hand a book
+                    if (info.KeyChar == 'h' || info.KeyChar == 'H')
+                    {
+                        content = 1;
+                        Console.SetCursorPosition(0, 0);
+                        Console.WriteLine("i...info: ");
 
-                }
-                //esc app
-                if (choice == "e")
-                {
-                    Console.Clear();
-                    againMenu = false;
-                }
-                else
-                {
-                    againMenu = true;
-                }
+                        Book.GetInfoAllBooks(content);
+                        Console.SetCursorPosition(0, 29);
+                        
+
+                        //int bookID = 
+                        //Book.SentBookSignalYes(bookID);
+                        loopInfo = true;
+
+                    }
+                    //Enter a book
+                    if (info.KeyChar == 'e' || info.KeyChar == 'E')
+                    {
+
+                        content = 1;
+                        Console.SetCursorPosition(0, 0);
+                        Console.WriteLine("Enter a book in the pool: ");
+                        Book.GetInfoAllBooks(content);
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 2);
+                        Console.WriteLine("Title: ");
+                        string title = Console.ReadLine();
+                        Console.WriteLine("Author: ");
+                        string author = Console.ReadLine();
+                        Console.WriteLine("Incription: ");
+                        string inscription = Console.ReadLine();
+                        DateTime dateOfSubmition = DateTime.Now; //now?
+                        int ownerLoginID = LoginAccount.LoginID;
+                        int carrierLoginID = LoginAccount.LoginID;
+                        int bookstatus = 0;
+                        int sent = 0;
+                        int receive = 0;
+
+                        Book.EnterBook(title, author, inscription, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, sent, receive);
+
+                        Console.SetCursorPosition(0, 29);
+                        Console.Write("We all have a new book");
+                        applicationMenu.DotsDots();
+
+                        loopInfo = true;
+                    }
+
+                } while (loopInfo == true);
+
+
+
+
+
+
+
+
+
+
+
+                //string choice = Console.ReadLine();
+                ////View
+                //if (choice == "v")
+                //{
+                //    Console.Clear();
+                //    Book.GetInfoAllBooks();
+                //    Console.ReadKey();
+                //    againMenu = true;
+                //}
+                ////Give
+                //if (choice == "g")
+                //{
+                //    Console.Clear();
+                //    Console.WriteLine("Give a book in the pool");
+                //    Console.WriteLine("With title: ");
+                //    string title = Console.ReadLine();
+                //    Console.WriteLine("By author: ");
+                //    string author = Console.ReadLine();
+                //    DateTime dateOfSubmition = DateTime.Now;
+                //    Console.WriteLine("Inscription message: ");
+                //    string inscription = Console.ReadLine();
+                //    int ownerLoginID = LoginAccount.LoginID;
+                //    int carrierLoginID = LoginAccount.LoginID;
+                //    int bookstatus = 0;
+
+                //    Book.GiveAbookInThePool(title, author, dateOfSubmition, inscription, ownerLoginID, carrierLoginID, bookstatus);
+                //    //BackupFile backupFile = new BackupFile();
+                //    //backupFile.Backup(message.DateOfSubmition, ID, receiver, text);
+                //    Console.Clear();
+                //    Console.WriteLine("your book is in the pool");
+                //    Console.ReadKey();
+                //    againMenu = true;
+                //}
+                ////Carry
+                //if (choice == "c")
+                //{
+                //    Console.Clear();
+                //    Console.WriteLine("Carrie a book from the pool");
+                //    Console.WriteLine("With title: ");
+                //    string title = Console.ReadLine();
+                //    Book.GetBookByTitle(title);
+                //    string x = book.Title;
+                //    Console.WriteLine($"Do you want :{x}");
+
+                //    Console.ReadKey();
+                //    againMenu = true;
+                //}
+
+                ////List of my books
+
+                ////call back
+
+                ////update
+
+                ////go to back to login
+                ////if (info.KeyChar == 'b' || info.KeyChar == 'B')
+                ////{
+                ////    Console.Clear();
+                ////    dataAccess.Conection();
+                ////}
+                ////esc app
+                //if (choice == "e")
+                //{
+                //    Console.Clear();
+                //    againMenu = false;
+                //}
+                //else
+                //{
+                //    againMenu = true;
+                //}
 
 
 
             } while (againMenu == true);
 
+            Console.Clear();
 
             Console.ReadKey();
         }

@@ -11,54 +11,66 @@ namespace BookOne
 
         Book book = new Book();
 
-        // different Menus for different Roles
-        public void ViewOnlyUser()
+        // lists for different Roles
+        public List<string> ViewOnlyUserInfo()
         {
-            Console.WriteLine("press...v...to view");
+            List<string> viewOnlyUserInfo = new List<string>();
+            viewOnlyUserInfo.Add("n...who has this book now?");
+            viewOnlyUserInfo.Add("w...words");
+            viewOnlyUserInfo.Add("o...circulation");
+            viewOnlyUserInfo.Add("my...my ID");
+            viewOnlyUserInfo.Add(string.Empty);
+            viewOnlyUserInfo.Add("b...to go back to login\n");
+            viewOnlyUserInfo.Add("Esc...to esc the app");
 
-            Console.WriteLine("press...b...to go back to login\n");
-            Console.WriteLine("press...e...to esc the app");
-
+            return viewOnlyUserInfo;
 
         }
-        public void ViewEditUser()
+        public List<string> ViewEditUserInfo()
         {
-            Console.WriteLine("press...v...to view");
-            Console.WriteLine("press...g...to give a book");
-            Console.WriteLine("press...c...to carry a book");
 
-            Console.WriteLine("press...b...to go back to login\n");
-            Console.WriteLine("press...e...to esc the app");
+            List<string> viewEditUserInfo = new List<string>();
+            viewEditUserInfo.Add("h...hand this book");
+            viewEditUserInfo.Add("n...who has this book now?");
+            viewEditUserInfo.Add("w...words");
+            viewEditUserInfo.Add("o...circulation");
+            viewEditUserInfo.Add("my...my ID");
+            viewEditUserInfo.Add(string.Empty);
+            viewEditUserInfo.Add("b...to go back to login\n");
+            viewEditUserInfo.Add("Esc...to esc the app");
+
+            return viewEditUserInfo;
+        }
+        public List<string> ViewEditDeleteUserInfo()
+        {
+            List<string> viewEditDeleteUserInfo = new List<string>();
+            viewEditDeleteUserInfo.Add("h...hand this book");
+            viewEditDeleteUserInfo.Add("n...who has this book now?");
+            viewEditDeleteUserInfo.Add("w...words");
+            viewEditDeleteUserInfo.Add("o...circulation");
+            viewEditDeleteUserInfo.Add("my...my ID");
+            viewEditDeleteUserInfo.Add(string.Empty);
+            viewEditDeleteUserInfo.Add("b...to go back to login\n");
+            viewEditDeleteUserInfo.Add("Esc...to esc the app");
+            return viewEditDeleteUserInfo;
 
         }
-        public void ViewEditDeleteUser()
-        {
-            Console.WriteLine("press...v...to view");
-            Console.WriteLine("press...g...to give a book");
-            Console.WriteLine("press...c...to carry a book");
-            Console.WriteLine("press...m...to see my books");
-            Console.WriteLine("press...d...to call back\n");
 
-            Console.WriteLine("press...b...to go back to login\n");
-            Console.WriteLine("press...e...to esc the app");
-
-        }
-
-        public List<string> SuperAdmin()
+        public List<string> SuperAdminInfo()
         {
             List<string> superAdminInfo = new List<string>();
-            superAdminInfo.Add("v...view");
-            superAdminInfo.Add("w...words");
+            superAdminInfo.Add("h...hand this book");
             superAdminInfo.Add("n...who has this book now?");
+            superAdminInfo.Add("w...words");
             superAdminInfo.Add("o...circulation");
             superAdminInfo.Add("my...my ID");
-            superAdminInfo.Add("h...hand this book");
             superAdminInfo.Add(string.Empty);
-
+            superAdminInfo.Add("b...to go back to login\n");
+            superAdminInfo.Add("Esc...to esc the app");
             return superAdminInfo;
         }
 
-       
+
         //public void SuperAdmin()
         //{
         //    List<string> superAdminInfo = new List<string>();
@@ -94,8 +106,6 @@ namespace BookOne
 
         //    } while (loopInfo == true);
 
-
-
         //    //Console.WriteLine("press:");
         //    //Console.WriteLine("...i...for info");
         //    //Console.WriteLine("...v...to view");
@@ -104,7 +114,6 @@ namespace BookOne
         //    //Console.WriteLine("...o...circulation");
         //    //Console.WriteLine("...my...for my ID");
         //    //Console.WriteLine("...h...hand this book");
-
         //    //Console.WriteLine("...g...to give a book");
         //    //Console.WriteLine("...c...to carry a book");
         //    //Console.WriteLine("...m...for my books");
@@ -117,35 +126,90 @@ namespace BookOne
         //    //Console.WriteLine("................................");
         //    //Console.WriteLine("...b...to go back to login\n");
         //    //Console.WriteLine("...e...to esc the app");
-
         //}
 
-        // select View according to RoleType
-        public void SelectView()
+
+
+
+
+        // ShowHideInfoMenu  includes InfoList & DotsDots
+        public ConsoleKeyInfo ShowHideInfoMenu()
         {
-            if (LoginAccount.RoleType == 4)
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("i...info: ");
+            DotsDots();
+            ConsoleKeyInfo info = Console.ReadKey();
+
+            if (info.KeyChar == 'i')
             {
-                ViewOnlyUser();
+                for (int i = 0; i < InfoList().Count; i++)
+                {
+                    Console.SetCursorPosition(0, i + 7);
+                    Console.Write(InfoList()[i]);
+                }
             }
-            if (LoginAccount.RoleType == 3)
+            info = Console.ReadKey();
+            if (info.KeyChar == 'i' && info.KeyChar == 'I')
             {
-                ViewEditUser();
+                DotsDots();
+            }
+            return info;
+        }
+        public List<string> InfoList()
+        {
+            if (LoginAccount.RoleType == 1)
+            {
+                return SuperAdminInfo();
             }
             if (LoginAccount.RoleType == 2)
             {
-                ViewEditDeleteUser();
+                return ViewEditDeleteUserInfo();
+
             }
-            if (LoginAccount.RoleType == 1)
+            if (LoginAccount.RoleType == 3)
             {
-                SuperAdmin();
+                return ViewEditUserInfo();
+            }
+            else
+            {
+                return ViewOnlyUserInfo();
             }
         }
-
-        public void AccordingToRole()
+        public void DotsDots()
         {
-            int ID = LoginAccount.LoginID;
-            LoginAccount.GetRole(ID);
-            SelectView();
+            Console.WriteLine("........................................");
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("i...info: ");
+            //Console.SetCursorPosition(0, 0);
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+
         }
 
 
