@@ -13,7 +13,7 @@ namespace BookOne
         public int BookID { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
-        public DateTime DateOfSubmition { get; set; }
+        public DateTime DateOfLastMove { get; set; }
         public string InscriptionMessage { get; set; }
         public string MessageData { get; set; }
         public int OwnerLoginID { get; set; }
@@ -21,11 +21,12 @@ namespace BookOne
         public int Status { get; set; }
 
         public int Circulation { get; set; }
+        public int Sent { get; set; }
+        public int Receive { get; set; }
 
 
 
-
-        public static void EnterBook(string title, string author, string inscription, DateTime dateOfSubmition, int ownerLoginID, int carrierLoginID,
+        public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
             int bookstatus, int sent, int receive)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -41,8 +42,8 @@ namespace BookOne
                         {
                             Title = title,
                             Author = author,
-                            DateOfSubmition = dateOfSubmition,
-                            InscriptionMessage = inscription,
+                            DateOfLastMove = dateOfLastMove,
+                            Words = words,
                             OwnerLoginID = ownerLoginID,
                             CarrierLoginID = carrierLoginID,
                             BookStatus = bookstatus,
@@ -85,7 +86,6 @@ namespace BookOne
                 }
             }
         }
-
         public static void GetInfoAllBooks(int content)// use the list: books
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -113,6 +113,7 @@ namespace BookOne
                 }
             }
         }
+
         public static void GetTiAu(List<Book> getInfoAllBooks)
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
@@ -133,9 +134,6 @@ namespace BookOne
                 Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
             }
         }
-
-
-
 
         public static void GetBookByTitle(string title) // ????
         {
@@ -165,7 +163,6 @@ namespace BookOne
                 }
             }
         }
-
 
         public static void SentBookSignalYes(int bookID)
         {
@@ -207,6 +204,7 @@ namespace BookOne
 
 
         }
+
         public static int GetOwnerLoginIDByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -295,15 +293,17 @@ namespace BookOne
                 }
             }
         }
-        public static void HandBook(int carrierLoginID,int bookID)
+
+        public static void ChaingeCarrier(int carrierLoginID,int bookID,DateTime dateOfLastMove)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_HandBook",
+                var affectedRows = DataAccess.sqlconn.Execute("sp_ChaingeCarrier",
                 new
                 {
                     CarrierLoginID = carrierLoginID,
+                    DateOfLastMove = dateOfLastMove,
                     BookID = bookID
                 }, commandType: CommandType.StoredProcedure);
             }
@@ -359,6 +359,19 @@ namespace BookOne
             }
         }
 
-        
+        public static void WriteWords(int bookID, string newWords)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_WriteWords",
+                new
+                {
+
+                    NewWords = newWords,
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

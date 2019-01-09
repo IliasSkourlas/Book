@@ -174,7 +174,8 @@ namespace BookOne
                                         }
                                     }
                                     int carrierLoginID = ID;
-                                    Book.HandBook(carrierLoginID, bookID);
+                                    DateTime dateOfLastMove = DateTime.Now;
+                                    Book.ChaingeCarrier(carrierLoginID, bookID, dateOfLastMove);
                                     Console.Write(" ...you carry the book");
                                     Book.AddCirculation(bookID);
                                     Book.ReceiveBookSignalNo(bookID);
@@ -208,43 +209,30 @@ namespace BookOne
 
                         Book.ViewYourBooks(ID, content);
                         Console.SetCursorPosition(0, 29);
-                        Console.Write("For which book ID?: ");
-
-                        int bookID = Convert.ToInt32(Console.ReadLine()); //catch 
-                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
-                        {
-
-                            if (Book.GetSentReceiveSignal(bookID) == 2)
-                            {
-                                //do
-                                Console.Write("to which user ID: ");
-                                int carrierLoginID = Convert.ToInt32(Console.ReadLine()); // catch
-                                if (LoginAccount.IfUserIDExists(carrierLoginID) == 1)
-                                {
-
-                                    Book.HandBook(carrierLoginID, bookID);
-                                    Console.WriteLine($"New carrier is: {carrierLoginID} ");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("this ID does not exist ");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Both hands are not on the book ");
-                            }
-
-                        }
-                        else
-                        {
-                            Console.Write("is this your book? ");
-                        }
 
                         loopInfo = true;
                     }
+                    // Write Words
+                    if (info.KeyChar == 'w' || info.KeyChar == 'W')
+                    {
+                        Book.ViewYourBooks(ID, content);
+                        Console.SetCursorPosition(0, 29);
 
 
+                        Console.Write("For which book ID?: ");
+                        int bookID = ApplicationMenu.intResult();
+
+                        if(Book.GetCarrierLoginIDByBookID(bookID) == ID)
+                        {
+                            string newWords = Console.ReadLine();
+                            Book.WriteWords(bookID, newWords);
+                        }
+                        else
+                        {
+                            Console.WriteLine("! You can only write on the books you carry !");
+                        }
+                    }
+                    
 
                     //Enter a book
                     if (info.KeyChar == 'e' || info.KeyChar == 'E')
@@ -260,8 +248,10 @@ namespace BookOne
                         string title = Console.ReadLine();
                         Console.WriteLine("Author: ");
                         string author = Console.ReadLine();
-                        Console.WriteLine("Incription: ");
-                        string inscription = Console.ReadLine();
+
+                        Console.Clear();
+                        Console.WriteLine("words: ");
+                        string words = Console.ReadLine();
                         DateTime dateOfSubmition = DateTime.Now; //now?
                         int ownerLoginID = LoginAccount.LoginID;
                         int carrierLoginID = LoginAccount.LoginID;
@@ -269,7 +259,7 @@ namespace BookOne
                         int sent = 0;
                         int receive = 0;
 
-                        Book.EnterBook(title, author, inscription, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, sent, receive);
+                        Book.EnterBook(title, author, words, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, sent, receive);
 
                         Console.SetCursorPosition(0, 29);
                         Console.Write("We all have a new book");
@@ -279,16 +269,6 @@ namespace BookOne
                     }
 
                 } while (loopInfo == true);
-
-
-
-
-
-
-
-
-
-
 
                 //string choice = Console.ReadLine();
                 ////View
