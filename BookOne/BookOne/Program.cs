@@ -115,7 +115,8 @@ namespace BookOne
                                 if (addInPool.KeyChar == 'y' || addInPool.KeyChar == 'Y')
                                 {
                                     Console.WriteLine("Add ID: ");
-                                    int handTo = Convert.ToInt32(Console.ReadLine());//catch & do
+                                    int handTo = ApplicationMenu.intResult();
+
                                     Book.PoolOfCarriers(owner, handTo, bookID);
                                 }
                             }
@@ -137,15 +138,15 @@ namespace BookOne
                         do
                         {
                             content = 1;
-                           // Book.ViewYourBooks(ID, content);
+                            // Book.ViewYourBooks(ID, content);
                             //Console.SetCursorPosition(0, 29);
 
                             Console.WriteLine("For which book ID? ");
                             int bookID = ApplicationMenu.intResult();  //catch
 
-                            if (Book.GetHandToByBookID(bookID) == ID || Book.GetOwnerLoginIDByBookID(bookID) == ID)
+                            if (((Book.GetSentSignal(bookID) == 1 && (Book.GetHandToByBookID(bookID) == ID)) || ((Book.GetSentSignal(bookID) == 1) && Book.GetOwnerLoginIDByBookID(bookID) == ID)))
                             {
-
+                                int carrierID = Book.GetCarrierLoginIDByBookID(bookID);
                                 Console.WriteLine("Press...y...to accept the book or ...n...to decline the offer. ");
                                 ConsoleKeyInfo offer = Console.ReadKey();
 
@@ -159,10 +160,22 @@ namespace BookOne
                                     {
                                         Console.WriteLine("Do you want to give a Clap?");
                                         Console.WriteLine("...y...for yes \n...n...for no. ");
+                                        ConsoleKeyInfo clapFor = Console.ReadKey();
+
+                                        if (clapFor.KeyChar == 'y' || clapFor.KeyChar == 'Y')
+                                        {
+                                            LoginAccount.AddClap(carrierID);
+                                            Console.WriteLine("Clap..clap..clap..clap!");
+                                        }
+                                        else
+                                        {
+                                            Console.Write($"..mmmm...no clap for ID: {carrierID} ");
+                                            // is it ok to leave it empty?
+                                        }
                                     }
                                     int carrierLoginID = ID;
                                     Book.HandBook(carrierLoginID, bookID);
-                                    Console.Write(" Ok...you carry the book");
+                                    Console.Write(" ...you carry the book");
                                     Book.AddCirculation(bookID);
                                     Book.ReceiveBookSignalNo(bookID);
 
@@ -181,7 +194,8 @@ namespace BookOne
                             }
                             else
                             {
-                                smallLoop = true;
+                                Console.WriteLine("!You can't have this book right now!");
+                                smallLoop = false;
                             }
                         } while (smallLoop == true);
 

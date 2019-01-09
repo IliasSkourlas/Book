@@ -271,7 +271,28 @@ namespace BookOne
                 {
                     return 0;
                 }
-                return 0;
+                
+            }
+        }
+        public static int GetSentSignal(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("@Sent", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetSentNumber", p, commandType: CommandType.StoredProcedure);
+                    int sent = p.Get<int>("@Sent");
+                    return sent;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
             }
         }
         public static void HandBook(int carrierLoginID,int bookID)
@@ -334,9 +355,10 @@ namespace BookOne
                 {
                     return 0;
                 }
-                return 0;
+                
             }
         }
 
+        
     }
 }

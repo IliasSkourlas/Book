@@ -11,6 +11,7 @@ namespace BookOne
         public string UserName { get; set; }
         public string Password { get; set; }
         public static int RoleType { get; set; }
+        public int Clap { get; set; }
 
         public LoginAccount()
         {
@@ -160,6 +161,19 @@ namespace BookOne
             //        }
             //    }
             //}
+        }
+
+        public static void AddClap(int loginID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_AddClap",
+                new
+                {
+                    LoginID = loginID
+                }, commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }
