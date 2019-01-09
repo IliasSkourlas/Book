@@ -80,7 +80,7 @@ namespace BookOne
 
         public static int GetRole(int ID)
         {
-            
+
 
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -102,45 +102,65 @@ namespace BookOne
             }
         }
 
-        
+        public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("LoginID", loginID);
+                    p.Add("Count", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_IfUserIDExists", p, commandType: CommandType.StoredProcedure);
+                    int Result = p.Get<int>("Count");
+                    return Result;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
 
 
 
-        //public static void ViewAllRoles()
-        //{
+            //public static void ViewAllRoles()
+            //{
 
-        //    {
-        //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-        //        using (DataAccess.sqlconn)
-        //        {
-        //            var viewAllRoles = DataAccess.sqlconn.Query<dbo_Login>
-        //                ($"sp_ViewAllRoles").ToList();
+            //    {
+            //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            //        using (DataAccess.sqlconn)
+            //        {
+            //            var viewAllRoles = DataAccess.sqlconn.Query<dbo_Login>
+            //                ($"sp_ViewAllRoles").ToList();
 
-        //            foreach (var item in viewAllRoles)
-        //            {
-        //                Console.WriteLine($"RoleID: {item.RoleID}");
-        //                Console.WriteLine($"UserName: {item.UserName}");
-        //                Console.WriteLine($"RoleType: {item.RoleType}");
-        //                Console.WriteLine(".......");
-        //            }
-        //        }
-        //    }
-        //}
+            //            foreach (var item in viewAllRoles)
+            //            {
+            //                Console.WriteLine($"RoleID: {item.RoleID}");
+            //                Console.WriteLine($"UserName: {item.UserName}");
+            //                Console.WriteLine($"RoleType: {item.RoleType}");
+            //                Console.WriteLine(".......");
+            //            }
+            //        }
+            //    }
+            //}
 
 
 
-        //public static void UpdateRoleTypeByRoleId(int roleID, int roleType)
-        //{
-        //    {
+            //public static void UpdateRoleTypeByRoleId(int roleID, int roleType)
+            //{
+            //    {
 
-        //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-        //        using (DataAccess.sqlconn)
-        //        {
-        //            var updateRoleTypeByRoleId = DataAccess.sqlconn.Query<dbo_Login>
-        //                ($"sp_UpdateRoleTypeByRoleId @RoleID = {roleID}, @RoleType = {roleType}").ToList();
-        //        }
-        //    }
-        //}
+            //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            //        using (DataAccess.sqlconn)
+            //        {
+            //            var updateRoleTypeByRoleId = DataAccess.sqlconn.Query<dbo_Login>
+            //                ($"sp_UpdateRoleTypeByRoleId @RoleID = {roleID}, @RoleType = {roleType}").ToList();
+            //        }
+            //    }
+            //}
+        }
     }
 }
 

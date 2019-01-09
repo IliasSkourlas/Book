@@ -212,7 +212,28 @@ namespace BookOne
 
         }
 
+        public static int intResult()
+        {
+            bool stringLoop;
+            do
+            {
+                int intiger = 0;
+                string input = Console.ReadLine();
 
+                if (int.TryParse(input, out intiger))
+                {
+                    stringLoop = false;
+                    return intiger;
+                }
+                else
+                {
+                    Console.WriteLine("try again please");
+                    stringLoop = true;
+                }
+                    
+            } while (stringLoop == true);
+            return  0;
+        }
 
 
 

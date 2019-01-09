@@ -228,6 +228,115 @@ namespace BookOne
                     return 0;
                 }
             }
+        }//not in use
+        public static int GetCarrierLoginIDByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("CarrierLoginID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetCarrierLoginIDByBookID", p, commandType: CommandType.StoredProcedure);
+                    int carrierLoginID = p.Get<int>("CarrierLoginID");
+                    return carrierLoginID;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return 0;
+                }
+            }
         }
+
+        public static int GetSentReceiveSignal(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetSentReceiveNumber", p, commandType: CommandType.StoredProcedure);
+                    int Total = p.Get<int>("@Total");
+                    return Total;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+                return 0;
+            }
+        }
+        public static void HandBook(int carrierLoginID,int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_HandBook",
+                new
+                {
+                    CarrierLoginID = carrierLoginID,
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static void AddCirculation(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_AddCirculation",
+                new
+                {
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static void PoolOfCarriers(int owner, int handTo,int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_PoolOfCarriers",
+                new
+                {
+                    Owner = owner,
+                    HandTo = handTo,
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static int GetHandToByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("@HandTo", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetHandToByBookID", p, commandType: CommandType.StoredProcedure);
+                    int HandTo = p.Get<int>("@HandTo");
+                    return HandTo;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+                return 0;
+            }
+        }
+
     }
 }

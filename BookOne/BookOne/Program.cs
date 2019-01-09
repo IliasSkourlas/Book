@@ -14,9 +14,6 @@ namespace BookOne
             ApplicationMenu applicationMenu = new ApplicationMenu();
             Book book = new Book();
 
-
-
-
             bool againMenu = true;
             do
             {
@@ -106,56 +103,81 @@ namespace BookOne
 
 
                         Console.Write("For which book ID?: ");
-                        int bookID = Convert.ToInt32(Console.ReadLine()); //catch //what if book not my?
-                        if (Book.GetOwnerLoginIDByBookID(bookID) == ID)
+                        int bookID = ApplicationMenu.intResult(); //catch //what if book not my?
+                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
                         {
-                            // Book.SentBookSignalYes(bookID);
+                            if (Book.GetOwnerLoginIDByBookID(bookID) == ID)
+                            {
+                                //Set pool of carriers
+                                int owner = ID;
+                                Console.WriteLine("Do you want do add an ID to the pool? ");
+                                ConsoleKeyInfo addInPool = Console.ReadKey();
+                                if (addInPool.KeyChar == 'y' || addInPool.KeyChar == 'Y')
+                                {
+                                    Console.WriteLine("Add ID: ");
+                                    int handTo = Convert.ToInt32(Console.ReadLine());//catch & do
+                                    Book.PoolOfCarriers(owner, handTo, bookID);
+                                }
+                            }
+
                             Book.SentBookSignalYes(bookID);
-                            Console.Write(" Signal has been sent");
+                            Console.Write("Ok...your hand is on the book");
                         }
                         else
                         {
-                            Console.Write(" is this your book?");
+                            Console.Write("You don't carry this book ");
                         }
 
                         loopInfo = true;
                     }
-                    // Test
-                    if (info.KeyChar == 't' || info.KeyChar == 'T')
-                    {
-                        Console.WriteLine(ID);
-                    }
-
                     // Accept Signal Yes
                     if (info.KeyChar == 'a' || info.KeyChar == 'A')
                     {
                         bool smallLoop = true;
                         do
                         {
-
                             content = 1;
-                            Book.ViewYourBooks(ID, content);
-                            Console.SetCursorPosition(0, 29);
+                           // Book.ViewYourBooks(ID, content);
+                            //Console.SetCursorPosition(0, 29);
 
-                            Console.Write("For which book ID?: ");
-                            int bookID = Convert.ToInt32(Console.ReadLine()); //catch
-                            Console.Write("Press...y...to accept the book or ...n...to decline the offer. ");
-                            ConsoleKeyInfo offer = Console.ReadKey();
+                            Console.WriteLine("For which book ID? ");
+                            int bookID = ApplicationMenu.intResult();  //catch
 
-                            if (offer.KeyChar == 'y' || offer.KeyChar == 'Y')
+                            if (Book.GetHandToByBookID(bookID) == ID || Book.GetOwnerLoginIDByBookID(bookID) == ID)
                             {
 
-                                Book.ReceiveBookSignalYes(bookID);
-                                Console.WriteLine("you have accepted this book");
-                                smallLoop = false;
+                                Console.WriteLine("Press...y...to accept the book or ...n...to decline the offer. ");
+                                ConsoleKeyInfo offer = Console.ReadKey();
 
-                            }
-                            else if (offer.KeyChar == 'n' || offer.KeyChar == 'N')
-                            {
-                                Book.ReceiveBookSignalNo(bookID);
-                                Console.WriteLine("you have declined this book");
-                                smallLoop = false;
+                                if (offer.KeyChar == 'y' || offer.KeyChar == 'Y')
+                                {
+                                    Book.ReceiveBookSignalYes(bookID);
 
+                                    if ((Book.GetSentReceiveSignal(bookID) == 2) &&
+                                        (Book.GetOwnerLoginIDByBookID(bookID) != Book.GetCarrierLoginIDByBookID(bookID)) &&
+                                        (Book.GetOwnerLoginIDByBookID(bookID) == ID))
+                                    {
+                                        Console.WriteLine("Do you want to give a Clap?");
+                                        Console.WriteLine("...y...for yes \n...n...for no. ");
+                                    }
+                                    int carrierLoginID = ID;
+                                    Book.HandBook(carrierLoginID, bookID);
+                                    Console.Write(" Ok...you carry the book");
+                                    Book.AddCirculation(bookID);
+                                    Book.ReceiveBookSignalNo(bookID);
+
+                                    smallLoop = false;
+                                }
+                                else if (offer.KeyChar == 'n' || offer.KeyChar == 'N')
+                                {
+                                    Book.ReceiveBookSignalNo(bookID);
+                                    Console.WriteLine("you have declined this book");
+                                    smallLoop = false;
+                                }
+                                else
+                                {
+                                    smallLoop = true;
+                                }
                             }
                             else
                             {
@@ -165,6 +187,51 @@ namespace BookOne
 
                         loopInfo = true;
                     }
+                    // Hand Book
+                    if (info.KeyChar == 'h' || info.KeyChar == 'H')
+                    {
+                        content = 1;
+
+                        Book.ViewYourBooks(ID, content);
+                        Console.SetCursorPosition(0, 29);
+                        Console.Write("For which book ID?: ");
+
+                        int bookID = Convert.ToInt32(Console.ReadLine()); //catch 
+                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
+                        {
+
+                            if (Book.GetSentReceiveSignal(bookID) == 2)
+                            {
+                                //do
+                                Console.Write("to which user ID: ");
+                                int carrierLoginID = Convert.ToInt32(Console.ReadLine()); // catch
+                                if (LoginAccount.IfUserIDExists(carrierLoginID) == 1)
+                                {
+
+                                    Book.HandBook(carrierLoginID, bookID);
+                                    Console.WriteLine($"New carrier is: {carrierLoginID} ");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("this ID does not exist ");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Both hands are not on the book ");
+                            }
+
+                        }
+                        else
+                        {
+                            Console.Write("is this your book? ");
+                        }
+
+                        loopInfo = true;
+                    }
+
+
+
                     //Enter a book
                     if (info.KeyChar == 'e' || info.KeyChar == 'E')
                     {
