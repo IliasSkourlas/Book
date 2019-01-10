@@ -25,35 +25,7 @@ namespace BookOne
 
 
 
-
-        public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-
-                try
-                {
-                    var p = new DynamicParameters();
-                    p.Add("UserName", username);
-                    p.Add("Password", password);
-                    p.Add("logInID", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    DataAccess.sqlconn.Query<int>("sp_LoginUser", p, commandType: CommandType.StoredProcedure);
-                    LoginID = p.Get<int>("logInID");
-                    if (LoginID >= 1)
-                    {
-                        return LoginID;
-                    }
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-                return 0;
-            }
-        }
-
-        public static void Login()// What if same username && password?
+        public static void Login()
         {
             int ID = 0;
             LoginID = ID;
@@ -76,13 +48,36 @@ namespace BookOne
                     againLogin = true;
                     Console.WriteLine("Lets try again");
                 }
-            } while (againLogin == true);// Brake??
+            } while (againLogin == true);
+        }
+        public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("UserName", username);
+                    p.Add("Password", password);
+                    p.Add("logInID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_LoginUser", p, commandType: CommandType.StoredProcedure);
+                    LoginID = p.Get<int>("logInID");
+                    if (LoginID >= 1)
+                    {
+                        return LoginID;
+                    }
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+                return 0;
+            }
         }
 
         public static int GetRole(int ID)
         {
-
-
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
@@ -102,6 +97,9 @@ namespace BookOne
                 return 0;
             }
         }
+
+
+
 
         public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
         {

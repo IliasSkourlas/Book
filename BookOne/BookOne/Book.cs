@@ -26,66 +26,8 @@ namespace BookOne
 
 
 
-        public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
-            int bookstatus, int sent, int receive)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-                    DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-                    using (DataAccess.sqlconn)
-                    {
-                        var enterAbookInThePool = DataAccess.sqlconn.Execute("sp_EnterBook",
-                        new
-                        {
-                            Title = title,
-                            Author = author,
-                            DateOfLastMove = dateOfLastMove,
-                            Words = words,
-                            OwnerLoginID = ownerLoginID,
-                            CarrierLoginID = carrierLoginID,
-                            BookStatus = bookstatus,
-                            Sent = sent,
-                            Receive = receive
-
-                        }, commandType: CommandType.StoredProcedure);
-                    }
-                }
-                catch (Exception ex) //ok for now
-                {
-                    Console.WriteLine(ex);
-                }
-            }
-        }
-
-
-        public static void ViewYourBooks(int myID, int content)// use the list: books
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-                    var viewYourBooks = DataAccess.sqlconn.Query<Book>
-                        ($"sp_ViewYourBooks  @OwnerLoginID={myID}").ToList();
-                    if (content == 0)
-                    {
-                        GetTiAu(viewYourBooks);
-                    }
-                    if (content == 1)
-                    {
-                        GetIdTiAu(viewYourBooks);
-                    }
-
-                }
-                catch (Exception ex) //ok for now
-                {
-                    Console.WriteLine(ex);
-                }
-            }
-        }
+        
+        // all books Info acording to int content  // ++more views
         public static void GetInfoAllBooks(int content)// use the list: books
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -113,7 +55,7 @@ namespace BookOne
                 }
             }
         }
-
+        // Title Author
         public static void GetTiAu(List<Book> getInfoAllBooks)
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
@@ -123,6 +65,7 @@ namespace BookOne
                 Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
             }
         }
+        // BookID Title Author
         public static void GetIdTiAu(List<Book> getInfoAllBooks)
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
@@ -135,27 +78,25 @@ namespace BookOne
             }
         }
 
-        public static void GetBookByTitle(string title) // ????
+        // all books Info acording to myID & int content
+        public static void ViewYourBooks(int myID, int content)// use the list: books
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
                 try
                 {
-                    DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-                    using (DataAccess.sqlconn)
+                    var viewYourBooks = DataAccess.sqlconn.Query<Book>
+                        ($"sp_ViewYourBooks  @OwnerLoginID={myID}").ToList();
+                    if (content == 0)
                     {
-                        var getBookByTitle = DataAccess.sqlconn.Query("sp_GetBookByTitle",
-                        new
-                        {
-                            Title = title
-                        }, commandType: CommandType.StoredProcedure);
-                        foreach (var item in getBookByTitle)
-                        {
-                            Console.WriteLine($"Do you mean: {item.Title}?");//what if 2 selections?
-                            Console.WriteLine($"by: {item.Author}?");
-                        }
+                        GetTiAu(viewYourBooks);
                     }
+                    if (content == 1)
+                    {
+                        GetIdTiAu(viewYourBooks);
+                    }
+
                 }
                 catch (Exception ex) //ok for now
                 {
@@ -163,6 +104,8 @@ namespace BookOne
                 }
             }
         }
+
+
 
         public static void SentBookSignalYes(int bookID)
         {
@@ -203,6 +146,39 @@ namespace BookOne
             }
 
 
+        }
+
+
+        public static void GetBookByTitle(string title) 
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+                    using (DataAccess.sqlconn)
+                    {
+                        var getBookByTitle = DataAccess.sqlconn.Query("sp_GetBookByTitle",
+                        new
+                        {
+                           
+                            Title = title
+                        }, commandType: CommandType.StoredProcedure);
+                        foreach (var item in getBookByTitle)
+                        {
+                            Console.WriteLine($"ID: {item.BookID}  ");
+                            Console.WriteLine($" {item.Title} ");//what if 2 selections?
+                            Console.WriteLine($"by:  {item.Author} ");
+                            Console.WriteLine();
+                        }
+                    }
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
+            }
         }
 
         public static int GetOwnerLoginIDByBookID(int bookID)
@@ -250,6 +226,8 @@ namespace BookOne
             }
         }
 
+
+
         public static int GetSentReceiveSignal(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -269,7 +247,7 @@ namespace BookOne
                 {
                     return 0;
                 }
-                
+
             }
         }
         public static int GetSentSignal(int bookID)
@@ -294,7 +272,46 @@ namespace BookOne
             }
         }
 
-        public static void ChaingeCarrier(int carrierLoginID,int bookID,DateTime dateOfLastMove)
+        public static int GetHandToByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("@HandTo", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetHandToByBookID", p, commandType: CommandType.StoredProcedure);
+                    int HandTo = p.Get<int>("@HandTo");
+                    return HandTo;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+
+            }
+        }
+
+        public static void PoolOfCarriers(int owner, int handTo, int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_PoolOfCarriers",
+                new
+                {
+                    Owner = owner,
+                    HandTo = handTo,
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+
+
+        public static void ChaingeCarrier(int carrierLoginID, int bookID, DateTime dateOfLastMove)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -322,41 +339,18 @@ namespace BookOne
             }
         }
 
-        public static void PoolOfCarriers(int owner, int handTo,int bookID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_PoolOfCarriers",
-                new
-                {
-                    Owner = owner,
-                    HandTo = handTo,
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
-            }
-        }
 
-        public static int GetHandToByBookID(int bookID)
+
+
+
+        public static string Truncater(string newWords, int length)
         {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
+            if (newWords.Length > length)
             {
-                try
-                {
-                    var p = new DynamicParameters();
-                    p.Add("BookID", bookID);
-                    p.Add("@HandTo", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    DataAccess.sqlconn.Query<int>("sp_GetHandToByBookID", p, commandType: CommandType.StoredProcedure);
-                    int HandTo = p.Get<int>("@HandTo");
-                    return HandTo;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-                
+                newWords = newWords.Substring(0, length);
+
             }
+            return newWords;
         }
 
         public static void WriteWords(int bookID, string newWords)
@@ -371,6 +365,40 @@ namespace BookOne
                     NewWords = newWords,
                     BookID = bookID
                 }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
+            int bookstatus, int sent, int receive)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+                    using (DataAccess.sqlconn)
+                    {
+                        var enterAbookInThePool = DataAccess.sqlconn.Execute("sp_EnterBook",
+                        new
+                        {
+                            Title = title,
+                            Author = author,
+                            DateOfLastMove = dateOfLastMove,
+                            Words = words,
+                            OwnerLoginID = ownerLoginID,
+                            CarrierLoginID = carrierLoginID,
+                            BookStatus = bookstatus,
+                            Sent = sent,
+                            Receive = receive
+
+                        }, commandType: CommandType.StoredProcedure);
+                    }
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
     }

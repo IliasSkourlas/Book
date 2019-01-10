@@ -224,18 +224,28 @@ namespace BookOne
 
                         if(Book.GetCarrierLoginIDByBookID(bookID) == ID)
                         {
+                            int length = 250;
+                            Console.Clear();
+                            Console.WriteLine("words: ");
+                            Console.WriteLine("maximum of 250 characters ");
                             string newWords = Console.ReadLine();
-                            Book.WriteWords(bookID, newWords);
+                            Book.Truncater(newWords, length);
+                            Book.WriteWords(bookID, Book.Truncater(newWords, length));
                         }
                         else
                         {
                             Console.WriteLine("! You can only write on the books you carry !");
                         }
                     }
-                    
-
-                    //Enter a book
-                    if (info.KeyChar == 'e' || info.KeyChar == 'E')
+                    // Find Book from All
+                    if (info.KeyChar == 'f' || info.KeyChar == 'F')
+                    {
+                        Console.Write("Search: ");
+                        Console.Clear(); 
+                        Book.GetBookByTitle(Console.ReadLine());
+                    }
+                        //Enter a book
+                        if (info.KeyChar == 'e' || info.KeyChar == 'E')
                     {
 
                         content = 1;
@@ -251,7 +261,10 @@ namespace BookOne
 
                         Console.Clear();
                         Console.WriteLine("words: ");
-                        string words = Console.ReadLine();
+                        int length = 250;
+                        string Words = Console.ReadLine();
+                        string limitWords = Book.Truncater(Words, length);
+
                         DateTime dateOfSubmition = DateTime.Now; //now?
                         int ownerLoginID = LoginAccount.LoginID;
                         int carrierLoginID = LoginAccount.LoginID;
@@ -259,7 +272,7 @@ namespace BookOne
                         int sent = 0;
                         int receive = 0;
 
-                        Book.EnterBook(title, author, words, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, sent, receive);
+                        Book.EnterBook(title, author, limitWords, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, sent, receive);
 
                         Console.SetCursorPosition(0, 29);
                         Console.Write("We all have a new book");

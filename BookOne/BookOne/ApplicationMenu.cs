@@ -9,9 +9,30 @@ namespace BookOne
     public class ApplicationMenu
     {
 
-        Book book = new Book();
+        Book book = new Book();   // do i need this?
 
         // lists for different Roles
+        public List<string> InfoList()
+        {
+            if (LoginAccount.RoleType == 1)
+            {
+                return SuperAdminInfo();
+            }
+            if (LoginAccount.RoleType == 2)
+            {
+                return ViewEditDeleteUserInfo();
+
+            }
+            if (LoginAccount.RoleType == 3)
+            {
+                return ViewEditUserInfo();
+            }
+            else
+            {
+                return ViewOnlyUserInfo();
+            }
+        }
+
         public List<string> ViewOnlyUserInfo()
         {
             List<string> viewOnlyUserInfo = new List<string>();
@@ -55,7 +76,6 @@ namespace BookOne
             return viewEditDeleteUserInfo;
 
         }
-
         public List<string> SuperAdminInfo()
         {
             List<string> superAdminInfo = new List<string>();
@@ -69,6 +89,92 @@ namespace BookOne
             superAdminInfo.Add("Esc...to esc the app");
             return superAdminInfo;
         }
+
+
+        // The looks
+        public ConsoleKeyInfo ShowHideInfoMenu()
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("i...info: ");
+            DotsDots();
+            ConsoleKeyInfo info = Console.ReadKey();
+
+            if (info.KeyChar == 'i')
+            {
+                for (int i = 0; i < InfoList().Count; i++)
+                {
+                    Console.SetCursorPosition(0, i + 7);
+                    Console.Write(InfoList()[i]);
+                }
+            }
+            info = Console.ReadKey();
+            if (info.KeyChar == 'i' && info.KeyChar == 'I')
+            {
+                DotsDots();
+            }
+            return info;
+        }
+        public void DotsDots()
+        {
+            Console.WriteLine("........................................");
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("i...info: ");
+            //Console.SetCursorPosition(0, 0);
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+            Console.WriteLine("........................................");
+
+        }
+
+        // avoid crash by string
+        public static int intResult()
+        {
+            bool stringLoop;
+            do
+            {
+                int intiger = 0;
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out intiger))
+                {
+                    stringLoop = false;
+                    return intiger;
+                }
+                else
+                {
+                    Console.WriteLine("try again please");
+                    stringLoop = true;
+                }
+                    
+            } while (stringLoop == true);
+            return  0;
+        }
+
 
 
         //public void SuperAdmin()
@@ -133,110 +239,6 @@ namespace BookOne
 
 
         // ShowHideInfoMenu  includes InfoList & DotsDots
-        public ConsoleKeyInfo ShowHideInfoMenu()
-        {
-            Console.SetCursorPosition(0, 0);
-            Console.WriteLine("i...info: ");
-            DotsDots();
-            ConsoleKeyInfo info = Console.ReadKey();
-
-            if (info.KeyChar == 'i')
-            {
-                for (int i = 0; i < InfoList().Count; i++)
-                {
-                    Console.SetCursorPosition(0, i + 7);
-                    Console.Write(InfoList()[i]);
-                }
-            }
-            info = Console.ReadKey();
-            if (info.KeyChar == 'i' && info.KeyChar == 'I')
-            {
-                DotsDots();
-            }
-            return info;
-        }
-        public List<string> InfoList()
-        {
-            if (LoginAccount.RoleType == 1)
-            {
-                return SuperAdminInfo();
-            }
-            if (LoginAccount.RoleType == 2)
-            {
-                return ViewEditDeleteUserInfo();
-
-            }
-            if (LoginAccount.RoleType == 3)
-            {
-                return ViewEditUserInfo();
-            }
-            else
-            {
-                return ViewOnlyUserInfo();
-            }
-        }
-        public void DotsDots()
-        {
-            Console.WriteLine("........................................");
-            Console.SetCursorPosition(0, 0);
-            Console.WriteLine("i...info: ");
-            //Console.SetCursorPosition(0, 0);
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-            Console.WriteLine("........................................");
-
-        }
-
-        public static int intResult()
-        {
-            bool stringLoop;
-            do
-            {
-                int intiger = 0;
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out intiger))
-                {
-                    stringLoop = false;
-                    return intiger;
-                }
-                else
-                {
-                    Console.WriteLine("try again please");
-                    stringLoop = true;
-                }
-                    
-            } while (stringLoop == true);
-            return  0;
-        }
-
-
-
 
 
         //        public void MenuOne()    
