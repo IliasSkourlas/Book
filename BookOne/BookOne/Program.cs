@@ -22,6 +22,7 @@ namespace BookOne
                 LoginAccount.Login();
 
                 int ID = LoginAccount.LoginID;
+
                 LoginAccount.GetRole(ID);
 
 
@@ -43,6 +44,8 @@ namespace BookOne
                     Console.Clear();
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("i...info: ");
+                    Console.SetCursorPosition(15, 0);
+                    Console.Write("all the books");
                     applicationMenu.DotsDots();
                     Book.GetInfoAllBooks(content);
                     Console.SetCursorPosition(0, 29);
@@ -64,6 +67,8 @@ namespace BookOne
                             Console.Clear();
                             Console.SetCursorPosition(0, 0);
                             Console.WriteLine("i...info: ");
+                            //Console.SetCursorPosition(10, 0);
+                            //Console.Write("all the books");
                             applicationMenu.DotsDots();
                             Book.GetInfoAllBooks(content);
                             Console.SetCursorPosition(0, 29);
@@ -90,16 +95,36 @@ namespace BookOne
                     {
                         content = 1;
                         Console.Clear();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("m...info: ");
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(34, 0);
+                        Console.Write("my books");
                         Book.ViewYourBooks(ID, content);
                     }
 
-                    // Sent Signal yes
-                    if (info.KeyChar == 's' || info.KeyChar == 'S')
+                    // books in my hand
+                    if (info.KeyChar == 'h' || info.KeyChar == 'H')
                     {
                         content = 1;
+                        int carrierID = ID;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("h...info: ");
+                        Console.SetCursorPosition(34, 0);
+                        Console.Write("books    in my hand");
+                        Book.ViewBooksByCarrierID(carrierID, content);
+                    }
 
-                        Book.ViewYourBooks(ID, content);
-                        Console.SetCursorPosition(0, 29);
+                    // Sent Signal yes
+                    bool sCondition = (info.KeyChar == 's' || info.KeyChar == 'S');
+                    if (LoginAccount.RoleType != 4 && sCondition)
+                    {
+                        content = 1;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Book.ViewYourBooks(ID, content); Console.SetCursorPosition(0, 29);
 
 
                         Console.Write("For which book ID?: ");
@@ -131,8 +156,10 @@ namespace BookOne
 
                         loopInfo = true;
                     }
+
                     // Accept Signal Yes
-                    if (info.KeyChar == 'a' || info.KeyChar == 'A')
+                    bool aCondition = (info.KeyChar == 'a' || info.KeyChar == 'A');
+                    if (LoginAccount.RoleType != 4 && aCondition)
                     {
                         bool smallLoop = true;
                         do
@@ -202,18 +229,24 @@ namespace BookOne
 
                         loopInfo = true;
                     }
-                    // Hand Book
-                    if (info.KeyChar == 'h' || info.KeyChar == 'H')
+
+                    // carriers of my books
+                    if (info.KeyChar == 'c' || info.KeyChar == 'C')
                     {
-                        content = 1;
-
+                        content = 2;
+                        Console.Clear();
+                        Console.SetCursorPosition(0, 0);
+                        Console.WriteLine("c...info: ");
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(34, 0);
+                        Console.Write("carriers of my books");
                         Book.ViewYourBooks(ID, content);
-                        Console.SetCursorPosition(0, 29);
 
-                        loopInfo = true;
-                    }
+                    }// change
+
                     // Write Words
-                    if (info.KeyChar == 'w' || info.KeyChar == 'W')
+                    bool wCondition = (info.KeyChar == 'w' || info.KeyChar == 'W');
+                    if (LoginAccount.RoleType != 4 && wCondition)
                     {
                         Book.ViewYourBooks(ID, content);
                         Console.SetCursorPosition(0, 29);
@@ -222,7 +255,7 @@ namespace BookOne
                         Console.Write("For which book ID?: ");
                         int bookID = ApplicationMenu.intResult();
 
-                        if(Book.GetCarrierLoginIDByBookID(bookID) == ID)
+                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
                         {
                             int length = 250;
                             Console.Clear();
@@ -237,15 +270,18 @@ namespace BookOne
                             Console.WriteLine("! You can only write on the books you carry !");
                         }
                     }
+
                     // Find Book from All
                     if (info.KeyChar == 'f' || info.KeyChar == 'F')
                     {
                         Console.Write("Search: ");
-                        Console.Clear(); 
+                        Console.Clear();
                         Book.GetBookByTitle(Console.ReadLine());
                     }
-                        //Enter a book
-                        if (info.KeyChar == 'e' || info.KeyChar == 'E')
+
+                    //Enter a book
+                    bool eCondition = (info.KeyChar == 'e' || info.KeyChar == 'E');
+                    if (LoginAccount.RoleType != 4 && eCondition)
                     {
 
                         content = 1;
@@ -265,7 +301,7 @@ namespace BookOne
                         string Words = Console.ReadLine();
                         string limitWords = Book.Truncater(Words, length);
 
-                        DateTime dateOfSubmition = DateTime.Now; //now?
+                        DateTime dateOfSubmition = DateTime.Today; //now?
                         int ownerLoginID = LoginAccount.LoginID;
                         int carrierLoginID = LoginAccount.LoginID;
                         int bookstatus = 0;

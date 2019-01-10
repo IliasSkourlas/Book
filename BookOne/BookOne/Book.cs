@@ -26,7 +26,47 @@ namespace BookOne
 
 
 
-        
+        // Title Author
+        public static void Get0TiAu(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+        // BookID Title Author
+        public static void Get1IdTiAu(List<Book> getInfoAllBooks)
+        {
+            
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(34, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+
+        // Carrier Title Author
+        public static void Get2CaTiAu(List<Book> getInfoAllBooks)
+        {
+            
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(34, i + 1);
+                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+
+
+
+
         // all books Info acording to int content  // ++more views
         public static void GetInfoAllBooks(int content)// use the list: books
         {
@@ -41,11 +81,15 @@ namespace BookOne
 
                     if (content == 0)
                     {
-                        GetTiAu(getInfoAllBooks);
+                        Get0TiAu(getInfoAllBooks);
                     }
                     if (content == 1)
                     {
-                        GetIdTiAu(getInfoAllBooks);
+                        Get1IdTiAu(getInfoAllBooks);
+                    }
+                    if (content == 2)
+                    {
+                        Get2CaTiAu(getInfoAllBooks);
                     }
 
                 }
@@ -55,31 +99,9 @@ namespace BookOne
                 }
             }
         }
-        // Title Author
-        public static void GetTiAu(List<Book> getInfoAllBooks)
-        {
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(40, i + 1);
-                Console.Write(getInfoAllBooks[i].Title);
-                Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
-            }
-        }
-        // BookID Title Author
-        public static void GetIdTiAu(List<Book> getInfoAllBooks)
-        {
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(36, i + 1);
-                Console.Write(getInfoAllBooks[i].BookID);
-                Console.SetCursorPosition(40, i + 1);
-                Console.Write(getInfoAllBooks[i].Title);
-                Console.WriteLine($"by: {getInfoAllBooks[i].Author} ");
-            }
-        }
-
+            
         // all books Info acording to myID & int content
-        public static void ViewYourBooks(int myID, int content)// use the list: books
+        public static void ViewYourBooks(int myID, int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -90,15 +112,51 @@ namespace BookOne
                         ($"sp_ViewYourBooks  @OwnerLoginID={myID}").ToList();
                     if (content == 0)
                     {
-                        GetTiAu(viewYourBooks);
+                        Get0TiAu(viewYourBooks);
                     }
                     if (content == 1)
                     {
-                        GetIdTiAu(viewYourBooks);
+                        Get1IdTiAu(viewYourBooks);
+                    }
+                    if(content == 2)
+                    {
+                        Get2CaTiAu(viewYourBooks);
                     }
 
                 }
                 catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        // all books Info acording to carrierID & int content
+        public static void ViewBooksByCarrierID(int carrierID, int content) 
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var viewBooksByCarrierID = DataAccess.sqlconn.Query<Book>
+                        ($"sp_ViewBooksByCarrierID  @CarrierLoginID={carrierID}").ToList();
+                    if (content == 0)
+                    {
+                        Get0TiAu(viewBooksByCarrierID);
+                    }
+                    if (content == 1)
+                    {
+                        Get1IdTiAu(viewBooksByCarrierID);
+                    }
+                    if (content == 2)
+                    {
+                        Get2CaTiAu(viewBooksByCarrierID);
+                    }
+                    
+
+                }
+                catch (Exception ex) 
                 {
                     Console.WriteLine(ex);
                 }
