@@ -15,10 +15,10 @@ namespace BookOne
         public string Author { get; set; }
         public DateTime DateOfLastMove { get; set; }
         public string InscriptionMessage { get; set; }
-        public string MessageData { get; set; }
+        public string Words { get; set; }
         public int OwnerLoginID { get; set; }
         public int CarrierLoginID { get; set; }
-        public int Status { get; set; }
+        public int BookStatus { get; set; }
 
         public int Circulation { get; set; }
         public int Sent { get; set; }
@@ -42,7 +42,7 @@ namespace BookOne
             
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                Console.SetCursorPosition(34, i + 1);
+                Console.SetCursorPosition(38, i + 1);
                 Console.Write($"{getInfoAllBooks[i].BookID} ");
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
@@ -50,13 +50,14 @@ namespace BookOne
             }
         }
 
+
         // Carrier Title Author
         public static void Get2CaTiAu(List<Book> getInfoAllBooks)
         {
             
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                Console.SetCursorPosition(34, i + 1);
+                Console.SetCursorPosition(38, i + 1);
                 Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
@@ -64,11 +65,36 @@ namespace BookOne
             }
         }
 
+        // read
+        public static void Read(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Words} ");
+            }
+        }
+
+        // circulation
+        public static void CirculationView(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Circulation} ");
+                Console.SetCursorPosition(53, i + 1);
+                Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
+                Console.SetCursorPosition(75, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookStatus} ");
+
+            }
+        }
 
 
-
-        // all books Info acording to int content  // ++more views
-        public static void GetInfoAllBooks(int content)// use the list: books
+        // all books Info acording to int content  
+        public static void GetInfoAllBooks(int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -91,7 +117,14 @@ namespace BookOne
                     {
                         Get2CaTiAu(getInfoAllBooks);
                     }
-
+                    if (content == 3)
+                    {
+                        Read(getInfoAllBooks);
+                    }
+                        if (content == 4)
+                    {
+                        CirculationView(getInfoAllBooks);
+                    }
                 }
                 catch (Exception ex) //ok for now
                 {
@@ -256,11 +289,11 @@ namespace BookOne
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine("Is this right?");
                     return 0;
                 }
             }
-        }//not in use
+        }
         public static int GetCarrierLoginIDByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -278,7 +311,7 @@ namespace BookOne
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine("Is this right?");
                     return 0;
                 }
             }
@@ -426,6 +459,7 @@ namespace BookOne
             }
         }
 
+
         public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
             int bookstatus, int sent, int receive)
         {
@@ -459,5 +493,33 @@ namespace BookOne
                 }
             }
         }
+
+
+        public static void DeleteFromPoolByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromPoolByBookID",
+                new
+                {
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+        public static void DeleteFromBookByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromBookByBookID",
+                new
+                {
+                    BookID = bookID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
+
 }

@@ -79,12 +79,24 @@ namespace BookOne
         public List<string> SuperAdminInfo()
         {
             List<string> superAdminInfo = new List<string>();
-            superAdminInfo.Add("h...hand this book");
-            superAdminInfo.Add("n...who has this book now?");
-            superAdminInfo.Add("w...words");
-            superAdminInfo.Add("o...circulation");
-            superAdminInfo.Add("my...my ID");
+            superAdminInfo.Add("m...my books");
+            superAdminInfo.Add("h...books in my hand");
+            superAdminInfo.Add("c...carriers of my books"); //view of my but not me
+            superAdminInfo.Add("p...clap..clap"); //
+            superAdminInfo.Add("o...circulation"); 
+            superAdminInfo.Add("r...read"); 
+            superAdminInfo.Add("my...my ID"); //
+
             superAdminInfo.Add(string.Empty);
+            superAdminInfo.Add("s...give a book");
+            superAdminInfo.Add("a...accept a book");
+            superAdminInfo.Add("e...enter your book");
+            superAdminInfo.Add("w...words");
+            superAdminInfo.Add(string.Empty);
+            superAdminInfo.Add("d...delete your book");
+
+            superAdminInfo.Add(string.Empty);
+            superAdminInfo.Add("q...supper admin");
             superAdminInfo.Add("b...to go back to login\n");
             superAdminInfo.Add("Esc...to esc the app");
             return superAdminInfo;
@@ -149,9 +161,9 @@ namespace BookOne
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
-            
-
         }
+
+
         public void dotsdots()
         {
             
@@ -189,6 +201,15 @@ namespace BookOne
             
         }
 
+        public void D250ots()
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("..........................................................................................................................................................................................................................................................");
+            Console.SetCursorPosition(0, 29);
+            Console.WriteLine("maximum of 250 characters ");
+            Console.SetCursorPosition(0, 0);
+        }
+
         // avoid crash by string
         public static int intResult()
         {
@@ -205,7 +226,7 @@ namespace BookOne
                 }
                 else
                 {
-                    Console.WriteLine("try again please");
+                    Console.WriteLine("not a number!");
                     stringLoop = true;
                 }
                     
@@ -213,7 +234,10 @@ namespace BookOne
             return  0;
         }
 
-
+        public void PositionQuestions ()
+        {
+            Console.SetCursorPosition(0, 7);
+        }
 
         //public void SuperAdmin()
         //{
