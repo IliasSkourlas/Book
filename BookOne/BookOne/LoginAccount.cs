@@ -99,9 +99,9 @@ namespace BookOne
             }
         }
 
-       
 
-        
+
+
 
         public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
         {
@@ -186,6 +186,52 @@ namespace BookOne
                 {
                     LoginID = loginID
                 }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static void DeleteUser(int loginID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteUser",
+                    new
+                    {
+                        LoginID = loginID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Are you sure? ");
+                }
+            }
+        }
+
+        public static void UpdateUser(int loginID, string userName, string password, int roleType, int clap, int carrier)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_UpdateUser",
+                    new
+                    {
+                        LoginID = loginID,
+                        UserName = userName,
+                        Password = password,
+                        RoleType = roleType,
+                        Clap = clap,
+                        Carrier = carrier
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Are you sure? ");
+                }
             }
         }
     }

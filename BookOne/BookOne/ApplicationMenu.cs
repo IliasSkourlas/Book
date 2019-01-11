@@ -36,13 +36,12 @@ namespace BookOne
         public List<string> ViewOnlyUserInfo()
         {
             List<string> viewOnlyUserInfo = new List<string>();
-            viewOnlyUserInfo.Add("n...who has this book now?");
-            viewOnlyUserInfo.Add("w...words");
+            viewOnlyUserInfo.Add("m...my books");
+            viewOnlyUserInfo.Add("h...books in my hand");
+            viewOnlyUserInfo.Add("c...carriers of my books");
             viewOnlyUserInfo.Add("o...circulation");
-            viewOnlyUserInfo.Add("my...my ID");
-            viewOnlyUserInfo.Add(string.Empty);
-            viewOnlyUserInfo.Add("b...to go back to login\n");
-            viewOnlyUserInfo.Add("Esc...to esc the app");
+            viewOnlyUserInfo.Add("u...user info");
+            viewOnlyUserInfo.Add("r...read");
 
             return viewOnlyUserInfo;
 
@@ -51,26 +50,45 @@ namespace BookOne
         {
 
             List<string> viewEditUserInfo = new List<string>();
-            viewEditUserInfo.Add("h...hand this book");
-            viewEditUserInfo.Add("n...who has this book now?");
-            viewEditUserInfo.Add("w...words");
+            viewEditUserInfo.Add("m...my books");
+            viewEditUserInfo.Add("h...books in my hand");
+            viewEditUserInfo.Add("c...carriers of my books");
             viewEditUserInfo.Add("o...circulation");
-            viewEditUserInfo.Add("my...my ID");
+            viewEditUserInfo.Add("u...user info");
+            viewEditUserInfo.Add("r...read");
+
+
             viewEditUserInfo.Add(string.Empty);
-            viewEditUserInfo.Add("b...to go back to login\n");
-            viewEditUserInfo.Add("Esc...to esc the app");
+            viewEditUserInfo.Add("s...give a book");
+            viewEditUserInfo.Add("a...accept a book");
+            viewEditUserInfo.Add("e...enter your book");
+            viewEditUserInfo.Add("w...words");
+            viewEditUserInfo.Add(string.Empty);
 
             return viewEditUserInfo;
         }
         public List<string> ViewEditDeleteUserInfo()
         {
             List<string> viewEditDeleteUserInfo = new List<string>();
-            viewEditDeleteUserInfo.Add("h...hand this book");
-            viewEditDeleteUserInfo.Add("n...who has this book now?");
-            viewEditDeleteUserInfo.Add("w...words");
+            viewEditDeleteUserInfo.Add("m...my books");
+            viewEditDeleteUserInfo.Add("h...books in my hand");
+            viewEditDeleteUserInfo.Add("c...carriers of my books");
             viewEditDeleteUserInfo.Add("o...circulation");
-            viewEditDeleteUserInfo.Add("my...my ID");
+            viewEditDeleteUserInfo.Add("u...user info");
+            viewEditDeleteUserInfo.Add("r...read");
+
+
             viewEditDeleteUserInfo.Add(string.Empty);
+            viewEditDeleteUserInfo.Add("s...give a book");
+            viewEditDeleteUserInfo.Add("a...accept a book");
+            viewEditDeleteUserInfo.Add("e...enter your book");
+            viewEditDeleteUserInfo.Add("w...words");
+            viewEditDeleteUserInfo.Add(string.Empty);
+            viewEditDeleteUserInfo.Add("d...delete your book");
+
+            viewEditDeleteUserInfo.Add(string.Empty);
+            viewEditDeleteUserInfo.Add("z...update user");
+            viewEditDeleteUserInfo.Add("x...delete user");
             viewEditDeleteUserInfo.Add("b...to go back to login\n");
             viewEditDeleteUserInfo.Add("Esc...to esc the app");
             return viewEditDeleteUserInfo;
@@ -82,10 +100,10 @@ namespace BookOne
             superAdminInfo.Add("m...my books");
             superAdminInfo.Add("h...books in my hand");
             superAdminInfo.Add("c...carriers of my books"); 
-            superAdminInfo.Add("p...clap..clap"); //
-            superAdminInfo.Add("o...circulation"); 
+            superAdminInfo.Add("o...circulation");
+            superAdminInfo.Add("u...user info");
             superAdminInfo.Add("r...read"); 
-            superAdminInfo.Add("my...my ID"); //
+            
 
             superAdminInfo.Add(string.Empty);
             superAdminInfo.Add("s...give a book");
@@ -96,7 +114,8 @@ namespace BookOne
             superAdminInfo.Add("d...delete your book");
 
             superAdminInfo.Add(string.Empty);
-            superAdminInfo.Add("q...supper admin");
+            superAdminInfo.Add("z...update user");
+            superAdminInfo.Add("x...delete user");
             superAdminInfo.Add("b...to go back to login\n");
             superAdminInfo.Add("Esc...to esc the app");
             return superAdminInfo;

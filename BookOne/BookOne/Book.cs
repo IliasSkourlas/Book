@@ -27,6 +27,8 @@ namespace BookOne
         public string UserName { get; set; }
         public int Clap { get; set; }
         public int Carrier { get; set; }
+        public int RoleType { get; set; }
+
 
         // Title Author
         public static void Get0TiAu(List<Book> getInfoAllBooks)
@@ -81,6 +83,10 @@ namespace BookOne
                 Console.Write($"{getInfoAllUsers[i].Clap} ");
                 Console.SetCursorPosition(72, i + 1);
                 Console.Write($"{getInfoAllUsers[i].Carrier} ");
+                Console.SetCursorPosition(80, i + 1);
+                Console.Write($"{getInfoAllUsers[i].RoleType} ");
+
+
             }
         }
 
@@ -528,7 +534,7 @@ namespace BookOne
 
 
         public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
-            int bookstatus, int sent, int receive)
+            int bookstatus,int circulation, int sent, int receive)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -548,6 +554,7 @@ namespace BookOne
                             OwnerLoginID = ownerLoginID,
                             CarrierLoginID = carrierLoginID,
                             BookStatus = bookstatus,
+                            Circulation = circulation,
                             Sent = sent,
                             Receive = receive
 
@@ -586,6 +593,8 @@ namespace BookOne
                 }, commandType: CommandType.StoredProcedure);
             }
         }
+
+
 
     }
 
