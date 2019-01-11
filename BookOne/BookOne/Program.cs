@@ -111,6 +111,27 @@ namespace BookOne
                         Console.Write("no.");
                         Book.ViewBooksByCarrierID(carrierID, content);
                     }
+                    // Users
+                    if (info.KeyChar == 'u' || info.KeyChar == 'U')
+                    {
+                        content = 0;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("u...info: ");
+                        Console.SetCursorPosition(13, 0);
+                        Console.Write("Users");
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
+                        Console.Write("Name");
+                        Console.SetCursorPosition(60, 0);
+                        Console.Write("Claps");
+                        Console.SetCursorPosition(72, 0);
+                        Console.Write("Has carried");
+                        Book.GetInfoAllUsers(content);
+
+                    }
 
                     // Read
                     if (info.KeyChar == 'r' || info.KeyChar == 'R')
@@ -221,7 +242,8 @@ namespace BookOne
                             if (((Book.GetSentSignal(bookID) == 1 && (Book.GetHandToByBookID(bookID) == ID)) || ((Book.GetSentSignal(bookID) == 1) && Book.GetOwnerLoginIDByBookID(bookID) == ID)))
                             {
                                 int carrierID = Book.GetCarrierLoginIDByBookID(bookID);
-                                Console.Write("Press...y...to accept the book or ...n...to decline the offer. ");
+                                Console.WriteLine("Press...y...to accept ");
+                                Console.WriteLine("or ...n...to decline the offer ");
                                 ConsoleKeyInfo offer = Console.ReadKey();
 
                                 if (offer.KeyChar == 'y' || offer.KeyChar == 'Y')
@@ -232,8 +254,11 @@ namespace BookOne
                                         (Book.GetOwnerLoginIDByBookID(bookID) != Book.GetCarrierLoginIDByBookID(bookID)) &&
                                         (Book.GetOwnerLoginIDByBookID(bookID) == ID))
                                     {
-                                        Console.Write("Do you want to give a Clap?");
-                                        Console.Write("...y...for yes \n...n...for no. ");
+                                        
+
+                                        Console.WriteLine("Do you want to give a Clap?");
+                                        Console.WriteLine("...y...for yes");
+                                        Console.WriteLine("...n...for no. ");
                                         ConsoleKeyInfo clapFor = Console.ReadKey();
 
                                         if (clapFor.KeyChar == 'y' || clapFor.KeyChar == 'Y')
@@ -243,10 +268,16 @@ namespace BookOne
                                         }
                                         else
                                         {
-                                            Console.Write($"..mmmm...no clap for ID: {carrierID} ");
-                                            // is it ok to leave it empty?
+                                            Console.WriteLine($"...no clap for ID: {carrierID} ");
+                                           
                                         }
                                     }
+
+                                    if (Book.GetOwnerByBookID(bookID) != ID)
+                                    {
+                                        LoginAccount.AddOneMoreCarriedBook(ID);
+                                    }
+
                                     int carrierLoginID = ID;
                                     DateTime dateOfLastMove = DateTime.Now;
                                     Book.ChaingeCarrier(carrierLoginID, bookID, dateOfLastMove);
@@ -472,7 +503,7 @@ namespace BookOne
             } while (againMenu == true);
 
             Console.Clear();
-            
+
             Console.WriteLine("Bye Bye");
 
             Console.ReadKey();

@@ -24,7 +24,9 @@ namespace BookOne
         public int Sent { get; set; }
         public int Receive { get; set; }
 
-
+        public string UserName { get; set; }
+        public int Clap { get; set; }
+        public int Carrier { get; set; }
 
         // Title Author
         public static void Get0TiAu(List<Book> getInfoAllBooks)
@@ -62,6 +64,23 @@ namespace BookOne
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+
+        // ID Name Clap Carrier
+        public static void Get0IdNameClapCarrier(List<Book> getInfoAllUsers)
+        {
+
+            for (int i = 0; i < getInfoAllUsers.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllUsers[i].CarrierLoginID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllUsers[i].UserName}  ");
+                Console.SetCursorPosition(60, i + 1);
+                Console.Write($"{getInfoAllUsers[i].Clap} ");
+                Console.SetCursorPosition(72, i + 1);
+                Console.Write($"{getInfoAllUsers[i].Carrier} ");
             }
         }
 
@@ -196,7 +215,32 @@ namespace BookOne
             }
         }
 
+        // all users 
+        public static void GetInfoAllUsers(int content)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                Book book = new Book();
+                try
+                {
+                    var getInfoAllUsers = DataAccess.sqlconn.Query<Book>
+                    ($"sp_GetInfoAllUsers").ToList();
 
+                    if (content == 0)
+                    {
+                        Get0IdNameClapCarrier(getInfoAllUsers);
+                    }
+
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+       
 
         public static void SentBookSignalYes(int bookID)
         {
@@ -379,6 +423,29 @@ namespace BookOne
                 }
                 catch (Exception)
                 {
+                    return 0;
+                }
+
+            }
+        }
+
+        public static int GetOwnerByBookID(int bookID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var p = new DynamicParameters();
+                    p.Add("BookID", bookID);
+                    p.Add("@OwnerLoginID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    DataAccess.sqlconn.Query<int>("sp_GetOwnerByBookID", p, commandType: CommandType.StoredProcedure);
+                    int HandTo = p.Get<int>("@OwnerLoginID");
+                    return HandTo;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Hold on a minute");
                     return 0;
                 }
 

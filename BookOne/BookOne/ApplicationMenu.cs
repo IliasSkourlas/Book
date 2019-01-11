@@ -81,7 +81,7 @@ namespace BookOne
             List<string> superAdminInfo = new List<string>();
             superAdminInfo.Add("m...my books");
             superAdminInfo.Add("h...books in my hand");
-            superAdminInfo.Add("c...carriers of my books"); //view of my but not me
+            superAdminInfo.Add("c...carriers of my books"); 
             superAdminInfo.Add("p...clap..clap"); //
             superAdminInfo.Add("o...circulation"); 
             superAdminInfo.Add("r...read"); 

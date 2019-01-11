@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace BookOne
 {
@@ -98,8 +99,9 @@ namespace BookOne
             }
         }
 
+       
 
-
+        
 
         public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
         {
@@ -167,6 +169,19 @@ namespace BookOne
             using (DataAccess.sqlconn)
             {
                 var affectedRows = DataAccess.sqlconn.Execute("sp_AddClap",
+                new
+                {
+                    LoginID = loginID
+                }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public static void AddOneMoreCarriedBook(int loginID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                var affectedRows = DataAccess.sqlconn.Execute("sp_AddOneMoreCarriedBook",
                 new
                 {
                     LoginID = loginID
