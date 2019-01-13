@@ -11,6 +11,7 @@ namespace BookOne
 
         Book book = new Book();   // do i need this?
 
+
         // lists for different Roles
         public List<string> InfoList()
         {
@@ -181,8 +182,6 @@ namespace BookOne
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
         }
-
-
         public void dotsdots()
         {
             
@@ -219,7 +218,6 @@ namespace BookOne
             Console.WriteLine("..................................");
             
         }
-
         public void D250ots()
         {
             Console.SetCursorPosition(0, 0);
@@ -228,6 +226,13 @@ namespace BookOne
             Console.WriteLine("maximum of 250 characters ");
             Console.SetCursorPosition(0, 0);
         }
+
+        public void PositionQuestions ()
+        {
+            Console.SetCursorPosition(0, 7);
+        }
+
+
 
         // avoid crash by string
         public static int intResult()
@@ -253,10 +258,6 @@ namespace BookOne
             return  0;
         }
 
-        public void PositionQuestions ()
-        {
-            Console.SetCursorPosition(0, 7);
-        }
 
         //public void SuperAdmin()
         //{

@@ -24,101 +24,17 @@ namespace BookOne
         public int Sent { get; set; }
         public int Receive { get; set; }
 
+        public string LogInID { get; set; }
         public string UserName { get; set; }
         public int Clap { get; set; }
         public int Carrier { get; set; }
         public int RoleType { get; set; }
 
 
-        // Title Author
-        public static void Get0TiAu(List<Book> getInfoAllBooks)
-        {
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
-            }
-        }
-        // BookID Title Author
-        public static void Get1IdTiAu(List<Book> getInfoAllBooks)
-        {
-            
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(38, i + 1);
-                Console.Write($"{getInfoAllBooks[i].BookID} ");
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
-            }
-        }
 
 
-        // Carrier Title Author
-        public static void Get2CaTiAu(List<Book> getInfoAllBooks)
-        {
-            
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(38, i + 1);
-                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
-            }
-        }
 
-        // ID Name Clap Carrier
-        public static void Get0IdNameClapCarrier(List<Book> getInfoAllUsers)
-        {
-
-            for (int i = 0; i < getInfoAllUsers.Count; i++)
-            {
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllUsers[i].CarrierLoginID} ");
-                Console.SetCursorPosition(48, i + 1);
-                Console.Write($"{getInfoAllUsers[i].UserName}  ");
-                Console.SetCursorPosition(60, i + 1);
-                Console.Write($"{getInfoAllUsers[i].Clap} ");
-                Console.SetCursorPosition(72, i + 1);
-                Console.Write($"{getInfoAllUsers[i].Carrier} ");
-                Console.SetCursorPosition(80, i + 1);
-                Console.Write($"{getInfoAllUsers[i].RoleType} ");
-
-
-            }
-        }
-
-        // read
-        public static void Read(List<Book> getInfoAllBooks)
-        {
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].Words} ");
-            }
-        }
-
-        // circulation
-        public static void CirculationView(List<Book> getInfoAllBooks)
-        {
-            for (int i = 0; i < getInfoAllBooks.Count; i++)
-            {
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].BookID} ");
-                Console.SetCursorPosition(48, i + 1);
-                Console.Write($"{getInfoAllBooks[i].Circulation} ");
-                Console.SetCursorPosition(53, i + 1);
-                Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
-                Console.SetCursorPosition(75, i + 1);
-                Console.Write($"{getInfoAllBooks[i].BookStatus} ");
-
-            }
-        }
-
-
-        // all books Info acording to int content  
+        // BOOK Info acording to int content  
         public static void GetInfoAllBooks(int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -146,7 +62,7 @@ namespace BookOne
                     {
                         Read(getInfoAllBooks);
                     }
-                        if (content == 4)
+                    if (content == 4)
                     {
                         CirculationView(getInfoAllBooks);
                     }
@@ -157,8 +73,7 @@ namespace BookOne
                 }
             }
         }
-            
-        // all books Info acording to myID & int content
+        // BOOK Info acording to myID & int content
         public static void ViewYourBooks(int myID, int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -176,7 +91,7 @@ namespace BookOne
                     {
                         Get1IdTiAu(viewYourBooks);
                     }
-                    if(content == 2)
+                    if (content == 2)
                     {
                         Get2CaTiAu(viewYourBooks);
                     }
@@ -188,9 +103,8 @@ namespace BookOne
                 }
             }
         }
-
-        // all books Info acording to carrierID & int content
-        public static void ViewBooksByCarrierID(int carrierID, int content) 
+        // BOOK Info acording to carrierID & int content
+        public static void ViewBooksByCarrierID(int carrierID, int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -211,17 +125,111 @@ namespace BookOne
                     {
                         Get2CaTiAu(viewBooksByCarrierID);
                     }
-                    
+
 
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                 }
             }
         }
 
-        // all users 
+
+        // Book content = 0 Title Author
+        public static void Get0TiAu(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+        // Book content = 1 BookID Title Author
+        public static void Get1IdTiAu(List<Book> getInfoAllBooks)
+        {
+            
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(38, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+        // Book content = 2 CarrierTitleAuthor
+        public static void Get2CaTiAu(List<Book> getInfoAllBooks)
+        {
+            
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(38, i + 1);
+                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+            }
+        }
+        // read
+        public static void Read(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Words} ");
+            }
+        }
+        // circulation
+        public static void CirculationView(List<Book> getInfoAllBooks)
+        {
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Circulation} ");
+                Console.SetCursorPosition(53, i + 1);
+                Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
+                Console.SetCursorPosition(75, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookStatus} ");
+
+            }
+        }
+
+
+
+
+        // USER info TWO
+        public static void GetInfoAllUsersTWO(int content)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                Book book = new Book();
+                try
+                {
+                    var getInfoAllUsersTWO = DataAccess.sqlconn.Query<Book>
+                    ($"sp_GetInfoAllUsersTWO").ToList();
+
+                    if (content == 0)
+                    {
+                        Get0IdNameClapCarrier(getInfoAllUsersTWO);
+                    }
+                    if (content == 1)
+                    {
+                        Get0IdNameClapCarrier(getInfoAllUsersTWO);
+                    }
+
+                }
+                catch (Exception ex) //ok for now
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+        // USER info acording to content
         public static void GetInfoAllUsers(int content)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -237,6 +245,10 @@ namespace BookOne
                     {
                         Get0IdNameClapCarrier(getInfoAllUsers);
                     }
+                    if (content == 1)
+                    {
+                        Get0IdNameClapCarrier(getInfoAllUsers);
+                    }
 
                 }
                 catch (Exception ex) //ok for now
@@ -245,6 +257,27 @@ namespace BookOne
                 }
             }
         }
+
+
+        // User content = 0 ID NameClapCarrier
+        public static void Get0IdNameClapCarrier(List<Book> getInfoAllUsersTWO)
+        {
+            for (int i = 0; i < getInfoAllUsersTWO.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllUsersTWO[i].LogInID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllUsersTWO[i].UserName}  ");
+                Console.SetCursorPosition(64, i + 1);
+                Console.Write($"{getInfoAllUsersTWO[i].RoleType} ");
+                Console.SetCursorPosition(72, i + 1);
+                Console.Write($"{getInfoAllUsersTWO[i].Carrier} ");
+                Console.SetCursorPosition(80, i + 1);
+                Console.Write($"{getInfoAllUsersTWO[i].Clap} ");
+            }
+        }
+
+
 
        
 

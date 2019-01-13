@@ -189,6 +189,31 @@ namespace BookOne
             }
         }
 
+
+
+
+        public static void DeleteInvolvedBooks(int loginID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteInvolvedBooks",
+                    new
+                    {
+                        LogInID = loginID
+                    }, commandType: CommandType.StoredProcedure);
+                    Console.WriteLine("Bye bye");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Soory ...No can do! ");
+                }
+            }
+        }
         public static void DeleteUser(int loginID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -200,12 +225,14 @@ namespace BookOne
                     var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteUser",
                     new
                     {
-                        LoginID = loginID
+                        LogInID = loginID
                     }, commandType: CommandType.StoredProcedure);
+                    Console.WriteLine("Bye bye");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Are you sure? ");
+                    Console.WriteLine(e);
+                    Console.WriteLine("Soory ...No can do! ");
                 }
             }
         }

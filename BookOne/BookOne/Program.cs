@@ -11,8 +11,12 @@ namespace BookOne
     {
         static void Main(string[] args)
         {
+
             ApplicationMenu applicationMenu = new ApplicationMenu();
+            LoginAccount loginAccount = new LoginAccount();
             Book book = new Book();
+
+
 
             bool againMenu = true;
             do
@@ -21,24 +25,24 @@ namespace BookOne
                 DataAccess dataAccess = new DataAccess();
                 LoginAccount.Login();
 
+                // My ID
                 int ID = LoginAccount.LoginID;
 
-                LoginAccount.GetRole(ID);
+                // My Role
+                int myRole = LoginAccount.GetRole(ID);
 
-                int content = 0;
 
                 bool loopInfo = true;
                 do
                 {
-                    content = 0;
-
+                    int content = 0;
                     ConsoleKeyInfo info = Console.ReadKey();
                     Console.Clear();
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("i...info: ");
-
                     applicationMenu.DotsDots();
                     Book.GetInfoAllBooks(content);
+
                     Console.SetCursorPosition(0, 29);
 
                     if (info.KeyChar == 'i' || info.KeyChar == 'I')
@@ -72,6 +76,10 @@ namespace BookOne
                         loopInfo = false;
                         againMenu = false;
                     }
+
+
+
+
 
                     // go to back to login
                     if (info.KeyChar == 'b' || info.KeyChar == 'B')
@@ -126,80 +134,16 @@ namespace BookOne
                         Console.Write("Id");
                         Console.SetCursorPosition(48, 0);
                         Console.Write("Name");
-                        Console.SetCursorPosition(60, 0);
-                        Console.Write("Claps");
+                        Console.SetCursorPosition(64, 0);
+                        Console.Write("Role");
                         Console.SetCursorPosition(72, 0);
-                        Console.Write("carried");
+                        Console.Write("Carried");
                         Console.SetCursorPosition(80, 0);
-                        Console.Write("Role type");
-                        Book.GetInfoAllUsers(content);
-
-                    }
-
-                    // Delete User
-                    if ((info.KeyChar == 'x' && ID == 1) || (info.KeyChar == 'X' && ID == 1))
-                    {
-                        content = 0;
-                        Console.Clear();
-                        applicationMenu.DotsDots();
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write("d...info: ");
-                        Console.SetCursorPosition(13, 0);
-                        Console.Write("Users");
-                        Console.SetCursorPosition(43, 0);
-                        Console.Write("Id");
-                        Console.SetCursorPosition(48, 0);
-                        Console.Write("Name");
-                        Console.SetCursorPosition(60, 0);
                         Console.Write("Claps");
-                        Console.SetCursorPosition(72, 0);
-                        Console.Write("Has carried");
-                        Book.GetInfoAllUsers(content);
 
-                        applicationMenu.PositionQuestions();
-                        Console.WriteLine("Delete User ID: ");
-                        int user = ApplicationMenu.intResult();
-                        LoginAccount.DeleteUser(user);
-                        Console.WriteLine("Bye bye");
+                        Book.GetInfoAllUsersTWO(content);
+
                     }
-
-                    // Update User
-                    if ((info.KeyChar == 'z' && ID == 1) || (info.KeyChar == 'Z' && ID == 1))
-                    {
-                        content = 0;
-                        Console.Clear();
-                        applicationMenu.DotsDots();
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write("d...info: ");
-                        Console.SetCursorPosition(13, 0);
-                        Console.Write("Users");
-                        Console.SetCursorPosition(43, 0);
-                        Console.Write("Id");
-                        Console.SetCursorPosition(48, 0);
-                        Console.Write("Name");
-                        Console.SetCursorPosition(60, 0);
-                        Console.Write("Claps");
-                        Console.SetCursorPosition(72, 0);
-                        Console.Write("Has carried");
-                        Book.GetInfoAllUsers(content);
-
-                        applicationMenu.PositionQuestions();
-                        Console.WriteLine("Update user ID: ");
-                        int UserID = ApplicationMenu.intResult();
-                        Console.WriteLine("Update user name: ");
-                        string userName = Console.ReadLine();
-                        Console.WriteLine("Update password: ");
-                        string password = Console.ReadLine();
-                        Console.WriteLine("role type: ");
-                        int roleType = ApplicationMenu.intResult();
-                        Console.WriteLine("Update clap: ");
-                        int clap = ApplicationMenu.intResult();
-                        Console.WriteLine("Update carrier: ");
-                        int carrier = ApplicationMenu.intResult();
-                        LoginAccount.UpdateUser(UserID, userName, password, roleType, clap, carrier);
-                        Console.WriteLine("ok");
-                    }
-
 
                     // Read
                     if (info.KeyChar == 'r' || info.KeyChar == 'R')
@@ -237,9 +181,49 @@ namespace BookOne
                         Book.GetInfoAllBooks(content);
                     }
 
+                    // Write Words
+                    bool wCondition = (info.KeyChar == 'w' || info.KeyChar == 'W');
+                    if (myRole != 4 && wCondition)
+                    {
+                        content = 1;
+                        int carrierID = ID;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("w...info: ");
+                        Console.SetCursorPosition(15, 0);
+                        Console.Write("some words?");
+                        Console.SetCursorPosition(34, 0);
+                        Console.Write("no.");
+                        Book.ViewBooksByCarrierID(carrierID, content);
+                        applicationMenu.PositionQuestions();
+                        Console.Write("For book number? ");
+
+                        int bookID = ApplicationMenu.intResult();
+
+                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
+                        {
+                            int length = 250;
+                            Console.Clear();
+                            applicationMenu.D250ots();
+
+                            string newWords = Console.ReadLine();
+                            Book.Truncater(newWords, length);
+                            Book.WriteWords(bookID, Book.Truncater(newWords, length));
+                        }
+                        else
+                        {
+                            System.Threading.Thread.Sleep(1000);
+                            Console.WriteLine("! You can only write ");
+                            Console.WriteLine("on the books you carry !");
+                        }
+                    }
+
+
+
                     // Sent Signal yes
                     bool sCondition = (info.KeyChar == 's' || info.KeyChar == 'S');
-                    if (LoginAccount.RoleType != 4 && sCondition)
+                    if (myRole != 4 && sCondition)
                     {
                         content = 1;
                         Console.Clear();
@@ -290,7 +274,7 @@ namespace BookOne
 
                     // Accept Signal Yes
                     bool aCondition = (info.KeyChar == 'a' || info.KeyChar == 'A');
-                    if (LoginAccount.RoleType != 4 && aCondition)
+                    if (myRole != 4 && aCondition)
                     {
                         bool smallLoop = true;
                         do
@@ -383,6 +367,7 @@ namespace BookOne
                         loopInfo = true;
                     }
 
+
                     // carriers of my books
                     if (info.KeyChar == 'c' || info.KeyChar == 'C')
                     {
@@ -399,45 +384,8 @@ namespace BookOne
 
                     }
 
-                    // Write Words
-                    bool wCondition = (info.KeyChar == 'w' || info.KeyChar == 'W');
-                    if (LoginAccount.RoleType != 4 && wCondition)
-                    {
-                        content = 1;
-                        int carrierID = ID;
-                        Console.Clear();
-                        applicationMenu.DotsDots();
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write("w...info: ");
-                        Console.SetCursorPosition(15, 0);
-                        Console.Write("some words?");
-                        Console.SetCursorPosition(34, 0);
-                        Console.Write("no.");
-                        Book.ViewBooksByCarrierID(carrierID, content);
-                        applicationMenu.PositionQuestions();
-                        Console.Write("For book number? ");
 
-                        int bookID = ApplicationMenu.intResult();
-
-                        if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
-                        {
-                            int length = 250;
-                            Console.Clear();
-                            applicationMenu.D250ots();
-
-                            string newWords = Console.ReadLine();
-                            Book.Truncater(newWords, length);
-                            Book.WriteWords(bookID, Book.Truncater(newWords, length));
-                        }
-                        else
-                        {
-                            System.Threading.Thread.Sleep(1000);
-                            Console.WriteLine("! You can only write ");
-                            Console.WriteLine("on the books you carry !");
-                        }
-                    }
-
-                    // Find Book from All
+                    // Find Book from All                                           // Yet
                     if (info.KeyChar == 'f' || info.KeyChar == 'F')
                     {
                         Console.Write("Search: ");
@@ -447,7 +395,7 @@ namespace BookOne
 
                     // Role three: Enter a book 
                     bool eCondition = (info.KeyChar == 'e' || info.KeyChar == 'E');
-                    if (LoginAccount.RoleType == 3 && eCondition)
+                    if (myRole == 3 && eCondition)
                     {
 
                         content = 1;
@@ -484,7 +432,7 @@ namespace BookOne
                     }
 
                     // Enter a book 
-                    if (LoginAccount.RoleType != 3 && LoginAccount.RoleType != 4 && eCondition)
+                    if (myRole != 3 && myRole != 4 && eCondition)
                     {
                         content = 1;
                         Console.SetCursorPosition(0, 0);
@@ -537,7 +485,7 @@ namespace BookOne
 
                     // Delete 
                     bool dCondition = (info.KeyChar == 'd' || info.KeyChar == 'D');
-                    if ((LoginAccount.RoleType == 1 && dCondition) || (LoginAccount.RoleType == 2 && dCondition))
+                    if ((myRole == 1 && dCondition) || (myRole == 2 && dCondition))
                     {
                         content = 1;
                         Console.Clear();
@@ -568,6 +516,91 @@ namespace BookOne
                         }
                         loopInfo = true;
                     }
+
+
+
+                    // Delete User
+                    if ((info.KeyChar == 'x' && ID == 1) || (info.KeyChar == 'X' && ID == 1))
+                    {
+                        content = 0;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("d...info: ");
+                        Console.SetCursorPosition(13, 0);
+                        Console.Write("Users");
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
+                        Console.Write("Name");
+                        Console.SetCursorPosition(60, 0);
+                        Console.Write("Claps");
+                        Console.SetCursorPosition(72, 0);
+                        Console.Write("Has carried");
+                        Book.GetInfoAllUsers(content);
+
+                        applicationMenu.PositionQuestions();
+                        Console.WriteLine("Delete User ID: ");
+                        int user = ApplicationMenu.intResult();
+                        
+                        Console.WriteLine("You might also have to\n " +
+                            "delete all the books\nhe carries\nand owns ");
+                        Console.WriteLine("Do you want to procced?");
+                        Console.WriteLine("..y...or..n..?");
+                        ConsoleKeyInfo toDelete = Console.ReadKey();
+
+                        if (toDelete.KeyChar == 'y' || toDelete.KeyChar == 'Y')
+                        {
+                            LoginAccount.DeleteInvolvedBooks(user);
+                            LoginAccount.DeleteUser(user);
+                        }
+                        if (toDelete.KeyChar == 'n' || toDelete.KeyChar == 'N')
+                        {
+                            loopInfo = true;
+                        }
+                    }
+
+
+                    // Update User
+                    if ((info.KeyChar == 'z' && ID == 1) || (info.KeyChar == 'Z' && ID == 1))
+                    {
+                        content = 0;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("u...info: ");
+                        Console.SetCursorPosition(13, 0);
+                        Console.Write("Users");
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
+                        Console.Write("Name");
+                        Console.SetCursorPosition(64, 0);
+                        Console.Write("Role");
+                        Console.SetCursorPosition(72, 0);
+                        Console.Write("Carried");
+                        Console.SetCursorPosition(80, 0);
+                        Console.Write("Claps");
+
+                        Book.GetInfoAllUsers(content);
+
+                        applicationMenu.PositionQuestions();
+                        Console.WriteLine("Update user ID: ");
+                        int UserID = ApplicationMenu.intResult();
+                        Console.WriteLine("Update user name: ");
+                        string userName = Console.ReadLine();
+                        Console.WriteLine("Update password: ");
+                        string password = Console.ReadLine();
+                        Console.WriteLine("role type: ");
+                        int roleType = ApplicationMenu.intResult();
+                        Console.WriteLine("Update clap: ");
+                        int clap = ApplicationMenu.intResult();
+                        Console.WriteLine("Update carrier: ");
+                        int carrier = ApplicationMenu.intResult();
+                        LoginAccount.UpdateUser(UserID, userName, password, roleType, clap, carrier);
+                        Console.WriteLine("ok");
+                    }
+
 
                 } while (loopInfo == true);
 
