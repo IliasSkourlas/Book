@@ -24,13 +24,6 @@ namespace BookOne
         public int Sent { get; set; }
         public int Receive { get; set; }
 
-        public string LogInID { get; set; }
-        public string UserName { get; set; }
-        public int Clap { get; set; }
-        public int Carrier { get; set; }
-        public int RoleType { get; set; }
-
-
 
 
 
@@ -76,6 +69,7 @@ namespace BookOne
         // BOOK Info acording to myID & int content
         public static void ViewYourBooks(int myID, int content)
         {
+
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
@@ -136,11 +130,13 @@ namespace BookOne
         }
 
 
+
         // Book content = 0 Title Author
         public static void Get0TiAu(List<Book> getInfoAllBooks)
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"by: {getInfoAllBooks[i].Author}  ");
@@ -149,7 +145,7 @@ namespace BookOne
         // Book content = 1 BookID Title Author
         public static void Get1IdTiAu(List<Book> getInfoAllBooks)
         {
-            
+
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
                 Console.SetCursorPosition(38, i + 1);
@@ -162,7 +158,7 @@ namespace BookOne
         // Book content = 2 CarrierTitleAuthor
         public static void Get2CaTiAu(List<Book> getInfoAllBooks)
         {
-            
+
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
                 Console.SetCursorPosition(38, i + 1);
@@ -199,87 +195,6 @@ namespace BookOne
         }
 
 
-
-
-        // USER info TWO
-        public static void GetInfoAllUsersTWO(int content)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                Book book = new Book();
-                try
-                {
-                    var getInfoAllUsersTWO = DataAccess.sqlconn.Query<Book>
-                    ($"sp_GetInfoAllUsersTWO").ToList();
-
-                    if (content == 0)
-                    {
-                        Get0IdNameClapCarrier(getInfoAllUsersTWO);
-                    }
-                    if (content == 1)
-                    {
-                        Get0IdNameClapCarrier(getInfoAllUsersTWO);
-                    }
-
-                }
-                catch (Exception ex) //ok for now
-                {
-                    Console.WriteLine(ex);
-                }
-            }
-        }
-        // USER info acording to content
-        public static void GetInfoAllUsers(int content)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                Book book = new Book();
-                try
-                {
-                    var getInfoAllUsers = DataAccess.sqlconn.Query<Book>
-                    ($"sp_GetInfoAllUsers").ToList();
-
-                    if (content == 0)
-                    {
-                        Get0IdNameClapCarrier(getInfoAllUsers);
-                    }
-                    if (content == 1)
-                    {
-                        Get0IdNameClapCarrier(getInfoAllUsers);
-                    }
-
-                }
-                catch (Exception ex) //ok for now
-                {
-                    Console.WriteLine(ex);
-                }
-            }
-        }
-
-
-        // User content = 0 ID NameClapCarrier
-        public static void Get0IdNameClapCarrier(List<Book> getInfoAllUsersTWO)
-        {
-            for (int i = 0; i < getInfoAllUsersTWO.Count; i++)
-            {
-                Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllUsersTWO[i].LogInID} ");
-                Console.SetCursorPosition(48, i + 1);
-                Console.Write($"{getInfoAllUsersTWO[i].UserName}  ");
-                Console.SetCursorPosition(64, i + 1);
-                Console.Write($"{getInfoAllUsersTWO[i].RoleType} ");
-                Console.SetCursorPosition(72, i + 1);
-                Console.Write($"{getInfoAllUsersTWO[i].Carrier} ");
-                Console.SetCursorPosition(80, i + 1);
-                Console.Write($"{getInfoAllUsersTWO[i].Clap} ");
-            }
-        }
-
-
-
-       
 
         public static void SentBookSignalYes(int bookID)
         {
@@ -323,7 +238,7 @@ namespace BookOne
         }
 
 
-        public static void GetBookByTitle(string title) 
+        public static void FindBookByTitle(string title)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -336,7 +251,7 @@ namespace BookOne
                         var getBookByTitle = DataAccess.sqlconn.Query("sp_GetBookByTitle",
                         new
                         {
-                           
+
                             Title = title
                         }, commandType: CommandType.StoredProcedure);
                         foreach (var item in getBookByTitle)
@@ -354,7 +269,6 @@ namespace BookOne
                 }
             }
         }
-
         public static int GetOwnerLoginIDByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -445,7 +359,6 @@ namespace BookOne
                 }
             }
         }
-
         public static int GetHandToByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -467,7 +380,6 @@ namespace BookOne
 
             }
         }
-
         public static int GetOwnerByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -491,6 +403,7 @@ namespace BookOne
             }
         }
 
+
         public static void PoolOfCarriers(int owner, int handTo, int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -504,7 +417,7 @@ namespace BookOne
                     BookID = bookID
                 }, commandType: CommandType.StoredProcedure);
             }
-        }
+        }  // Yet
 
 
 
@@ -538,8 +451,6 @@ namespace BookOne
 
 
 
-
-
         public static string Truncater(string newWords, int length)
         {
             if (newWords.Length > length)
@@ -549,7 +460,6 @@ namespace BookOne
             }
             return newWords;
         }
-
         public static void WriteWords(int bookID, string newWords)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -567,7 +477,7 @@ namespace BookOne
 
 
         public static void EnterBook(string title, string author, string words, DateTime dateOfLastMove, int ownerLoginID, int carrierLoginID,
-            int bookstatus,int circulation, int sent, int receive)
+            int bookstatus, int circulation, int sent, int receive)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -626,6 +536,30 @@ namespace BookOne
                 }, commandType: CommandType.StoredProcedure);
             }
         }
+        public static void DeleteInvolvedBooks(int loginID)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteInvolvedBooks",
+                    new
+                    {
+                        LogInID = loginID
+                    }, commandType: CommandType.StoredProcedure);
+                    Console.WriteLine("Bye bye");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Soory ...No can do! ");
+                }
+            }
+        }
+
+
 
 
 

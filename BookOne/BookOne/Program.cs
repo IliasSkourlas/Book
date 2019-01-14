@@ -15,6 +15,7 @@ namespace BookOne
             ApplicationMenu applicationMenu = new ApplicationMenu();
             LoginAccount loginAccount = new LoginAccount();
             Book book = new Book();
+            BackupFile backupFile = new BackupFile();
 
 
 
@@ -29,17 +30,23 @@ namespace BookOne
                 int ID = LoginAccount.LoginID;
 
                 // My Role
-                int myRole = LoginAccount.GetRole(ID);
+                int myRole = User.GetRole(ID);
 
 
                 bool loopInfo = true;
                 do
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
+
                     int content = 0;
                     ConsoleKeyInfo info = Console.ReadKey();
                     Console.Clear();
                     Console.SetCursorPosition(0, 0);
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("i...info: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+
                     applicationMenu.DotsDots();
                     Book.GetInfoAllBooks(content);
 
@@ -50,10 +57,12 @@ namespace BookOne
                         for (int i = 0; i < applicationMenu.InfoList().Count; i++)
                         {
                             content = 0;
-                            Console.SetCursorPosition(15, 0);
-                            Console.Write("all the books");
+                            Console.SetCursorPosition(43, 0);
+                            Console.Write("All the books");
                             Console.SetCursorPosition(0, i + 7);
+
                             Console.Write(applicationMenu.InfoList()[i]);
+
                         }
                         Console.WriteLine();
                         Console.SetCursorPosition(0, 29);
@@ -61,9 +70,14 @@ namespace BookOne
 
                         if (info.KeyChar == 'i' || info.KeyChar == 'I')
                         {
+                            Console.ForegroundColor = ConsoleColor.White;
                             Console.Clear();
                             Console.SetCursorPosition(0, 0);
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("i...info: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+
                             applicationMenu.DotsDots();
                             Book.GetInfoAllBooks(content);
                             Console.SetCursorPosition(0, 29);
@@ -103,6 +117,7 @@ namespace BookOne
                         Console.Write("Id");
 
                         Book.ViewYourBooks(ID, content);
+
                     }
 
                     // books in my hand
@@ -120,15 +135,19 @@ namespace BookOne
                         Console.Write("no.");
                         Book.ViewBooksByCarrierID(carrierID, content);
                     }
-                    // Users
+                    // Users 
                     if (info.KeyChar == 'u' || info.KeyChar == 'U')
                     {
                         content = 0;
                         Console.Clear();
                         applicationMenu.DotsDots();
                         Console.SetCursorPosition(0, 0);
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("u...info: ");
-                        Console.SetCursorPosition(13, 0);
+
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.SetCursorPosition(10, 0);
                         Console.Write("Users");
                         Console.SetCursorPosition(43, 0);
                         Console.Write("Id");
@@ -141,7 +160,7 @@ namespace BookOne
                         Console.SetCursorPosition(80, 0);
                         Console.Write("Claps");
 
-                        Book.GetInfoAllUsersTWO(content);
+                        User.GetInfoAllUsers(content);
 
                     }
 
@@ -319,7 +338,7 @@ namespace BookOne
 
                                         if (clapFor.KeyChar == 'y' || clapFor.KeyChar == 'Y')
                                         {
-                                            LoginAccount.AddClap(carrierID);
+                                            User.AddClap(carrierID);
                                             Console.WriteLine();
                                             Console.WriteLine("Clap..clap..clap..clap!");
                                         }
@@ -333,7 +352,7 @@ namespace BookOne
 
                                     if (Book.GetOwnerByBookID(bookID) != ID)
                                     {
-                                        LoginAccount.AddOneMoreCarriedBook(ID);
+                                        User.AddOneMoreCarriedBook(ID);
                                     }
 
                                     int carrierLoginID = ID;
@@ -384,13 +403,12 @@ namespace BookOne
 
                     }
 
-
-                    // Find Book from All                                           // Yet
+                    //// Find Book from All                                           // Yet
                     if (info.KeyChar == 'f' || info.KeyChar == 'F')
                     {
                         Console.Write("Search: ");
                         Console.Clear();
-                        Book.GetBookByTitle(Console.ReadLine());
+                        Book.FindBookByTitle(Console.ReadLine());
                     }
 
                     // Role three: Enter a book 
@@ -466,6 +484,9 @@ namespace BookOne
 
                                 string Words = " ";
                                 Book.EnterBook(title, author, Words, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, circulation, sent, receive);
+
+                                backupFile.BackupFileBook(dateOfSubmition, ID, title, author, bookstatus);
+
                                 loopi = false;
                             }
                             else
@@ -517,8 +538,6 @@ namespace BookOne
                         loopInfo = true;
                     }
 
-
-
                     // Delete User
                     if ((info.KeyChar == 'x' && ID == 1) || (info.KeyChar == 'X' && ID == 1))
                     {
@@ -537,12 +556,12 @@ namespace BookOne
                         Console.Write("Claps");
                         Console.SetCursorPosition(72, 0);
                         Console.Write("Has carried");
-                        Book.GetInfoAllUsers(content);
+                        User.GetInfoAllUsers(content);
 
                         applicationMenu.PositionQuestions();
                         Console.WriteLine("Delete User ID: ");
                         int user = ApplicationMenu.intResult();
-                        
+
                         Console.WriteLine("You might also have to\n " +
                             "delete all the books\nhe carries\nand owns ");
                         Console.WriteLine("Do you want to procced?");
@@ -551,15 +570,14 @@ namespace BookOne
 
                         if (toDelete.KeyChar == 'y' || toDelete.KeyChar == 'Y')
                         {
-                            LoginAccount.DeleteInvolvedBooks(user);
-                            LoginAccount.DeleteUser(user);
+                            Book.DeleteInvolvedBooks(user);
+                            User.DeleteUser(user);
                         }
                         if (toDelete.KeyChar == 'n' || toDelete.KeyChar == 'N')
                         {
                             loopInfo = true;
                         }
                     }
-
 
                     // Update User
                     if ((info.KeyChar == 'z' && ID == 1) || (info.KeyChar == 'Z' && ID == 1))
@@ -582,7 +600,7 @@ namespace BookOne
                         Console.SetCursorPosition(80, 0);
                         Console.Write("Claps");
 
-                        Book.GetInfoAllUsers(content);
+                        User.GetInfoAllUsers(content);
 
                         applicationMenu.PositionQuestions();
                         Console.WriteLine("Update user ID: ");
@@ -597,7 +615,7 @@ namespace BookOne
                         int clap = ApplicationMenu.intResult();
                         Console.WriteLine("Update carrier: ");
                         int carrier = ApplicationMenu.intResult();
-                        LoginAccount.UpdateUser(UserID, userName, password, roleType, clap, carrier);
+                        User.UpdateUser(UserID, userName, password, roleType, clap, carrier);
                         Console.WriteLine("ok");
                     }
 

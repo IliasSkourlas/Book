@@ -11,9 +11,7 @@ namespace BookOne
         public static int LoginID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public static int RoleType { get; set; }
-        public int Clap { get; set; }
-
+       
         public LoginAccount()
         {
 
@@ -51,6 +49,7 @@ namespace BookOne
                 }
             } while (againLogin == true);
         }
+
         public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -77,190 +76,19 @@ namespace BookOne
             }
         }
 
-        public static int GetRole(int ID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-                    var p = new DynamicParameters();
-                    p.Add("loginID", ID);
-                    p.Add("RoleType", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    DataAccess.sqlconn.Query<int>("sp_GetRoleFromLoginID", p, commandType: CommandType.StoredProcedure);
-                    RoleType = p.Get<int>("RoleType");
-                    return RoleType;
-                }
-                catch (Exception ex) //ok for now
-                {
-                    Console.WriteLine(ex);
-                }
-                return 0;
-            }
-        }
 
 
 
 
 
-        public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
 
-                try
-                {
-                    var p = new DynamicParameters();
-                    p.Add("LoginID", loginID);
-                    p.Add("Count", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    DataAccess.sqlconn.Query<int>("sp_IfUserIDExists", p, commandType: CommandType.StoredProcedure);
-                    int Result = p.Get<int>("Count");
-                    return Result;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-
-
-
-            //public static void ViewAllRoles()
-            //{
-
-            //    {
-            //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            //        using (DataAccess.sqlconn)
-            //        {
-            //            var viewAllRoles = DataAccess.sqlconn.Query<dbo_Login>
-            //                ($"sp_ViewAllRoles").ToList();
-
-            //            foreach (var item in viewAllRoles)
-            //            {
-            //                Console.WriteLine($"RoleID: {item.RoleID}");
-            //                Console.WriteLine($"UserName: {item.UserName}");
-            //                Console.WriteLine($"RoleType: {item.RoleType}");
-            //                Console.WriteLine(".......");
-            //            }
-            //        }
-            //    }
-            //}
-
-
-
-            //public static void UpdateRoleTypeByRoleId(int roleID, int roleType)
-            //{
-            //    {
-
-            //        DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            //        using (DataAccess.sqlconn)
-            //        {
-            //            var updateRoleTypeByRoleId = DataAccess.sqlconn.Query<dbo_Login>
-            //                ($"sp_UpdateRoleTypeByRoleId @RoleID = {roleID}, @RoleType = {roleType}").ToList();
-            //        }
-            //    }
-            //}
-        }
-
-        public static void AddClap(int loginID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_AddClap",
-                new
-                {
-                    LoginID = loginID
-                }, commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        public static void AddOneMoreCarriedBook(int loginID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_AddOneMoreCarriedBook",
-                new
-                {
-                    LoginID = loginID
-                }, commandType: CommandType.StoredProcedure);
-            }
-        }
+      
+        
 
 
 
 
-        public static void DeleteInvolvedBooks(int loginID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-
-                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteInvolvedBooks",
-                    new
-                    {
-                        LogInID = loginID
-                    }, commandType: CommandType.StoredProcedure);
-                    Console.WriteLine("Bye bye");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Console.WriteLine("Soory ...No can do! ");
-                }
-            }
-        }
-        public static void DeleteUser(int loginID)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-
-                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteUser",
-                    new
-                    {
-                        LogInID = loginID
-                    }, commandType: CommandType.StoredProcedure);
-                    Console.WriteLine("Bye bye");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Console.WriteLine("Soory ...No can do! ");
-                }
-            }
-        }
-
-        public static void UpdateUser(int loginID, string userName, string password, int roleType, int clap, int carrier)
-        {
-            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
-            {
-                try
-                {
-                    var affectedRows = DataAccess.sqlconn.Execute("sp_UpdateUser",
-                    new
-                    {
-                        LoginID = loginID,
-                        UserName = userName,
-                        Password = password,
-                        RoleType = roleType,
-                        Clap = clap,
-                        Carrier = carrier
-                    }, commandType: CommandType.StoredProcedure);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Are you sure? ");
-                }
-            }
-        }
+        
     }
 }
 

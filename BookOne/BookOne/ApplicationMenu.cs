@@ -12,19 +12,21 @@ namespace BookOne
         Book book = new Book();   // do i need this?
 
 
-        // lists for different Roles
+        // RoleType = List
         public List<string> InfoList()
         {
-            if (LoginAccount.RoleType == 1)
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            if (User.ThisRoleType == 1)
             {
+
                 return SuperAdminInfo();
             }
-            if (LoginAccount.RoleType == 2)
+            if (User.ThisRoleType == 2)
             {
                 return ViewEditDeleteUserInfo();
 
             }
-            if (LoginAccount.RoleType == 3)
+            if (User.ThisRoleType == 3)
             {
                 return ViewEditUserInfo();
             }
@@ -33,6 +35,9 @@ namespace BookOne
                 return ViewOnlyUserInfo();
             }
         }
+
+
+
 
         public List<string> ViewOnlyUserInfo()
         {
@@ -88,8 +93,6 @@ namespace BookOne
             viewEditDeleteUserInfo.Add("d...delete your book");
 
             viewEditDeleteUserInfo.Add(string.Empty);
-            viewEditDeleteUserInfo.Add("z...update user");
-            viewEditDeleteUserInfo.Add("x...delete user");
             viewEditDeleteUserInfo.Add("b...to go back to login\n");
             viewEditDeleteUserInfo.Add("Esc...to esc the app");
             return viewEditDeleteUserInfo;
@@ -100,11 +103,11 @@ namespace BookOne
             List<string> superAdminInfo = new List<string>();
             superAdminInfo.Add("m...my books");
             superAdminInfo.Add("h...books in my hand");
-            superAdminInfo.Add("c...carriers of my books"); 
+            superAdminInfo.Add("c...carriers of my books");
             superAdminInfo.Add("o...circulation");
             superAdminInfo.Add("u...user info");
-            superAdminInfo.Add("r...read"); 
-            
+            superAdminInfo.Add("r...read");
+
 
             superAdminInfo.Add(string.Empty);
             superAdminInfo.Add("s...give a book");
@@ -119,6 +122,7 @@ namespace BookOne
             superAdminInfo.Add("x...delete user");
             superAdminInfo.Add("b...to go back to login\n");
             superAdminInfo.Add("Esc...to esc the app");
+
             return superAdminInfo;
         }
 
@@ -149,7 +153,7 @@ namespace BookOne
 
         public void DotsDots()
         {
-            
+
             Console.SetCursorPosition(0, 0);
             Console.WriteLine();
             //Console.SetCursorPosition(0, 0);
@@ -184,7 +188,7 @@ namespace BookOne
         }
         public void dotsdots()
         {
-            
+
             Console.SetCursorPosition(0, 0);
             Console.WriteLine();
             //Console.SetCursorPosition(0, 0);
@@ -216,7 +220,7 @@ namespace BookOne
             Console.WriteLine("..................................");
             Console.WriteLine("..................................");
             Console.WriteLine("..................................");
-            
+
         }
         public void D250ots()
         {
@@ -227,7 +231,7 @@ namespace BookOne
             Console.SetCursorPosition(0, 0);
         }
 
-        public void PositionQuestions ()
+        public void PositionQuestions()
         {
             Console.SetCursorPosition(0, 7);
         }
@@ -253,182 +257,11 @@ namespace BookOne
                     Console.WriteLine("not a number!");
                     stringLoop = true;
                 }
-                    
+
             } while (stringLoop == true);
-            return  0;
+            return 0;
         }
 
 
-        //public void SuperAdmin()
-        //{
-        //    List<string> superAdminInfo = new List<string>();
-        //    superAdminInfo.Add("v...view");
-        //    superAdminInfo.Add("w...words");
-        //    superAdminInfo.Add("n...who has this book now?");
-        //    superAdminInfo.Add("o...circulation");
-        //    superAdminInfo.Add("my...my ID");
-        //    superAdminInfo.Add("h...hand this book");
-        //    superAdminInfo.Add(string.Empty);
-
-        //    bool loopInfo = true;
-        //    do
-        //    {
-        //        Console.SetCursorPosition(0, 0);
-        //        Console.WriteLine("i...info: ");
-        //        ConsoleKeyInfo info = Console.ReadKey();
-
-        //        if (info.Key == ConsoleKey.Escape)
-        //        {
-        //            loopInfo = false;
-        //        }
-
-        //        if (info.KeyChar == 'i')
-        //        {
-        //            for (int i = 0; i < superAdminInfo.Count; i++)
-        //            {
-        //                Console.SetCursorPosition(0, i+7);
-        //                Console.Write(superAdminInfo[i]);
-        //            }
-        //        }
-        //        else;
-
-        //    } while (loopInfo == true);
-
-        //    //Console.WriteLine("press:");
-        //    //Console.WriteLine("...i...for info");
-        //    //Console.WriteLine("...v...to view");
-        //    //Console.WriteLine("...w...for words");
-        //    //Console.WriteLine("...n...who has this book now?");
-        //    //Console.WriteLine("...o...circulation");
-        //    //Console.WriteLine("...my...for my ID");
-        //    //Console.WriteLine("...h...hand this book");
-        //    //Console.WriteLine("...g...to give a book");
-        //    //Console.WriteLine("...c...to carry a book");
-        //    //Console.WriteLine("...m...for my books");
-        //    //Console.WriteLine("...d...to call back\n");
-        //    //Console.WriteLine("................................");
-        //    //Console.WriteLine("...all...to view all ????"); //yet
-        //    //Console.WriteLine("...create...to create a new user"); //yet
-        //    //Console.WriteLine("...delete...to delete a user"); //yet
-        //    //Console.WriteLine("...update...to alter a roles");
-        //    //Console.WriteLine("................................");
-        //    //Console.WriteLine("...b...to go back to login\n");
-        //    //Console.WriteLine("...e...to esc the app");
-        //}
-
-
-
-
-
-        // ShowHideInfoMenu  includes InfoList & DotsDots
-
-
-        //        public void MenuOne()    
-        //        {
-        //            bool againMenu = true;
-        //            do
-        //            {
-        //                
-
-        //                
-        //                
-        //                
-        //                
-        //                //Delete()
-        //                if (choice == "d")
-        //                {
-        //                    Console.Clear();
-        //                    dbo_Message.DeleteAllOfMyMessages(ID);
-        //                    Console.Clear();
-        //                    Console.WriteLine("messages have been deleted");
-        //                    Console.ReadKey();
-        //                    againMenu = true;
-        //                }
-        //                //Create()
-        //                if (choice == "create") //yet
-        //                {
-        //                    Console.Clear();
-        //                    dbo_Message.DeleteAllOfMyMessages(ID);
-        //                    //Console.Clear();
-        //                    //Console.WriteLine("messages have been deleted");
-        //                    //Console.ReadKey();
-        //                    againMenu = true;
-        //                }
-        //                //Update role
-        //                if (choice == "update")
-        //                {
-        //                    string exit;
-        //                    int fromRoleID;
-        //                    int newRoleType;
-        //                    do
-        //                    {
-        //                        //Try Catch
-        //                        try
-        //                        {
-        //                            do
-        //                            {
-        //                                Console.Clear();
-        //                                dbo_Login.ViewAllRoles();
-        //                                Console.Write("Choose a RoleID:");
-        //                                fromRoleID = Convert.ToInt32(Console.ReadLine());
-        //                                Console.Write("Update to RoleType:");
-        //                                newRoleType = Convert.ToInt32(Console.ReadLine());
-        //                                if (newRoleType < 1 || newRoleType > 4)
-        //                                {
-        //                                    int milliseconds = 500;
-        //                                    Thread.Sleep(milliseconds);
-        //                                    Console.WriteLine("Wrong input...please try again\n");
-        //                                    Console.ReadKey();
-        //                                }
-        //                                else
-        //                                {
-        //                                    dbo_Login.UpdateRoleTypeByRoleId(fromRoleID, newRoleType);
-        //                                    Console.Clear();
-        //                                    dbo_Login.ViewAllRoles();
-
-        //                                }
-        //                            } while (newRoleType < 1 || newRoleType > 4);
-        //                        }
-        //#pragma warning disable CS0168 // The variable 'e' is declared but never used
-        //                        catch (Exception e)
-        //#pragma warning restore CS0168 // The variable 'e' is declared but never used
-        //                        {
-        //                            int milliseconds = 500;
-        //                            Thread.Sleep(milliseconds);
-        //                            Console.WriteLine("Wrong input...");
-        //                        }
-        //                        finally
-        //                        {
-        //                            Console.WriteLine("Press...enter...to update");
-        //                            Console.WriteLine("Press...e...to esc");
-        //                            exit = Console.ReadLine();
-        //                        }
-        //                    } while (exit != "e");
-
-        //                    againMenu = true;
-        //                }
-        //                //go to back to login
-        //                if (choice == "b")
-        //                {
-        //                    dbo_Login.Login();
-        //                    againMenu = true;
-
-        //                }
-        //                //esc app
-        //                if (choice == "e")
-        //                {
-        //                    Console.Clear();
-        //                    againMenu = false;
-        //                }
-        //                else
-        //                {
-        //                    againMenu = true;
-        //                }
-        //            } while (againMenu == true);
-
-
-
-        //            Console.ReadLine();
-        //        }
     }
 }

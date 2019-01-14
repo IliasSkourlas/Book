@@ -1,19 +1,27 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace BookOne
 {
     class BackupFile
     {
 
-        public void Backup(string date, int myID, int reseiverID, string messageData)
+        public void BackupFileBook(DateTime date, int ownerLoginID, string title, string author, int bookStatus)
         {
-            using (StreamWriter writer = new StreamWriter("C:/Users/penel/source/repos/ProjectOne2/ProjectOne2/BackupFile.txt", true))
+            try
             {
-                writer.WriteLine();
-                writer.WriteLine($"On {date} ID: {myID} sents to  ID: {reseiverID} the message:");
-                writer.WriteLine();
-                writer.WriteLine($"{ messageData}");
-                writer.WriteLine("............................................................");
+                using (StreamWriter writer = new StreamWriter("C:/Users/penel/Desktop/BackupFileBook.txt", true))
+                {
+                    writer.WriteLine();
+                    writer.WriteLine($"{date}, owner: {ownerLoginID}, entered the book: {title}  by: {author} with bookStatus: {bookStatus}");
+                    writer.WriteLine();
+
+                }
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e);
+                Console.WriteLine("This entry has not been saved to the backup files :)");
             }
         }
 
