@@ -539,13 +539,13 @@ namespace BookOne
                     }
 
                     // Delete User
-                    if ((info.KeyChar == 'x' && ID == 1) || (info.KeyChar == 'X' && ID == 1))
+                    if (info.KeyChar == '-' && ID == 1)
                     {
                         content = 0;
                         Console.Clear();
                         applicationMenu.DotsDots();
                         Console.SetCursorPosition(0, 0);
-                        Console.Write("d...info: ");
+                        Console.Write("-...info: ");
                         Console.SetCursorPosition(13, 0);
                         Console.Write("Users");
                         Console.SetCursorPosition(43, 0);
@@ -617,6 +617,51 @@ namespace BookOne
                         int carrier = ApplicationMenu.intResult();
                         User.UpdateUser(UserID, userName, password, roleType, clap, carrier);
                         Console.WriteLine("ok");
+                    }
+
+                    // EnterUser
+                    if (info.KeyChar == '+' && ID == 1)
+                    {
+                        content = 0;
+                        Console.Clear();
+                        applicationMenu.DotsDots();
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("+...info: ");
+
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("new user");
+
+
+                        applicationMenu.PositionQuestions();
+                        Console.WriteLine("Enter user name: ");
+                        string userName = Console.ReadLine();
+                        Console.WriteLine("Enter password: ");
+                        string password = Console.ReadLine();
+
+                        bool roleLoop = true;
+                        do
+                        {
+
+                            Console.WriteLine("role form 1 to 4: ");
+                            int result = ApplicationMenu.intResult();
+                            if (result >= 1 && result <= 4)
+                            {
+                                int roleType = result;
+                                int clap = 0;
+                                int carrier = 0;
+                                User.EnterUser(userName, password, roleType, clap, carrier);
+                                Console.WriteLine();
+                                Console.WriteLine("New user is ready");
+                                roleLoop = false;
+                            }
+                            else
+                            {
+                                roleLoop = true;
+                            }
+                            
+                        } while (roleLoop == true);
+
+                        loopInfo = true;
                     }
 
 

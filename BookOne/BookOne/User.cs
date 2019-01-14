@@ -117,6 +117,30 @@ namespace BookOne
                 }
             }
         }
+        public static void EnterUser( string userName, string password, int roleType, int clap, int carrier)
+        {
+            DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            using (DataAccess.sqlconn)
+            {
+                try
+                {
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_EnterUser",
+                    new
+                    {
+                        UserName = userName,
+                        Password = password,
+                        RoleType = roleType,
+                        Clap = clap,
+                        Carrier = carrier
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Are you sure? ");
+                }
+            }
+        }
 
 
         // USER info 

@@ -119,7 +119,9 @@ namespace BookOne
 
             superAdminInfo.Add(string.Empty);
             superAdminInfo.Add("z...update user");
-            superAdminInfo.Add("x...delete user");
+            superAdminInfo.Add("-...delete user");
+            superAdminInfo.Add("+...new user");
+
             superAdminInfo.Add("b...to go back to login\n");
             superAdminInfo.Add("Esc...to esc the app");
 
@@ -263,5 +265,6 @@ namespace BookOne
         }
 
 
+       
     }
 }
