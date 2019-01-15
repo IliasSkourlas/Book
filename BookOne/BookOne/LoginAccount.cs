@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookOne
 {
@@ -44,7 +45,22 @@ namespace BookOne
                 else
                 {
                     againLogin = true;
-                    Console.WriteLine("Lets try again");
+                    Console.WriteLine("Do you want to try again");
+                    Console.WriteLine("Y_or_N?");
+                    ConsoleKeyInfo yesNo = Console.ReadKey();
+
+                    if(yesNo.KeyChar == 'y' || yesNo.KeyChar == 'Y')
+                    {
+                        againLogin = true;
+                    }
+                    if (yesNo.KeyChar == 'n' || yesNo.KeyChar == 'N')
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Bye bye");
+                        Console.ReadKey();
+                        Environment.Exit(0);
+
+                    }
                 }
             } while (againLogin == true);
         }

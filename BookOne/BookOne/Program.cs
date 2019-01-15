@@ -57,11 +57,17 @@ namespace BookOne
                         for (int i = 0; i < applicationMenu.InfoList().Count; i++)
                         {
                             content = 0;
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.SetCursorPosition(0, 0);
+                            Console.Write($"You are: {ID}");
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.SetCursorPosition(43, 0);
                             Console.Write("All the books");
                             Console.SetCursorPosition(0, i + 7);
 
                             Console.Write(applicationMenu.InfoList()[i]);
+                           
 
                         }
                         Console.WriteLine();
@@ -80,6 +86,8 @@ namespace BookOne
 
                             applicationMenu.DotsDots();
                             Book.GetInfoAllBooks(content);
+                            Console.ForegroundColor = ConsoleColor.White;
+
                             Console.SetCursorPosition(0, 29);
                         }
                         loopInfo = true;
@@ -108,15 +116,21 @@ namespace BookOne
                     {
                         content = 1;
                         Console.Clear();
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write("m...info: ");
-                        applicationMenu.DotsDots();
-                        Console.SetCursorPosition(13, 0);
-                        Console.Write("my books");
-                        Console.SetCursorPosition(38, 0);
-                        Console.Write("Id");
 
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write("m...info: ");                        
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
+                        Console.Write("my books");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Book.ViewYourBooks(ID, content);
+                        Console.SetCursorPosition(0, 29);
+
 
                     }
 
@@ -126,14 +140,22 @@ namespace BookOne
                         content = 1;
                         int carrierID = ID;
                         Console.Clear();
-                        applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.SetCursorPosition(0, 0);
                         Console.Write("h...info: ");
-                        Console.SetCursorPosition(15, 0);
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
                         Console.Write("books in my hand");
-                        Console.SetCursorPosition(34, 0);
-                        Console.Write("no.");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        applicationMenu.DotsDots();
+
+
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Book.ViewBooksByCarrierID(carrierID, content);
+                        Console.SetCursorPosition(0, 29);
+
                     }
                     // Users 
                     if (info.KeyChar == 'u' || info.KeyChar == 'U')
@@ -392,14 +414,22 @@ namespace BookOne
                     {
                         content = 2;
                         Console.Clear();
+                       
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("c...info: ");
-                        applicationMenu.DotsDots();
-                        Console.SetCursorPosition(13, 0);
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("id");
+                        Console.SetCursorPosition(48, 0);
                         Console.WriteLine("carriers of my books");
-                        Console.SetCursorPosition(34, 0);
-                        Console.Write("id:");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.SetCursorPosition(36, 0);
+                        Console.WriteLine("owners");
                         Book.ViewYourBooks(ID, content);
+                        Console.SetCursorPosition(0, 29);
 
                     }
 

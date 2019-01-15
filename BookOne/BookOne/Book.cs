@@ -139,7 +139,7 @@ namespace BookOne
 
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+                Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
         // Book content = 1 BookID Title Author
@@ -148,11 +148,12 @@ namespace BookOne
 
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                Console.SetCursorPosition(38, i + 1);
-                Console.Write($"{getInfoAllBooks[i].BookID} ");
                 Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+
+                Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
         // Book content = 2 CarrierTitleAuthor
@@ -161,11 +162,11 @@ namespace BookOne
 
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                Console.SetCursorPosition(38, i + 1);
-                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
                 Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
+                Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
-                Console.Write($"by: {getInfoAllBooks[i].Author}  ");
+                Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
         // read
