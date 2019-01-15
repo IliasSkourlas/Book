@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Common;
 
 namespace BookOne
 {
@@ -92,7 +93,7 @@ namespace BookOne
                 }
             }
         }
-        public static void UpdateUser(int loginID, string userName, string password, int roleType, int clap, int carrier)
+        public static void UpdateUser(int loginID, string userName, string password, int roleType, int clap, int carrier) //Look exception
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -110,10 +111,10 @@ namespace BookOne
                         Carrier = carrier
                     }, commandType: CommandType.StoredProcedure);
                 }
-                catch (Exception e)
+                catch (DbException dbe )
                 {
-                    Console.WriteLine(e);
-                    Console.WriteLine("Are you sure? ");
+                    Console.WriteLine(dbe);
+                    //Console.WriteLine("Are you sure? ");
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace BookOne
 
 
         // BOOK Info acording to int content  
-        public static void GetInfoAllBooks(int content)
+        public static void GetInfoAllBooks(int content) //Look
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
