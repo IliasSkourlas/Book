@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BookOne
@@ -187,41 +188,18 @@ namespace BookOne
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
         public void dotsdots()
         {
 
-            Console.SetCursorPosition(0, 0);
-            Console.WriteLine();
-            //Console.SetCursorPosition(0, 0);
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
-            Console.WriteLine("..................................");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.SetCursorPosition(42, 28);
+            Console.WriteLine(".");
+            Console.ForegroundColor = ConsoleColor.White;
+
+
 
         }
         public void D250ots()
@@ -232,6 +210,76 @@ namespace BookOne
             Console.WriteLine("maximum of 250 characters ");
             Console.SetCursorPosition(0, 0);
         }
+
+        public void randomDot()
+        {
+            Random r = new Random();
+            //from (0,1) to (42,29)
+
+            int rNtimes = r.Next(0, 300);
+            for (int i = 0; i < rNtimes; i++)
+            {
+                int ry = r.Next(1, 29);
+                int rx = r.Next(0, 42);
+                Console.SetCursorPosition(rx, ry);
+                Console.WriteLine(".");
+            }
+        }
+        public void randomLine()
+        {
+            Random r = new Random();
+            //from (0,1) to (42,28)
+
+            int rNtimes = r.Next(0, 300);
+            for (int i = 0; i < rNtimes; i++)
+            {
+                int ry = r.Next(1, 28);
+                int rx = r.Next(0, 42);
+                Console.SetCursorPosition(rx, ry);
+                Console.WriteLine("_");
+                int ryy = r.Next(1, 28);
+                int rxx = r.Next(0, 42);
+                Console.SetCursorPosition(rxx, ryy);
+                Console.WriteLine("|");
+            }
+        }
+        public void randomSideLine()
+        {
+            Random r = new Random();
+            //from (0,1) to (42,28)
+
+            int rNtimes = r.Next(0, 300);
+            for (int i = 0; i < rNtimes; i++)
+            {
+                int ry = r.Next(1, 28);
+                int rx = r.Next(0, 42);
+                Console.SetCursorPosition(rx, ry);
+                Console.WriteLine("/");
+                int ryy = r.Next(1, 28);
+                int rxx = r.Next(0, 42);
+                Console.SetCursorPosition(rxx, ryy);
+                Console.WriteLine("'\'");
+            }
+        }
+        public void randomParanthesis()
+        {
+            Random r = new Random();
+            //from (0,1) to (42,29)
+
+            int rNtimes = r.Next(0, 300);
+            for (int i = 0; i < rNtimes; i++)
+            {
+                int ry = r.Next(1, 29);
+                int rx = r.Next(0, 42);
+                Console.SetCursorPosition(rx, ry);
+                Console.WriteLine("(");
+                int ryy = r.Next(1, 29);
+                int rxx = r.Next(0, 42);
+                Console.SetCursorPosition(rxx, ryy);
+                Console.WriteLine(")");
+            }
+        }
+
 
         public void PositionQuestions()
         {

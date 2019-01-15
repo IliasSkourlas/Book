@@ -32,7 +32,7 @@ namespace BookOne
                 // My Role
                 int myRole = User.GetRole(ID);
 
-
+                applicationMenu.DotsDots();
                 bool loopInfo = true;
                 do
                 {
@@ -40,14 +40,14 @@ namespace BookOne
 
                     int content = 0;
                     ConsoleKeyInfo info = Console.ReadKey();
-                    Console.Clear();
+                    //Console.Clear();
                     Console.SetCursorPosition(0, 0);
 
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("i...info: ");
                     Console.ForegroundColor = ConsoleColor.White;
-
-                    applicationMenu.DotsDots();
+                    
+                    //applicationMenu.DotsDots();
                     Book.GetInfoAllBooks(content);
 
                     Console.SetCursorPosition(0, 29);
@@ -60,7 +60,6 @@ namespace BookOne
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.SetCursorPosition(0, 0);
                             Console.Write($"You are: {ID}");
-
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.SetCursorPosition(43, 0);
                             Console.Write("All the books");
@@ -85,6 +84,14 @@ namespace BookOne
                             Console.ForegroundColor = ConsoleColor.White;
 
                             applicationMenu.DotsDots();
+
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            applicationMenu.randomDot();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            applicationMenu.randomDot();
+                            Console.ForegroundColor = ConsoleColor.White;
+
                             Book.GetInfoAllBooks(content);
                             Console.ForegroundColor = ConsoleColor.White;
 
@@ -127,6 +134,10 @@ namespace BookOne
                         Console.ForegroundColor = ConsoleColor.White;
                         applicationMenu.DotsDots();
 
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        applicationMenu.randomLine();
+                        Console.ForegroundColor = ConsoleColor.White;
+
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Book.ViewYourBooks(ID, content);
                         Console.SetCursorPosition(0, 29);
@@ -150,6 +161,21 @@ namespace BookOne
                         Console.Write("books in my hand");
                         Console.ForegroundColor = ConsoleColor.White;
                         applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        applicationMenu.randomDot();
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        applicationMenu.randomParanthesis();
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        applicationMenu.randomDot();
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        applicationMenu.randomDot();
+                        Console.ForegroundColor = ConsoleColor.White;
 
 
                         Console.ForegroundColor = ConsoleColor.Magenta;
@@ -190,10 +216,10 @@ namespace BookOne
                     if (info.KeyChar == 'r' || info.KeyChar == 'R')
                     {
                         content = 3;
-                        Console.Clear();
+                        //Console.Clear();
                         Console.SetCursorPosition(0, 0);
                         Console.Write("r...info: ");
-                        applicationMenu.DotsDots();
+                        //applicationMenu.DotsDots();
                         Console.SetCursorPosition(13, 0);
                         Console.Write("read");
                         Console.SetCursorPosition(34, 0);
@@ -266,19 +292,29 @@ namespace BookOne
                     bool sCondition = (info.KeyChar == 's' || info.KeyChar == 'S');
                     if (myRole != 4 && sCondition)
                     {
+
                         content = 1;
+                        int carrierID = ID;
                         Console.Clear();
-                        applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.SetCursorPosition(0, 0);
                         Console.Write("s...info: ");
-                        Console.SetCursorPosition(15, 0);
-                        Console.Write("sent a book?");
-                        Console.SetCursorPosition(34, 0);
-                        Console.Write("ID");
-                        int carrierID = ID;
+                        Console.SetCursorPosition(43, 0);
+                        Console.Write("Id");
+                        Console.SetCursorPosition(48, 0);
+                        Console.Write("books in my hand");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        applicationMenu.DotsDots();
+
+
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Book.ViewBooksByCarrierID(carrierID, content);
+                        Console.SetCursorPosition(0, 29);
+                     
 
                         applicationMenu.PositionQuestions();
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("For which book ID?: ");
                         int bookID = ApplicationMenu.intResult();
                         if (Book.GetCarrierLoginIDByBookID(bookID) == ID)
@@ -287,9 +323,8 @@ namespace BookOne
                             {
                                 //Set pool of carriers
                                 int owner = ID;
-                                Console.WriteLine("Do you want to ");
-                                Console.WriteLine("add an ID to the pool? ");
-                                Console.Write("..y...or...n..? ");
+                                Console.WriteLine("Do you want to add an ID to the pool?");
+                                Console.WriteLine("Y_or_N? ");
                                 ConsoleKeyInfo addInPool = Console.ReadKey();
                                 if (addInPool.KeyChar == 'y' || addInPool.KeyChar == 'Y')
                                 {
@@ -307,7 +342,10 @@ namespace BookOne
                         }
                         else
                         {
-                            Console.WriteLine("You don't carry this book ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("This book is out of your hands ");
+                            
+
                         }
 
                         loopInfo = true;
@@ -339,8 +377,8 @@ namespace BookOne
                             if (((Book.GetSentSignal(bookID) == 1 && (Book.GetHandToByBookID(bookID) == ID)) || ((Book.GetSentSignal(bookID) == 1) && Book.GetOwnerLoginIDByBookID(bookID) == ID)))
                             {
                                 int carrierID = Book.GetCarrierLoginIDByBookID(bookID);
-                                Console.WriteLine("Press...y...to accept ");
-                                Console.WriteLine("or ...n...to decline the offer ");
+                                Console.WriteLine("do you accept this book? ");
+                                Console.WriteLine("Y_or_N? ");
                                 ConsoleKeyInfo offer = Console.ReadKey();
 
                                 if (offer.KeyChar == 'y' || offer.KeyChar == 'Y')
@@ -354,8 +392,8 @@ namespace BookOne
 
 
                                         Console.WriteLine("Do you want to give a Clap?");
-                                        Console.WriteLine("...y...for yes");
-                                        Console.WriteLine("...n...for no. ");
+                                        Console.WriteLine("Y_or_N?");
+                                        
                                         ConsoleKeyInfo clapFor = Console.ReadKey();
 
                                         if (clapFor.KeyChar == 'y' || clapFor.KeyChar == 'Y')
@@ -424,6 +462,10 @@ namespace BookOne
                         Console.WriteLine("carriers of my books");
                         Console.ForegroundColor = ConsoleColor.White;
                         applicationMenu.DotsDots();
+
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        applicationMenu.randomSideLine();
+                        Console.ForegroundColor = ConsoleColor.White;
 
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.SetCursorPosition(36, 0);

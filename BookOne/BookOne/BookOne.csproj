@@ -60,6 +60,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SqlCoonection.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

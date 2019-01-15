@@ -30,8 +30,9 @@ namespace BookOne
         // BOOK Info acording to int content  
         public static void GetInfoAllBooks(int content) //Look
         {
+           // SqlCoonection ConAgain = new SqlCoonection();
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)
+            using (DataAccess.sqlconn)//(ConAgain)
             {
                 Book book = new Book();
                 try
