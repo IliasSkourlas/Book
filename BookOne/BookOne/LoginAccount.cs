@@ -1,8 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Data;
-using System.Linq;
-using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace BookOne
 {
@@ -53,6 +52,7 @@ namespace BookOne
         public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
+            //SqlConnection dbcon = new SqlConnection(conAgain);
             using (DataAccess.sqlconn)
             {
                 try

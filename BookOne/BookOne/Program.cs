@@ -438,6 +438,8 @@ namespace BookOne
                         int receive = 0;
 
                         Book.EnterBook(title, author, words, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, circulation, sent, receive);
+                        backupFile.BackupFileEnterBook(dateOfSubmition, ID, title, author, bookstatus);
+
                         Console.Clear();
 
                         Console.SetCursorPosition(0, 0);
@@ -485,7 +487,7 @@ namespace BookOne
                                 string Words = " ";
                                 Book.EnterBook(title, author, Words, dateOfSubmition, ownerLoginID, carrierLoginID, bookstatus, circulation, sent, receive);
 
-                                backupFile.BackupFileBook(dateOfSubmition, ID, title, author, bookstatus);
+                                backupFile.BackupFileEnterBook(dateOfSubmition, ID, title, author, bookstatus);
 
                                 loopi = false;
                             }
@@ -504,7 +506,7 @@ namespace BookOne
                         loopInfo = true;
                     }
 
-                    // Delete 
+                    // Delete Book
                     bool dCondition = (info.KeyChar == 'd' || info.KeyChar == 'D');
                     if ((myRole == 1 && dCondition) || (myRole == 2 && dCondition))
                     {
@@ -517,16 +519,19 @@ namespace BookOne
                         Console.Write("out of the pool");
                         Console.SetCursorPosition(34, 0);
                         Console.Write("no.");
-                        Book.ViewYourBooks(ID, content);
+                        Book.ViewYourBooks(ID, content)
+                            ;
                         applicationMenu.PositionQuestions();
                         Console.Write("Book number? ");
 
                         int toBeDeleted = ApplicationMenu.intResult();
                         if ((Book.GetOwnerLoginIDByBookID(toBeDeleted) == ID && (Book.GetCarrierLoginIDByBookID(toBeDeleted) == ID)))
                         {
+                            DateTime date = DateTime.Today;
                             Book.DeleteFromPoolByBookID(toBeDeleted);
                             Book.DeleteFromBookByBookID(toBeDeleted);
 
+                            backupFile.BackupFileDeleteBook(date, toBeDeleted);
                             Console.WriteLine("your book is out of the pool ");
                         }
                         else

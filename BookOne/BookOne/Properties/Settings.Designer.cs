@@ -27,12 +27,12 @@ namespace BookOne.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SERVER = DESKTOP-MG63D0P\\\\SQLEXPRESS; Database = BookOne; User Id = User1; Passwo" +
             "rd=User1\r\nPassword=myPassword;")]
-        public string SttingOne {
+        public string conBook {
             get {
-                return ((string)(this["SttingOne"]));
+                return ((string)(this["conBook"]));
             }
             set {
-                this["SttingOne"] = value;
+                this["conBook"] = value;
             }
         }
     }

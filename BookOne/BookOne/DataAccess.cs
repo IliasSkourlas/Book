@@ -17,7 +17,7 @@ namespace BookOne
         public static SqlConnection sqlconn = new SqlConnection(Helper.conectionString);
 
 
-        //private string ConAgain = Properties.Settings.Default.SttingOne;
+        //private string ConAgain = Properties.Settings.Default.conBook;
 
         
     }

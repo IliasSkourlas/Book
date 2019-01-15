@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BookOne.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SttingOne" Type="System.String" Scope="User">
+    <Setting Name="conBook" Type="System.String" Scope="User">
       <Value Profile="(Default)">SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1
 Password=myPassword;</Value>
     </Setting>
