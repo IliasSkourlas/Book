@@ -30,7 +30,7 @@ namespace BookOne
         // BOOK Info acording to int content  
         public static void GetInfoAllBooks(int content) //Look
         {
-           // SqlCoonection ConAgain = new SqlCoonection();
+            // SqlCoonection ConAgain = new SqlCoonection();
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)//(ConAgain)
             {
@@ -120,6 +120,10 @@ namespace BookOne
                     {
                         Get2CaTiAu(viewBooksByCarrierID);
                     }
+                    if (content == 4)
+                    {
+                        Get4OwnerIdTiAu(viewBooksByCarrierID);
+                    }
 
 
                 }
@@ -137,7 +141,14 @@ namespace BookOne
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
@@ -152,6 +163,22 @@ namespace BookOne
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].BookID} ");
                 Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+
+                Console.Write($"   {getInfoAllBooks[i].Author}  ");
+            }
+        }
+        // Book content = 4 OwnerID Title Author
+        public static void Get4OwnerIdTiAu(List<Book> getInfoAllBooks)
+        {
+
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].OwnerLoginID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID}  ");
+                Console.SetCursorPosition(58, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
 
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
@@ -175,8 +202,19 @@ namespace BookOne
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Words} ");
+
+
             }
         }
         // circulation
@@ -184,17 +222,27 @@ namespace BookOne
         {
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.SetCursorPosition(43, i + 1);
-                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.Write($"{getInfoAllBooks[i].OwnerLoginID} ");
                 Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].BookID} ");
+                Console.SetCursorPosition(58, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Circulation} ");
-                Console.SetCursorPosition(53, i + 1);
-                Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
-                Console.SetCursorPosition(75, i + 1);
+                Console.SetCursorPosition(68, i + 1);
                 Console.Write($"{getInfoAllBooks[i].BookStatus} ");
-
+                Console.SetCursorPosition(78, i + 1);
+                Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
             }
         }
+
 
 
 

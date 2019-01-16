@@ -159,7 +159,7 @@ namespace BookOne
 
             Console.SetCursorPosition(0, 0);
             Console.WriteLine();
-            //Console.SetCursorPosition(0, 0);
+
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
             Console.WriteLine("...........................................");
@@ -204,11 +204,19 @@ namespace BookOne
         }
         public void D250ots()
         {
-            Console.SetCursorPosition(0, 0);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.SetCursorPosition(0, 15);
             Console.WriteLine("..........................................................................................................................................................................................................................................................");
-            Console.SetCursorPosition(0, 29);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+
             Console.WriteLine("maximum of 250 characters ");
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, 15);
         }
 
         public void randomDot()
@@ -280,6 +288,52 @@ namespace BookOne
             }
         }
 
+        public void ComonRandomPatern()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            DotsDots();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+
+        public void EptySpace()
+        {
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+            Console.WriteLine("                                                         ");
+
+
+
+        }
 
         public void PositionQuestions()
         {
@@ -304,7 +358,11 @@ namespace BookOne
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+
                     Console.WriteLine("not a number!");
+                    Console.ForegroundColor = ConsoleColor.White;
+
                     stringLoop = true;
                 }
 
@@ -313,6 +371,6 @@ namespace BookOne
         }
 
 
-       
+
     }
 }
