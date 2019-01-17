@@ -109,6 +109,7 @@ namespace BookOne
                         loopInfo = true;
                     }
 
+                    // esc
                     if (info.Key == ConsoleKey.Escape)
                     {
                         loopInfo = false;
