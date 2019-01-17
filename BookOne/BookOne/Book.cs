@@ -27,6 +27,12 @@ namespace BookOne
         public string TL { get; set; }
 
 
+
+
+
+
+
+
         // BOOK Info acording to int content  
         public static void GetInfoAllBooks(int content) //Look
         {
@@ -104,7 +110,6 @@ namespace BookOne
             }
         }
 
-       
 
         // BOOK Info acording to carrierID & int content
         public static void ViewBooksByCarrierID(int carrierID, int content)
@@ -144,37 +149,36 @@ namespace BookOne
 
 
 
+
+
+
+
+
+
         // Book content = 0 Title Author
         public static void Get0TiAu(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
+
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
+
         // Book content = 1 BookID Title Author
         public static void Get1IdTiAu(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
+
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].BookID} ");
                 Console.SetCursorPosition(48, i + 1);
@@ -182,12 +186,16 @@ namespace BookOne
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
+
         // Book content = 4 OwnerID Title Author
         public static void Get4OwnerIdTiAu(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
 
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].OwnerLoginID} ");
                 Console.SetCursorPosition(48, i + 1);
@@ -201,15 +209,17 @@ namespace BookOne
         // Book content = 2 CarrierTitleAuthor
         public static void Get2CaTiAu(List<Book> getInfoAllBooks)
         {
-
+            ApplicationMenu applicationMenu = new ApplicationMenu();
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
                 Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
-                
+
 
             }
         }
@@ -217,9 +227,12 @@ namespace BookOne
         // Book content = 2 CarrierTitleAuthor
         public static void Get3CaTiAuTL(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
 
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
                 Console.SetCursorPosition(48, i + 1);
@@ -233,16 +246,11 @@ namespace BookOne
         // read
         public static void Read(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
+
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
+                applicationMenu.TwoColorsChainge(i);
 
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Words} ");
@@ -253,16 +261,12 @@ namespace BookOne
         // circulation
         public static void CirculationView(List<Book> getInfoAllBooks)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
+
+                applicationMenu.TwoColorsChainge(i);
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].OwnerLoginID} ");
                 Console.SetCursorPosition(48, i + 1);
@@ -323,7 +327,7 @@ namespace BookOne
 
         public static void FindBookByTitle(string title)
         {
-            
+
             Console.WriteLine("results:");
             Console.WriteLine();
             Console.WriteLine();
@@ -508,7 +512,7 @@ namespace BookOne
                     BookID = bookID
                 }, commandType: CommandType.StoredProcedure);
             }
-        }  
+        }
 
 
 

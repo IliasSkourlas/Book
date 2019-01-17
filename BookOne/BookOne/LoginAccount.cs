@@ -33,7 +33,6 @@ namespace BookOne
             bool againLogin = true;
             do
             {
-
                 // you have three tries
 
                 if (count < 3)
@@ -41,7 +40,7 @@ namespace BookOne
                     
                     Console.Clear();
                     Console.SetCursorPosition(48, 4);
-                    Console.WriteLine("User name?");
+                    Console.WriteLine("User name");
 
                     Console.SetCursorPosition(48, 5);
                     string username = Console.ReadLine();
@@ -102,6 +101,7 @@ namespace BookOne
 
             } while (againLogin == true);
         }
+
 
         public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
         {

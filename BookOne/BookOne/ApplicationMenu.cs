@@ -315,7 +315,7 @@ namespace BookOne
         }
 
 
-        public void ComonRandomPatern()
+        public void VisualRandomPaternFour()
         {
             Console.ForegroundColor = ConsoleColor.White;
             DotsDots();
@@ -337,6 +337,37 @@ namespace BookOne
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+
+        public void VisualRandomPaternTwo()
+        {
+            DotsDots();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            randomLine();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void VisualRandomPaternThree()
+        {
+            DotsDots();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            randomSideLine();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void VisualRandomPaternOne()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            DotsDots();
+            Console.ForegroundColor = ConsoleColor.Red;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            randomParanthesis();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
         public void EptySpace()
         {
@@ -379,12 +410,12 @@ namespace BookOne
         }
 
 
-        public void UpdateShortcut()
+        public void UpdateShortcut(int myRole)
         {
 
             Console.Clear();
 
-            ComonRandomPatern();
+            VisualPaternsByMyRole(myRole);
 
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -409,6 +440,42 @@ namespace BookOne
 
             User.GetInfoAllUsers(0);
             Console.SetCursorPosition(0, 29);
+        }
+
+        public void VisualPaternsByMyRole(int myRole)
+        {
+            if (myRole == 4)
+            {
+                VisualRandomPaternFour();
+            }
+            if(myRole == 3)
+            {
+                VisualRandomPaternThree();
+
+            }
+            if(myRole == 2)
+            {
+                VisualRandomPaternTwo();
+
+            }
+            if(myRole == 1)
+            {
+                VisualRandomPaternOne();
+
+            }
+        }
+
+
+        public void TwoColorsChainge(int i)
+        {
+            if (i % 2 == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
         }
 
 
@@ -441,6 +508,24 @@ namespace BookOne
         }
 
 
+        public void TheStart()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(48, 4);
+            Console.WriteLine("Hallo");
+            Console.SetCursorPosition(48, 5);
+            System.Threading.Thread.Sleep(4000);
+        }
+        public void TheEnd()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(48, 4);
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("The End");
+            Console.SetCursorPosition(48, 5);
+            System.Threading.Thread.Sleep(4000);
+        }
 
     }
 }
