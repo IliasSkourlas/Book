@@ -1,8 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Data;
-using System.Data.SqlClient;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace BookOne
 {
@@ -24,6 +23,8 @@ namespace BookOne
 
 
 
+
+
         public static void Login()
         {
             int count = 0;
@@ -37,7 +38,7 @@ namespace BookOne
 
                 if (count < 3)
                 {
-                    
+                                     
                     Console.Clear();
                     Console.SetCursorPosition(48, 4);
                     Console.WriteLine("User name");
@@ -49,8 +50,11 @@ namespace BookOne
                     Console.SetCursorPosition(48, 4);
                     Console.Write("Password?");
 
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.SetCursorPosition(48, 5);
                     string password = Console.ReadLine();
+                    Console.ForegroundColor = ConsoleColor.White;
+
                     Console.SetCursorPosition(48, 6);
 
                     ID = GetLoginID(username, password);
@@ -103,7 +107,9 @@ namespace BookOne
         }
 
 
-        public static int GetLoginID(string username, string password) //Maybe Chainge: sp_LoginUser
+
+
+        public static int GetLoginID(string username, string password) //Future Change: sp_LoginUser
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             //SqlConnection dbcon = new SqlConnection(conAgain);

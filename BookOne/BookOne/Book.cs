@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BookOne
 {
@@ -206,6 +205,7 @@ namespace BookOne
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
+
         // Book content = 2 CarrierTitleAuthor
         public static void Get2CaTiAu(List<Book> getInfoAllBooks)
         {
@@ -277,6 +277,9 @@ namespace BookOne
                 Console.Write($"{getInfoAllBooks[i].BookStatus} ");
                 Console.SetCursorPosition(78, i + 1);
                 Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
+                //be careful of this hack !! here to erase time
+                Console.SetCursorPosition(88, i + 1);
+                Console.Write("            "); 
             }
         }
 
