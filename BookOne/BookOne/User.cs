@@ -16,9 +16,12 @@ namespace BookOne
         public int RoleType { get; set; }
         public int Clap { get; set; }
         public int Carrier { get; set; }
+        public string TL { get; set; }
 
-        public static int ThisRoleType {
-            get; set; }
+        public static int ThisRoleType
+        {
+            get; set;
+        }
 
 
 
@@ -111,14 +114,14 @@ namespace BookOne
                         Carrier = carrier
                     }, commandType: CommandType.StoredProcedure);
                 }
-                catch (DbException dbe )
+                catch (DbException dbe)
                 {
                     Console.WriteLine(dbe);
                     //Console.WriteLine("Are you sure? ");
                 }
             }
         }
-        public static void EnterUser( string userName, string password, int roleType, int clap, int carrier)
+        public static void EnterUser(string userName, string password, int roleType, int clap, int carrier)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -150,7 +153,7 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-               
+
                 try
                 {
                     var getInfoAllUsers = DataAccess.sqlconn.Query<User>
@@ -162,8 +165,9 @@ namespace BookOne
                     }
                     if (content == 1)
                     {
-                        Get0IdNameClapCarrier(getInfoAllUsers); // delete
+                        GetTL(getInfoAllUsers);
                     }
+
 
                 }
                 catch (Exception ex) //ok for now
@@ -172,23 +176,55 @@ namespace BookOne
                 }
             }
         }
+
         // User content = 0 ID NameClapCarrier
         public static void Get0IdNameClapCarrier(List<User> getInfoAllUsers)
         {
             for (int i = 0; i < getInfoAllUsers.Count; i++)
             {
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllUsers[i].LoginID} ");
                 Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllUsers[i].UserName}  ");
-                Console.SetCursorPosition(64, i + 1);
+                Console.SetCursorPosition(61, i + 1);
                 Console.Write($"{getInfoAllUsers[i].RoleType} ");
-                Console.SetCursorPosition(72, i + 1);
+                Console.SetCursorPosition(69, i + 1);
                 Console.Write($"{getInfoAllUsers[i].Carrier} ");
-                Console.SetCursorPosition(80, i + 1);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.SetCursorPosition(78, i + 1);
                 Console.Write($"{getInfoAllUsers[i].Clap} ");
             }
         }
+
+        public static void GetTL(List<User> getInfoAllUsers)
+        {
+            for (int i = 0; i < getInfoAllUsers.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                }
+                Console.SetCursorPosition(70, i + 1);
+                Console.Write($"{getInfoAllUsers[i].TL} ");
+            }
+        }
+       
+
+        
 
         // Not in Use Yet
         public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser

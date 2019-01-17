@@ -49,6 +49,7 @@ namespace BookOne
             viewOnlyUserInfo.Add("o...circulation");
             viewOnlyUserInfo.Add("u...user info");
             viewOnlyUserInfo.Add("r...read");
+            viewOnlyUserInfo.Add("f...find");
 
             return viewOnlyUserInfo;
 
@@ -63,6 +64,7 @@ namespace BookOne
             viewEditUserInfo.Add("o...circulation");
             viewEditUserInfo.Add("u...user info");
             viewEditUserInfo.Add("r...read");
+            viewEditUserInfo.Add("f...find");
 
 
             viewEditUserInfo.Add(string.Empty);
@@ -83,6 +85,7 @@ namespace BookOne
             viewEditDeleteUserInfo.Add("o...circulation");
             viewEditDeleteUserInfo.Add("u...user info");
             viewEditDeleteUserInfo.Add("r...read");
+            viewEditDeleteUserInfo.Add("f...find");
 
 
             viewEditDeleteUserInfo.Add(string.Empty);
@@ -108,6 +111,7 @@ namespace BookOne
             superAdminInfo.Add("o...circulation");
             superAdminInfo.Add("u...user info");
             superAdminInfo.Add("r...read");
+            superAdminInfo.Add("f...find");
 
 
             superAdminInfo.Add(string.Empty);
@@ -191,6 +195,7 @@ namespace BookOne
             Console.ForegroundColor = ConsoleColor.White;
 
         }
+
         public void dotsdots()
         {
 
@@ -202,6 +207,7 @@ namespace BookOne
 
 
         }
+
         public void D250ots()
         {
 
@@ -219,6 +225,8 @@ namespace BookOne
             Console.SetCursorPosition(0, 15);
         }
 
+
+
         public void randomDot()
         {
             Random r = new Random();
@@ -233,6 +241,7 @@ namespace BookOne
                 Console.WriteLine(".");
             }
         }
+
         public void randomLine()
         {
             Random r = new Random();
@@ -251,6 +260,7 @@ namespace BookOne
                 Console.WriteLine("|");
             }
         }
+
         public void randomSideLine()
         {
             Random r = new Random();
@@ -269,6 +279,7 @@ namespace BookOne
                 Console.WriteLine("'\'");
             }
         }
+
         public void randomParanthesis()
         {
             Random r = new Random();
@@ -288,10 +299,37 @@ namespace BookOne
             }
         }
 
+        public void randomRedDot()
+        {
+            Random r = new Random();
+            //from (0,1) to (42,29)
+
+            int rNtimes = r.Next(0, 400);
+            for (int i = 0; i < rNtimes; i++)
+            {
+                int ry = r.Next(1, 29);
+                int rx = r.Next(0, 42);
+                Console.SetCursorPosition(rx, ry);
+                Console.WriteLine(".");
+            }
+        }
+
+
         public void ComonRandomPatern()
         {
             Console.ForegroundColor = ConsoleColor.White;
             DotsDots();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            randomDot();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void ComonRandomPaternEraser()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            randomDot();
             Console.ForegroundColor = ConsoleColor.Cyan;
             randomDot();
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -340,6 +378,38 @@ namespace BookOne
             Console.SetCursorPosition(0, 7);
         }
 
+
+        public void UpdateShortcut()
+        {
+
+            Console.Clear();
+
+            ComonRandomPatern();
+
+            Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("all the users ");
+
+            Console.SetCursorPosition(43, 0);
+            Console.Write("Id");
+            Console.SetCursorPosition(48, 0);
+            Console.Write("name");
+            Console.SetCursorPosition(61, 0);
+            Console.Write("role");
+            Console.SetCursorPosition(69, 0);
+            Console.Write("carried");
+            Console.SetCursorPosition(78, 0);
+            Console.Write("claps");
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;// not yet implemented
+            Console.SetCursorPosition(86, 0);
+            Console.Write("punch");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+
+            User.GetInfoAllUsers(0);
+            Console.SetCursorPosition(0, 29);
+        }
 
 
         // avoid crash by string

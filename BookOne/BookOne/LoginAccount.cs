@@ -11,7 +11,7 @@ namespace BookOne
         public static int LoginID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-       
+
         public LoginAccount()
         {
 
@@ -26,42 +26,80 @@ namespace BookOne
 
         public static void Login()
         {
+            int count = 0;
+
             int ID = 0;
             LoginID = ID;
-            bool againLogin;
+            bool againLogin = true;
             do
             {
-                Console.Clear();
-                Console.WriteLine("User name?");
-                string username = Console.ReadLine();
-                Console.WriteLine("Password?");
-                string password = Console.ReadLine();
+                
 
-                ID = GetLoginID(username, password);
-                if (ID >= 1)
+
+                if (count <= 3)
                 {
-                    againLogin = false;
+                    
+                    Console.Clear();
+                    Console.SetCursorPosition(48, 4);
+                    Console.WriteLine("User name?");
+
+                    Console.SetCursorPosition(48, 5);
+                    string username = Console.ReadLine();
+
+                    Console.Clear();
+                    Console.SetCursorPosition(48, 4);
+                    Console.Write("Password?");
+
+                    Console.SetCursorPosition(48, 5);
+                    string password = Console.ReadLine();
+                    Console.SetCursorPosition(48, 5);
+
+                    ID = GetLoginID(username, password);
+                    if (ID >= 1)
+                    {
+                        againLogin = false;
+                    }
+                    else
+                    {
+                        againLogin = true;
+                        Console.Clear();
+                        Console.SetCursorPosition(48, 4);
+                        Console.Write("Do you want to try again?");
+                        System.Threading.Thread.Sleep(200);
+                        Console.SetCursorPosition(48, 5);
+                        Console.Write("Y_or_N?");
+
+                        Console.SetCursorPosition(48, 6);
+                        ConsoleKeyInfo yesNo = Console.ReadKey();
+
+                        if (yesNo.KeyChar == 'y' || yesNo.KeyChar == 'Y')
+                        {
+                            againLogin = true;
+                        }
+                        if (yesNo.KeyChar == 'n' || yesNo.KeyChar == 'N')
+                        {
+                            Console.Clear();
+
+                            Console.SetCursorPosition(48, 4);
+                            Console.Write("Bye bye");
+                            Console.ReadKey();
+                            Environment.Exit(0);
+
+                        }                       
+                    }                                       
                 }
                 else
                 {
-                    againLogin = true;
-                    Console.WriteLine("Do you want to try again");
-                    Console.WriteLine("Y_or_N?");
-                    ConsoleKeyInfo yesNo = Console.ReadKey();
+                    Console.Clear();
 
-                    if(yesNo.KeyChar == 'y' || yesNo.KeyChar == 'Y')
-                    {
-                        againLogin = true;
-                    }
-                    if (yesNo.KeyChar == 'n' || yesNo.KeyChar == 'N')
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Bye bye");
-                        Console.ReadKey();
-                        Environment.Exit(0);
-
-                    }
+                    Console.SetCursorPosition(48, 4);
+                    Console.Write("Bye bye");
+                    Console.ReadKey();
+                    Environment.Exit(0);
                 }
+
+                count = count + 1;
+
             } while (againLogin == true);
         }
 
@@ -92,19 +130,9 @@ namespace BookOne
             }
         }
 
+       
+  
 
-
-
-
-
-
-      
-        
-
-
-
-
-        
     }
 }
 

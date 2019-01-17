@@ -24,7 +24,7 @@ namespace BookOne
         public int Sent { get; set; }
         public int Receive { get; set; }
 
-
+        public string TL { get; set; }
 
 
         // BOOK Info acording to int content  
@@ -67,6 +67,7 @@ namespace BookOne
                 }
             }
         }
+
         // BOOK Info acording to myID & int content
         public static void ViewYourBooks(int myID, int content)
         {
@@ -77,7 +78,7 @@ namespace BookOne
                 try
                 {
                     var viewYourBooks = DataAccess.sqlconn.Query<Book>
-                        ($"sp_ViewYourBooks  @OwnerLoginID={myID}").ToList();
+                        ($"sp_ViewBooksTLByCarrierID  @OwnerLoginID={myID}").ToList();
                     if (content == 0)
                     {
                         Get0TiAu(viewYourBooks);
@@ -90,6 +91,10 @@ namespace BookOne
                     {
                         Get2CaTiAu(viewYourBooks);
                     }
+                    if (content == 3)
+                    {
+                        Get3CaTiAuTL(viewYourBooks);
+                    }
 
                 }
                 catch (Exception ex) //ok for now
@@ -98,6 +103,9 @@ namespace BookOne
                 }
             }
         }
+
+       
+
         // BOOK Info acording to carrierID & int content
         public static void ViewBooksByCarrierID(int carrierID, int content)
         {
@@ -157,14 +165,20 @@ namespace BookOne
         // Book content = 1 BookID Title Author
         public static void Get1IdTiAu(List<Book> getInfoAllBooks)
         {
-
             for (int i = 0; i < getInfoAllBooks.Count; i++)
             {
+                if (i % 2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllBooks[i].BookID} ");
                 Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
-
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
             }
         }
@@ -195,6 +209,25 @@ namespace BookOne
                 Console.SetCursorPosition(48, i + 1);
                 Console.Write($"{getInfoAllBooks[i].Title}  ");
                 Console.Write($"   {getInfoAllBooks[i].Author}  ");
+                
+
+            }
+        }
+
+        // Book content = 2 CarrierTitleAuthor
+        public static void Get3CaTiAuTL(List<Book> getInfoAllBooks)
+        {
+
+            for (int i = 0; i < getInfoAllBooks.Count; i++)
+            {
+                Console.SetCursorPosition(43, i + 1);
+                Console.Write($"{getInfoAllBooks[i].CarrierLoginID} ");
+                Console.SetCursorPosition(48, i + 1);
+                Console.Write($"{getInfoAllBooks[i].Title}  ");
+                Console.Write($"   {getInfoAllBooks[i].Author}  ");
+                Console.SetCursorPosition(95, i + 1);
+                Console.Write($"{getInfoAllBooks[i].TL}  ");
+
             }
         }
         // read
@@ -290,6 +323,10 @@ namespace BookOne
 
         public static void FindBookByTitle(string title)
         {
+            
+            Console.WriteLine("results:");
+            Console.WriteLine();
+            Console.WriteLine();
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
@@ -315,6 +352,7 @@ namespace BookOne
                 }
                 catch (Exception ex) //ok for now
                 {
+                    Console.WriteLine();
                     Console.WriteLine(ex);
                 }
             }
@@ -409,6 +447,7 @@ namespace BookOne
                 }
             }
         }
+
         public static int GetHandToByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -430,6 +469,8 @@ namespace BookOne
 
             }
         }
+
+
         public static int GetOwnerByBookID(int bookID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
@@ -467,7 +508,7 @@ namespace BookOne
                     BookID = bookID
                 }, commandType: CommandType.StoredProcedure);
             }
-        }  // Yet
+        }  
 
 
 
