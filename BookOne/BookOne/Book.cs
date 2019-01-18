@@ -30,14 +30,13 @@ namespace BookOne
 
 
 
-
-
         // BOOK Info acording to int content  
         public static void GetInfoAllBooks(int content) //Look
         {
             // SqlCoonection ConAgain = new SqlCoonection();
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
-            using (DataAccess.sqlconn)//(ConAgain)
+            using (DataAccess.sqlconn) //using (ConAgain)
+
             {
                 Book book = new Book();
                 try
@@ -66,9 +65,10 @@ namespace BookOne
                         CirculationView(getInfoAllBooks);
                     }
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception) //ok for now
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
+                    // Console.WriteLine(ex);
                 }
             }
         }
@@ -102,9 +102,9 @@ namespace BookOne
                     }
 
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception) //ok for now
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -139,9 +139,9 @@ namespace BookOne
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -279,7 +279,7 @@ namespace BookOne
                 Console.Write($"{getInfoAllBooks[i].DateOfLastMove} ");
                 //be careful of this hack !! here to erase time
                 Console.SetCursorPosition(88, i + 1);
-                Console.Write("            "); 
+                Console.Write("            ");
             }
         }
 
@@ -291,11 +291,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_SentBookSignalYes",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_SentBookSignalYes",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
         public static void ReceiveBookSignalYes(int bookID)
@@ -303,11 +311,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalYes",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalYes",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
 
 
@@ -317,11 +333,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalNo",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_ReceiveBookSignalNo",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
 
 
@@ -351,16 +375,15 @@ namespace BookOne
                         foreach (var item in getBookByTitle)
                         {
                             Console.WriteLine($"ID: {item.BookID}  ");
-                            Console.WriteLine($" {item.Title} ");//what if 2 selections?
+                            Console.WriteLine($" {item.Title} ");
                             Console.WriteLine($"by:  {item.Author} ");
                             Console.WriteLine();
                         }
                     }
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -379,7 +402,7 @@ namespace BookOne
                     int ownerLoginID = p.Get<int>("OwnerLoginID");
                     return ownerLoginID;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("Is this right?");
                     return 0;
@@ -401,7 +424,7 @@ namespace BookOne
                     int carrierLoginID = p.Get<int>("CarrierLoginID");
                     return carrierLoginID;
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
                     Console.WriteLine("Is this right?");
                     return 0;
@@ -507,13 +530,21 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_PoolOfCarriers",
-                new
+                try
                 {
-                    Owner = owner,
-                    HandTo = handTo,
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_PoolOfCarriers",
+                    new
+                    {
+                        Owner = owner,
+                        HandTo = handTo,
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
 
@@ -524,13 +555,21 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_ChaingeCarrier",
-                new
+                try
                 {
-                    CarrierLoginID = carrierLoginID,
-                    DateOfLastMove = dateOfLastMove,
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_ChaingeCarrier",
+                    new
+                    {
+                        CarrierLoginID = carrierLoginID,
+                        DateOfLastMove = dateOfLastMove,
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
 
@@ -539,11 +578,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_AddCirculation",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_AddCirculation",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
 
@@ -602,9 +649,9 @@ namespace BookOne
                         }, commandType: CommandType.StoredProcedure);
                     }
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -615,11 +662,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromPoolByBookID",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromPoolByBookID",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
         public static void DeleteFromBookByBookID(int bookID)
@@ -627,11 +682,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromBookByBookID",
-                new
+                try
                 {
-                    BookID = bookID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_DeleteFromBookByBookID",
+                    new
+                    {
+                        BookID = bookID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
         public static void DeleteInvolvedBooks(int loginID)
@@ -649,9 +712,9 @@ namespace BookOne
                     }, commandType: CommandType.StoredProcedure);
                     Console.WriteLine("Bye bye");
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    Console.WriteLine(e);
+                    
                     Console.WriteLine("Soory ...No can do! ");
                 }
             }

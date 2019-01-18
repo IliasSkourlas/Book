@@ -38,9 +38,9 @@ namespace BookOne
                     ThisRoleType = p.Get<int>("RoleType");
                     return ThisRoleType;
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
                 return 0;
             }
@@ -52,11 +52,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_AddClap",
-                new
+                try
                 {
-                    LoginID = loginID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_AddClap",
+                    new
+                    {
+                        LoginID = loginID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
         public static void AddOneMoreCarriedBook(int loginID)
@@ -64,11 +72,19 @@ namespace BookOne
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
             {
-                var affectedRows = DataAccess.sqlconn.Execute("sp_AddOneMoreCarriedBook",
-                new
+                try
                 {
-                    LoginID = loginID
-                }, commandType: CommandType.StoredProcedure);
+
+                    var affectedRows = DataAccess.sqlconn.Execute("sp_AddOneMoreCarriedBook",
+                    new
+                    {
+                        LoginID = loginID
+                    }, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("there seems to be a problem with connection...");
+                }
             }
         }
 
@@ -87,9 +103,9 @@ namespace BookOne
                     }, commandType: CommandType.StoredProcedure);
                     Console.WriteLine("Bye bye");
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    Console.WriteLine(e);
+                    
                     Console.WriteLine("Soory ...No can do! ");
                 }
             }
@@ -115,7 +131,7 @@ namespace BookOne
                 catch (DbException dbe)
                 {
                     Console.WriteLine(dbe);
-                    //Console.WriteLine("Are you sure? ");
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -138,7 +154,7 @@ namespace BookOne
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    
                     Console.WriteLine("Are you sure? ");
                 }
             }
@@ -168,9 +184,9 @@ namespace BookOne
 
 
                 }
-                catch (Exception ex) //ok for now
+                catch (Exception ex) 
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine("there seems to be a problem with connection...");
                 }
             }
         }
@@ -208,12 +224,12 @@ namespace BookOne
                 Console.Write($"{getInfoAllUsers[i].TL} ");
             }
         }
-       
 
-        
+
+
 
         // Not in Use Yet
-        public static int IfUserIDExists(int loginID) 
+        public static int IfUserIDExists(int loginID)
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)
@@ -236,7 +252,7 @@ namespace BookOne
         }
 
 
-        
+
     }
 
 

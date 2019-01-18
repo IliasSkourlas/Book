@@ -7,7 +7,7 @@ namespace BookOne
     public class ApplicationMenu
     {
 
-        Book book = new Book();   // do i need this?
+        Book book = new Book();   
 
 
         // RoleType = List

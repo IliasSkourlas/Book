@@ -16,10 +16,9 @@ namespace BookOne
 
 
 
-       // List<Pool> getHandToByBookID = new List<Pool>();
+       
 
-      
-
+     
 
         // Get Hand By BookID
         public static List<int> GetHandToByBookID(int bookID, int content)

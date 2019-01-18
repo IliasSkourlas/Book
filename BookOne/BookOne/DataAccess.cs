@@ -15,11 +15,13 @@ namespace BookOne
 
        
         //private string ConAgain = Properties.Settings.Default.conBook;
+
+
         public static SqlConnection sqlconn = new SqlConnection(Helper.conectionString);
 
 
 
-        //
+        
         
     }
 }
