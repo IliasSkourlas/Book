@@ -25,8 +25,8 @@ namespace BookOne.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SERVER = DESKTOP-MG63D0P\\\\SQLEXPRESS; Database = BookOne; User Id = User1; Passwo" +
-            "rd=User1\r\nPassword=myPassword;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Passwor" +
+            "d=User1")]
         public string conBook {
             get {
                 return ((string)(this["conBook"]));

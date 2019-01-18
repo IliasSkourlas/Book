@@ -233,6 +233,51 @@ namespace BookOne
             return info;
         }
 
+        public void Wellcome()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+                ;
+            Console.SetCursorPosition(43, 1);
+            Console.WriteLine("Wellcome. ");
+
+            Console.SetCursorPosition(43, 3);
+            Console.WriteLine("This app is for");
+            Console.SetCursorPosition(43, 5);
+            Console.WriteLine("searing your books");
+            Console.SetCursorPosition(43, 7);
+            Console.WriteLine("with your friends.");
+
+            Console.SetCursorPosition(43, 9);
+            Console.WriteLine("Not the digital,but the physical once.");
+            
+
+
+            Console.SetCursorPosition(43, 11);
+            Console.WriteLine("Κeep track");
+            Console.SetCursorPosition(43, 13);
+            Console.WriteLine("with their whereabouts as they are seared");
+            Console.SetCursorPosition(43, 15);
+            Console.WriteLine("from a pool of carrier you choose.");
+
+
+            Console.SetCursorPosition(43, 17);
+            Console.WriteLine("Read and write reviews");
+            Console.SetCursorPosition(43, 19);
+            Console.WriteLine("and decide to give or not a 'Clap',");
+            Console.SetCursorPosition(43, 21);
+            Console.WriteLine("when they are returned back to you");
+            Console.SetCursorPosition(43, 23);
+            Console.WriteLine("in perfect condition. ");
+
+
+            Console.SetCursorPosition(43, 26);
+            Console.WriteLine("...explore ");
+            Console.SetCursorPosition(43, 28);
+            Console.WriteLine("...and don't hesitate searing!");
+
+        }
+
+
         public void DotsDots()
         {
 

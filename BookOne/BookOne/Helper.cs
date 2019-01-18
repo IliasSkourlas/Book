@@ -10,9 +10,10 @@ namespace BookOne
 {
     public static class Helper
     {
-        
 
-       public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
+
+        //public static string conectionString = "SERVER = DESKTOP-MG63D0P\\SQLEXPRESS; Database = BookOne; User Id = User1; Password=User1";
+        public static string conectionString = Properties.Settings.Default.conBook;
 
     }
 }

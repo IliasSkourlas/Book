@@ -12,6 +12,20 @@ namespace BookOne
         static void Main(string[] args)
         {
 
+            /*
+            Wellcome. 
+            This is an app for searing your books with your friends. 
+            Not digital books, but your physical books. 
+            It helps you to keep track with their whereabouts, 
+            as they are seared from a pool of carriers that you choose.  
+            Read and write reviews and decide to give or not a "Clap", 
+            when they are returned back to you in perfect condition.
+            
+            So...explore and have fun... and don't hesitate searing! */
+
+
+
+
             ApplicationMenu applicationMenu = new ApplicationMenu();
             LoginAccount loginAccount = new LoginAccount();
             Book book = new Book();
@@ -28,7 +42,7 @@ namespace BookOne
                 Console.Clear();
                 DataAccess dataAccess = new DataAccess();
                 LoginAccount.Login();
-
+                Console.Clear();
                 // My ID
                 int ID = LoginAccount.LoginID;
                 // My Role
@@ -39,10 +53,10 @@ namespace BookOne
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Press...i ");
                 Console.ForegroundColor = ConsoleColor.White;
-                Book.GetInfoAllBooks(0);
+                //Book.GetInfoAllBooks(0);
 
                 applicationMenu.VisualPaternsByMyRole(myRole);
-
+                applicationMenu.Wellcome();
                 Console.SetCursorPosition(0, 29);
 
 
@@ -65,6 +79,7 @@ namespace BookOne
                     Book.GetInfoAllBooks(content);
 
                     applicationMenu.VisualPaternsByMyRole(myRole);
+                    
 
                     Console.SetCursorPosition(0, 29);
 
