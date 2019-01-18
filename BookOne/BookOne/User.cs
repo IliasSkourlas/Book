@@ -178,16 +178,10 @@ namespace BookOne
         // User content = 0 ID NameClapCarrier
         public static void Get0IdNameClapCarrier(List<User> getInfoAllUsers)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
             for (int i = 0; i < getInfoAllUsers.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
+                applicationMenu.TwoColorsChainge(i);
 
                 Console.SetCursorPosition(43, i + 1);
                 Console.Write($"{getInfoAllUsers[i].LoginID} ");
@@ -206,16 +200,10 @@ namespace BookOne
 
         public static void GetTL(List<User> getInfoAllUsers)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
             for (int i = 0; i < getInfoAllUsers.Count; i++)
             {
-                if (i % 2 == 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
-                }
+                applicationMenu.TwoColorsChainge(i);
                 Console.SetCursorPosition(70, i + 1);
                 Console.Write($"{getInfoAllUsers[i].TL} ");
             }
@@ -225,7 +213,7 @@ namespace BookOne
         
 
         // Not in Use Yet
-        public static int IfUserIDExists(int loginID) //Maybe Chainge: sp_LoginUser
+        public static int IfUserIDExists(int loginID) 
         {
             DataAccess.sqlconn.ConnectionString = Helper.conectionString;
             using (DataAccess.sqlconn)

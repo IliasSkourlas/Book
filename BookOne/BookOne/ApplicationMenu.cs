@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace BookOne
 {
@@ -48,9 +45,13 @@ namespace BookOne
             viewOnlyUserInfo.Add("c...carriers of my books");
             viewOnlyUserInfo.Add("o...circulation");
             viewOnlyUserInfo.Add("u...user info");
+            viewOnlyUserInfo.Add("p...book's pool of carreirs");
             viewOnlyUserInfo.Add("r...read");
             viewOnlyUserInfo.Add("f...find");
 
+            viewOnlyUserInfo.Add(string.Empty);
+            viewOnlyUserInfo.Add("l...to go back to login\n");
+            viewOnlyUserInfo.Add("Esc...to esc the app");
             return viewOnlyUserInfo;
 
         }
@@ -62,6 +63,8 @@ namespace BookOne
             viewEditUserInfo.Add("h...books in my hand");
             viewEditUserInfo.Add("c...carriers of my books");
             viewEditUserInfo.Add("o...circulation");
+            viewEditUserInfo.Add("p...book's pool of carreirs");
+
             viewEditUserInfo.Add("u...user info");
             viewEditUserInfo.Add("r...read");
             viewEditUserInfo.Add("f...find");
@@ -71,9 +74,11 @@ namespace BookOne
             viewEditUserInfo.Add("s...give a book");
             viewEditUserInfo.Add("a...accept a book");
             viewEditUserInfo.Add("e...enter your book");
-            viewEditUserInfo.Add("w...words");
+            viewEditUserInfo.Add("w...write");
             viewEditUserInfo.Add(string.Empty);
 
+            viewEditUserInfo.Add("l...to go back to login\n");
+            viewEditUserInfo.Add("Esc...to esc the app");
             return viewEditUserInfo;
         }
         public List<string> ViewEditDeleteUserInfo()
@@ -84,6 +89,8 @@ namespace BookOne
             viewEditDeleteUserInfo.Add("c...carriers of my books");
             viewEditDeleteUserInfo.Add("o...circulation");
             viewEditDeleteUserInfo.Add("u...user info");
+            viewEditDeleteUserInfo.Add("p...book's pool of carreirs");
+
             viewEditDeleteUserInfo.Add("r...read");
             viewEditDeleteUserInfo.Add("f...find");
 
@@ -92,12 +99,12 @@ namespace BookOne
             viewEditDeleteUserInfo.Add("s...give a book");
             viewEditDeleteUserInfo.Add("a...accept a book");
             viewEditDeleteUserInfo.Add("e...enter your book");
-            viewEditDeleteUserInfo.Add("w...words");
+            viewEditDeleteUserInfo.Add("w...write");
             viewEditDeleteUserInfo.Add(string.Empty);
             viewEditDeleteUserInfo.Add("d...delete your book");
 
             viewEditDeleteUserInfo.Add(string.Empty);
-            viewEditDeleteUserInfo.Add("b...to go back to login\n");
+            viewEditDeleteUserInfo.Add("l...to go back to login\n");
             viewEditDeleteUserInfo.Add("Esc...to esc the app");
             return viewEditDeleteUserInfo;
 
@@ -109,6 +116,8 @@ namespace BookOne
             superAdminInfo.Add("h...books in my hand");
             superAdminInfo.Add("c...carriers of my books");
             superAdminInfo.Add("o...circulation");
+            superAdminInfo.Add("p...book's pool of carreirs");
+
             superAdminInfo.Add("u...user info");
             superAdminInfo.Add("r...read");
             superAdminInfo.Add("f...find");
@@ -118,7 +127,7 @@ namespace BookOne
             superAdminInfo.Add("s...give a book");
             superAdminInfo.Add("a...accept a book");
             superAdminInfo.Add("e...enter your book");
-            superAdminInfo.Add("w...words");
+            superAdminInfo.Add("w...write");
             superAdminInfo.Add(string.Empty);
             superAdminInfo.Add("d...delete your book");
 
@@ -127,11 +136,77 @@ namespace BookOne
             superAdminInfo.Add("-...delete user");
             superAdminInfo.Add("+...new user");
 
-            superAdminInfo.Add("b...to go back to login\n");
+            superAdminInfo.Add("l...to go back to login\n");
             superAdminInfo.Add("Esc...to esc the app");
 
             return superAdminInfo;
         }
+
+
+
+        public void GreyInfo()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            if (User.ThisRoleType == 4)
+            {
+                InfoFour();
+            }
+
+
+            else
+            {
+                InfoElse();
+            }
+        }
+
+        public void InfoFour()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(102, 21);
+            Console.Write("info_i");
+
+            
+            Console.SetCursorPosition(101, 22);
+            Console.Write("login_l");
+            Console.SetCursorPosition(104, 23);
+            Console.Write("my_m");
+            Console.SetCursorPosition(102, 24);
+            Console.Write("hand_h");
+            Console.SetCursorPosition(98, 25);
+            Console.Write("carriers_c");
+            Console.SetCursorPosition(102, 26);
+            Console.Write("read_i");
+            Console.SetCursorPosition(101, 27);
+            Console.Write("find_f");
+
+        }
+        public void InfoElse()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(102, 21);
+            Console.Write("info_i");
+
+
+            Console.SetCursorPosition(101, 22);
+            Console.Write("login_l");
+            Console.SetCursorPosition(104, 23);
+            Console.Write("my_m");
+            Console.SetCursorPosition(102, 24);
+            Console.Write("hand_h");
+            Console.SetCursorPosition(98, 25);
+            Console.Write("carriers_c");
+            Console.SetCursorPosition(102, 26);
+            Console.Write("read_i");
+            Console.SetCursorPosition(102, 27);
+            Console.Write("find_f");
+            Console.SetCursorPosition(102, 26);
+            Console.Write("sent_s");
+            Console.SetCursorPosition(100, 27);
+            Console.Write("accept_a");
+
+        }
+
+
 
 
         // The looks
@@ -321,6 +396,8 @@ namespace BookOne
             DotsDots();
             Console.ForegroundColor = ConsoleColor.Cyan;
             randomDot();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            randomDot();
             Console.ForegroundColor = ConsoleColor.Magenta;
             randomDot();
             Console.ForegroundColor = ConsoleColor.White;
@@ -340,6 +417,8 @@ namespace BookOne
 
         public void VisualRandomPaternTwo()
         {
+
+            Console.ForegroundColor = ConsoleColor.White;
             DotsDots();
             Console.ForegroundColor = ConsoleColor.Blue;
             randomLine();
@@ -348,6 +427,7 @@ namespace BookOne
 
         public void VisualRandomPaternThree()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             DotsDots();
             Console.ForegroundColor = ConsoleColor.Cyan;
             randomSideLine();
@@ -410,16 +490,18 @@ namespace BookOne
         }
 
 
-        public void UpdateShortcut(int myRole)
+        public void UsersShortcut(int myRole)
         {
+            ApplicationMenu applicationMenu = new ApplicationMenu();
 
             Console.Clear();
+            applicationMenu.GreyInfo();
 
             VisualPaternsByMyRole(myRole);
 
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("all the users ");
+            Console.Write("press...enter  to go back");
 
             Console.SetCursorPosition(43, 0);
             Console.Write("Id");
@@ -448,17 +530,17 @@ namespace BookOne
             {
                 VisualRandomPaternFour();
             }
-            if(myRole == 3)
+            if (myRole == 3)
             {
                 VisualRandomPaternThree();
 
             }
-            if(myRole == 2)
+            if (myRole == 2)
             {
                 VisualRandomPaternTwo();
 
             }
-            if(myRole == 1)
+            if (myRole == 1)
             {
                 VisualRandomPaternOne();
 
@@ -466,18 +548,66 @@ namespace BookOne
         }
 
 
+
         public void TwoColorsChainge(int i)
+        {
+            if (User.ThisRoleType == 4)
+            {
+                TwoColorsChaingeFour(i);
+            }
+
+
+            if (User.ThisRoleType == 3)
+            {
+                TwoColorsChaingeThree(i);
+            }
+
+            if (User.ThisRoleType == 2)
+            {
+                TwoColorsChaingeThree(i);
+            }
+
+            if (User.ThisRoleType == 1)
+            {
+                TwoColorsChaingeOne(i);
+            }
+        }
+        public void TwoColorsChaingeOne(int i)
         {
             if (i % 2 == 0)
             {
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
+        public void TwoColorsChaingeThree(int i)
+        {
+            if (i % 2 == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+            }
+        }
+
+
+        public void TwoColorsChaingeFour(int i)
+        {
+            if (i % 2 == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
 
         // avoid crash by string
         public static int intResult()
@@ -485,14 +615,22 @@ namespace BookOne
             bool stringLoop;
             do
             {
+
                 int intiger = 0;
                 string input = Console.ReadLine();
+                if (input.Length == 0)
+                {
+                    //Console.WriteLine("OOOLAA");
+                    
+                    break;
+                }
 
                 if (int.TryParse(input, out intiger))
                 {
                     stringLoop = false;
                     return intiger;
                 }
+
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
