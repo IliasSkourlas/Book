@@ -13,7 +13,7 @@ namespace BookOne
         {
 
             /*
-            Wellcome. 
+            Welcome. 
             This is an app for searing your books with your friends. 
             Not digital books, but your physical books. 
             It helps you to keep track with their whereabouts, 

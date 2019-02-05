@@ -238,7 +238,7 @@ namespace BookOne
             Console.ForegroundColor = ConsoleColor.White;
                 ;
             Console.SetCursorPosition(43, 1);
-            Console.WriteLine("Wellcome. ");
+            Console.WriteLine("Welcome. ");
 
             Console.SetCursorPosition(43, 3);
             Console.WriteLine("This app is for");
